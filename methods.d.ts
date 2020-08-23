@@ -43,10 +43,10 @@ export type TelegramP = { [M in keyof Telegram]: P<M> };
 /** Wrapper type to bundle all methods of the Telegram API */
 export class Telegram {
   /** Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
- 
-Notes
-1. This method will not work if an outgoing webhook is set up.
-2. In order to avoid getting duplicate updates, recalculate offset after each server response. */
+
+  Notes
+  1. This method will not work if an outgoing webhook is set up.
+  2. In order to avoid getting duplicate updates, recalculate offset after each server response. */
   getUpdates(args: {
     /** Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten. */
     offset?: Integer;
@@ -55,20 +55,20 @@ Notes
     /** Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only. */
     timeout?: Integer;
     /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
-Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
+    Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
     allowed_updates?: String[];
   }): Update[];
 
   /** Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
 
-If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. https://www.example.com/<token>. Since nobody else knows your bot's token, you can be pretty sure it's us.
+  If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. https://www.example.com/<token>. Since nobody else knows your bot's token, you can be pretty sure it's us.
 
-Notes
-1. You will not be able to receive updates using getUpdates for as long as an outgoing webhook is set up.
-2. To use a self-signed certificate, you need to upload your public key certificate using certificate parameter. Please upload as InputFile, sending a String will not work.
-3. Ports currently supported for Webhooks: 443, 80, 88, 8443.
+  Notes
+  1. You will not be able to receive updates using getUpdates for as long as an outgoing webhook is set up.
+  2. To use a self-signed certificate, you need to upload your public key certificate using certificate parameter. Please upload as InputFile, sending a String will not work.
+  3. Ports currently supported for Webhooks: 443, 80, 88, 8443.
 
-NEW! If you're having any trouble setting up webhooks, please check out this amazing guide to Webhooks. */
+  NEW! If you're having any trouble setting up webhooks, please check out this amazing guide to Webhooks. */
   setWebhook(args: {
     /** HTTPS url to send updates to. Use an empty string to remove webhook integration */
     url: String;
@@ -77,12 +77,12 @@ NEW! If you're having any trouble setting up webhooks, please check out this ama
     /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
     max_connections?: Integer;
     /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
-Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
+    Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
     allowed_updates?: String[];
-  }): true;
+  }): True;
 
   /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. Requires no parameters. */
-  deleteWebhook(): true;
+  deleteWebhook(): True;
 
   /** Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty. */
   getWebhookInfo(): WebhookInfo;
@@ -148,7 +148,7 @@ Please note that this parameter doesn't affect updates created before the call t
 
   /** Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
 
-For sending voice messages, use the sendVoice method instead. */
+  For sending voice messages, use the sendVoice method instead. */
   sendAudio(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
@@ -288,9 +288,8 @@ For sending voice messages, use the sendVoice method instead. */
       | ForceReply;
   }): Message;
 
-  /** Use this method to send video messages. On success, the sent Message is returned. 
-As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. 
- */
+  /** Use this method to send video messages. On success, the sent Message is returned.
+  As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. */
   sendVideoNote(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
@@ -486,9 +485,9 @@ As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minut
 
   /** Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success.
 
-Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot.
+  Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot.
 
-We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive. */
+  We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive. */
   sendChatAction(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
@@ -513,8 +512,9 @@ We only recommend using this method when a response from the bot will take a not
     limit?: Integer;
   }): UserProfilePhotos;
 
-  /** Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again. 
-Note: This function may not preserve the original file name and MIME type. You should save the file's MIME type and name (if available) when the File object is received. */
+  /** Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
+
+  Note: This function may not preserve the original file name and MIME type. You should save the file's MIME type and name (if available) when the File object is received. */
   getFile(args: {
     /** File identifier to get info about */
     file_id: String;
@@ -592,9 +592,9 @@ Note: This function may not preserve the original file name and MIME type. You s
     permissions: ChatPermissions;
   }): True;
 
-  /** Use this method to generate a new invite link for a chat; any previously generated link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success. 
+  /** Use this method to generate a new invite link for a chat; any previously generated link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
 
-Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink — after this the link will become available to the bot via the getChat method. If your bot needs to generate a new invite link replacing its previous one, use exportChatInviteLink again. */
+  Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink — after this the link will become available to the bot via the getChat method. If your bot needs to generate a new invite link replacing its previous one, use exportChatInviteLink again. */
   exportChatInviteLink(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
@@ -692,9 +692,9 @@ Note: Each administrator in a chat generates their own invite links. Bots can't 
     chat_id: Integer | String;
   }): True;
 
-  /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. 
+  /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
-Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
+  Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
   answerCallbackQuery(args: {
     /** Unique identifier for the query to be answered */
     callback_query_id: String;
@@ -704,7 +704,7 @@ Alternatively, the user can be redirected to the specified Game URL. For this op
     show_alert?: Boolean;
     /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
 
-Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
+  Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
     url?: String;
     /** The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0. */
     cache_time?: Integer;
@@ -790,14 +790,14 @@ Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot wi
   }): Poll;
 
   /** Use this method to delete a message, including service messages, with the following limitations:
-- A message can only be deleted if it was sent less than 48 hours ago.
-- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
-- Bots can delete outgoing messages in private chats, groups, and supergroups.
-- Bots can delete incoming messages in private chats.
-- Bots granted can_post_messages permissions can delete outgoing messages in channels.
-- If the bot is an administrator of a group, it can delete any message there.
-- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
-Returns True on success. */
+  - A message can only be deleted if it was sent less than 48 hours ago.
+  - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
+  - Bots can delete outgoing messages in private chats, groups, and supergroups.
+  - Bots can delete incoming messages in private chats.
+  - Bots granted can_post_messages permissions can delete outgoing messages in channels.
+  - If the bot is an administrator of a group, it can delete any message there.
+  - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
+  Returns True on success. */
   deleteMessage(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
@@ -898,9 +898,9 @@ Returns True on success. */
   }): True;
 
   /** Use this method to send answers to an inline query. On success, True is returned.
-No more than 50 results per query are allowed.
+  No more than 50 results per query are allowed.
 
-Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities. */
+  Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities. */
   answerInlineQuery(args: {
     /** Unique identifier for the answered query */
     inline_query_id: String;
@@ -992,7 +992,7 @@ Example: An inline bot that sends YouTube videos can ask the user to connect the
 
   /** Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change). Returns True on success.
 
-Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues. */
+  Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues. */
   setPassportDataErrors(args: {
     /** User identifier */
     user_id: Integer;
@@ -1034,7 +1034,7 @@ Use this if the data submitted by the user doesn't satisfy the standards your se
 
   /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
 
-This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change. */
+  This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change. */
   getGameHighScores(args: {
     /** Target user id */
     user_id: Integer;

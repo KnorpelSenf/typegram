@@ -476,9 +476,9 @@ export interface ReplyKeyboardMarkup {
   resize_keyboard?: Boolean;
   /** Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to false. */
   one_time_keyboard?: Boolean;
-  /** Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. 
+  /** Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
 
-Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. */
+  Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. */
   selective?: Boolean;
 }
 
@@ -504,9 +504,9 @@ export interface KeyboardButtonPollType {
 export interface ReplyKeyboardRemove {
   /** Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup) */
   remove_keyboard: True;
-  /** Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. 
+  /** Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
 
-Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet. */
+  Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet. */
   selective?: Boolean;
 }
 
@@ -526,23 +526,23 @@ export interface InlineKeyboardButton {
   login_url?: LoginUrl;
   /** Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes */
   callback_data?: String;
-  /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted. 
+  /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.
 
-Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen. */
+  Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen. */
   switch_inline_query?: String;
 
-  /** If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot's username will be inserted. 
+  /** If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot's username will be inserted.
 
-This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options. */
+  This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options. */
   switch_inline_query_current_chat?: String;
 
   /** Description of the game that will be launched when the user presses the button.
 
-NOTE: This type of button must always be the first button in the first row. */
+  NOTE: This type of button must always be the first button in the first row. */
   callback_game?: CallbackGame;
   /** Specify True, to send a Pay button.
 
-NOTE: This type of button must always be the first button in the first row. */
+  NOTE: This type of button must always be the first button in the first row. */
   pay?: Boolean;
 }
 
@@ -551,7 +551,7 @@ Telegram apps support these buttons as of version 5.7. */
 export interface LoginUrl {
   /** An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data.
 
-NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization. */
+  NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization. */
   url: String;
   /** New text of the button in forwarded messages. */
   forward_text?: String;
@@ -561,7 +561,7 @@ NOTE: You must always check the hash of the received data to verify the authenti
   request_write_access?: Boolean;
 }
 
-/** This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present. 
+/** This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.
 
 NOTE: After the user presses a callback button, Telegram clients will display a progress bar until you call answerCallbackQuery. It is, therefore, necessary to react by calling answerCallbackQuery even if no notification to the user is needed (e.g., without specifying any of the optional parameters). */
 export interface CallbackQuery {
@@ -1846,8 +1846,8 @@ export interface PassportElementErrorUnspecified {
   /** Error message */
   message: String;
 }
-/** This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers. */
 
+/** This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers. */
 export interface Game {
   /** Title of the game */
   title: String;
