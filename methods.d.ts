@@ -97,7 +97,7 @@ export class Telegram {
     /** Text of the message to be sent, 1-4096 characters after entities parsing */
     text: String;
     /** Mode for parsing entities in the message text. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Boolean Disables link previews for links in this message */
     disable_web_page_preview?: Boolean;
     /** Sends the message silently. Users will receive a notification with no sound. */
@@ -133,7 +133,7 @@ export class Telegram {
     /** Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the photo caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
@@ -157,7 +157,7 @@ export class Telegram {
     /** Audio caption, 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the audio caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Duration of the audio in seconds */
     duration?: Integer;
     /** Performer */
@@ -189,7 +189,7 @@ export class Telegram {
     /** Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the document caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
@@ -219,7 +219,7 @@ export class Telegram {
     /** Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the video caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Pass True, if the uploaded video is suitable for streaming */
     supports_streaming?: Boolean;
     /** Sends the message silently. Users will receive a notification with no sound. */
@@ -251,7 +251,7 @@ export class Telegram {
     /** Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the animation caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
@@ -273,7 +273,7 @@ export class Telegram {
     /** Voice message caption, 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the voice message caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Duration of the voice message in seconds */
     duration?: Integer;
     /** Sends the message silently. Users will receive a notification with no sound. */
@@ -446,7 +446,7 @@ export class Telegram {
     /** Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing */
     explanation?: String;
     /** Mode for parsing entities in the explanation. See formatting options for more details. */
-    explanation_parse_mode?: String;
+    explanation_parse_mode?: ParseMode;
     /** Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. */
     open_period?: Integer;
     /** Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period. */
@@ -730,7 +730,7 @@ export class Telegram {
     /** New text of the message, 1-4096 characters after entities parsing */
     text: String;
     /** Mode for parsing entities in the message text. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** Disables link previews for links in this message */
     disable_web_page_preview?: Boolean;
     /** A JSON-serialized object for an inline keyboard. */
@@ -748,7 +748,7 @@ export class Telegram {
     /** New caption of the message, 0-1024 characters after entities parsing */
     caption?: String;
     /** Mode for parsing entities in the message caption. See formatting options for more details. */
-    parse_mode?: String;
+    parse_mode?: ParseMode;
     /** A JSON-serialized object for an inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
   }): Message | True;
