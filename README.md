@@ -21,6 +21,6 @@ They're handwritten.
 That is, they're of course not entirely handwritten.
 The initial version of them were produced in one afternoon by a combination of copying and pasting from the website, VIM magic, regular expressions and VSCode auto-formatting the rest.
 
-Previous attempts to harvest them directly from the website in an automated fashion failed due to the required effort of handling special cases.
+Previous attempts to harvest them directly from the website with a script failed due to the required effort of handling special cases about the layout of the website.
 
 Future updates to the API will be integrated manually in a similar fashion.
