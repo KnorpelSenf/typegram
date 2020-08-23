@@ -1,5 +1,4 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
-import { deprecate } from "util";
 
 /** This object represents an incoming update.
 At most one of the optional parameters can be present in any given update. */
