@@ -16,6 +16,7 @@ import {
   LabeledPrice,
   MaskPosition,
   Message,
+  ParseMode,
   PassportElementError,
   Poll,
   ReplyKeyboardMarkup,
