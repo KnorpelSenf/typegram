@@ -1,0 +1,23 @@
+{
+  "name": "typegram",
+  "version": "1.0.0",
+  "description": "Type declarations for the Telegram API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KnorpelSenf/typegram.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KnorpelSenf/typegram/issues"
+  },
+  "homepage": "https://github.com/KnorpelSenf/typegram#readme",
+  "devDependencies": {
+    "@types/node": "^14.6.0"
+  }
+}
