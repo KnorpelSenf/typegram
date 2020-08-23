@@ -4,7 +4,7 @@ This project provides TypeScript types for the entire [Telegram API](https://cor
 
 ## Good to know
 
-- Generally this package just exposes a huge load of `interface`s as well as a single `class Telegram` which contains all available methods of the API.
+- Generally this package just exposes a huge load of `interface`s as well as another `interface Telegram` which contains all available methods of the API.
   There is no further structure applied to this, but if you can come up with something reasonable, please suggest it in an issue or directly open a PR.
 
 - All of the methods are specified with the actual return type of the Telegram API.

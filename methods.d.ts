@@ -42,7 +42,7 @@ export type Opts<M extends keyof Telegram> = Params<M>[0];
 export type TelegramP = { [M in keyof Telegram]: P<M> };
 
 /** Wrapper type to bundle all methods of the Telegram API */
-export class Telegram {
+export interface Telegram {
   /** Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
 
   Notes
