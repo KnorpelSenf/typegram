@@ -1,33 +1,88 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 
+declare namespace Update {
+  export interface MessageUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New incoming message of any kind — text, photo, sticker, etc. */
+    message: Message;
+  }
+  export interface EditedMessageUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New version of a message that is known to the bot and was edited */
+    edited_message: Message;
+  }
+  export interface ChannelPostUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New incoming channel post of any kind — text, photo, sticker, etc. */
+    channel_post: Message;
+  }
+  export interface EditedChannelPostUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New version of a channel post that is known to the bot and was edited */
+    edited_channel_post: Message;
+  }
+  export interface InlineQueryUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New incoming inline query */
+    inline_query: InlineQuery;
+  }
+  export interface ChosenInlineResultUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot. */
+    chosen_inline_result: ChosenInlineResult;
+  }
+  export interface CallbackQueryUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New incoming callback query */
+    callback_query: CallbackQuery;
+  }
+  export interface ShippingQueryUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New incoming shipping query. Only for invoices with flexible price */
+    shipping_query: ShippingQuery;
+  }
+  export interface PreCheckoutQueryUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New incoming pre-checkout query. Contains full information about checkout */
+    pre_checkout_query: PreCheckoutQuery;
+  }
+  export interface PollUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot */
+    poll: Poll;
+  }
+  export interface PollAnswerUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+    /** A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself. */
+    poll_answer: PollAnswer;
+  }
+}
+
 /** This object represents an incoming update.
 At most one of the optional parameters can be present in any given update. */
-export interface Update {
-  /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
-  update_id: Integer;
-  /** New incoming message of any kind — text, photo, sticker, etc. */
-  message?: Message;
-  /** New version of a message that is known to the bot and was edited */
-  edited_message?: Message;
-  /** New incoming channel post of any kind — text, photo, sticker, etc. */
-  channel_post?: Message;
-  /** New version of a channel post that is known to the bot and was edited */
-  edited_channel_post?: Message;
-  /** New incoming inline query */
-  inline_query?: InlineQuery;
-  /** The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot. */
-  chosen_inline_result?: ChosenInlineResult;
-  /** New incoming callback query */
-  callback_query?: CallbackQuery;
-  /** New incoming shipping query. Only for invoices with flexible price */
-  shipping_query?: ShippingQuery;
-  /** New incoming pre-checkout query. Contains full information about checkout */
-  pre_checkout_query?: PreCheckoutQuery;
-  /** New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot */
-  poll?: Poll;
-  /** A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself. */
-  poll_answer?: PollAnswer;
-}
+export type Update =
+  | Update.CallbackQueryUpdate
+  | Update.ChannelPostUpdate
+  | Update.ChosenInlineResultUpdate
+  | Update.EditedChannelPostUpdate
+  | Update.EditedMessageUpdate
+  | Update.InlineQueryUpdate
+  | Update.MessageUpdate
+  | Update.PollAnswerUpdate
+  | Update.PollUpdate
+  | Update.PreCheckoutQueryUpdate
+  | Update.ShippingQueryUpdate;
 
 /** Contains information about the current status of a webhook. */
 export interface WebhookInfo {
