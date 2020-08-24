@@ -299,36 +299,62 @@ Please note:
 - Escaping inside entities is not allowed, so entity must be closed first and reopened again: use `_snake_\__case_` for italic `snake_case` and `*2*\**2=4*` for bold `2*2=4`. */
 export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
-/** This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. */
-export interface MessageEntity {
-  /** Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
-  type:
-    | "mention"
-    | "hashtag"
-    | "cashtag"
-    | "bot_command"
-    | "url"
-    | "email"
-    | "phone_number"
-    | "bold"
-    | "italic"
-    | "underline"
-    | "strikethrough"
-    | "code"
-    | "pre"
-    | "text_link"
-    | "text_mention";
-  /** Offset in UTF-16 code units to the start of the entity */
-  offset: Integer;
-  /** Length of the entity in UTF-16 code units */
-  length: Integer;
-  /** For “text_link” only, url that will be opened after user taps on the text */
-  url?: String;
-  /** For “text_mention” only, the mentioned user */
-  user?: User;
-  /** For “pre” only, the programming language of the entity text */
-  language?: String;
+declare namespace MessageEntity {
+  export interface CommonMessageEntity {
+    /** Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
+    type:
+      | "mention"
+      | "hashtag"
+      | "cashtag"
+      | "bot_command"
+      | "url"
+      | "email"
+      | "phone_number"
+      | "bold"
+      | "italic"
+      | "underline"
+      | "strikethrough"
+      | "code";
+    /** Offset in UTF-16 code units to the start of the entity */
+    offset: Integer;
+    /** Length of the entity in UTF-16 code units */
+    length: Integer;
+  }
+  export interface TextLinkMessageEntity {
+    type: "text_link";
+    /** Offset in UTF-16 code units to the start of the entity */
+    offset: Integer;
+    /** Length of the entity in UTF-16 code units */
+    length: Integer;
+    /** For “text_link” only, url that will be opened after user taps on the text */
+    url: String;
+  }
+  export interface TextMentionMessageEntity {
+    type: "text_mention";
+    /** Offset in UTF-16 code units to the start of the entity */
+    offset: Integer;
+    /** Length of the entity in UTF-16 code units */
+    length: Integer;
+    /** For “text_mention” only, the mentioned user */
+    user: User;
+  }
+  export interface PreMessageEntity {
+    type: "pre";
+    /** Offset in UTF-16 code units to the start of the entity */
+    offset: Integer;
+    /** Length of the entity in UTF-16 code units */
+    length: Integer;
+    /** For “pre” only, the programming language of the entity text */
+    language?: String;
+  }
 }
+
+/** This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. */
+export type MessageEntity =
+  | MessageEntity.CommonMessageEntity
+  | MessageEntity.PreMessageEntity
+  | MessageEntity.TextLinkMessageEntity
+  | MessageEntity.TextMentionMessageEntity;
 
 /** This object represents one size of a photo or a file / sticker thumbnail. */
 export interface PhotoSize {
