@@ -1,25 +1,52 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 
-declare namespace Update {
+export namespace Update {
+  /** Internal type holding properties that updates in channels share. */
+  interface Channel {
+    chat: Chat.ChannelChat;
+    author_signature?: String;
+    from?: never;
+  }
+  /** Internal type holding properties that updates outside of channels share. */
+  interface NonChannel {
+    chat: Exclude<Chat, Chat.ChannelChat>;
+    author_signature?: never;
+    from: User;
+  }
+  /** Internal type holding properties that updates about new messages share. */
+  interface New {
+    edit_date?: never;
+  }
+  /** Internal type holding properties that updates about edited messages share. */
+  interface Edited {
+    edit_date: Integer;
+    forward_from?: never;
+    forward_from_chat?: never;
+    forward_from_message_id?: never;
+    forward_signature?: never;
+    forward_sender_name?: never;
+    forward_date?: never;
+  }
+
   export interface AbstractMessageUpdate {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     update_id: Integer;
   }
   export interface MessageUpdate extends AbstractMessageUpdate {
     /** New incoming message of any kind — text, photo, sticker, etc. */
-    message: Message;
+    message: New & NonChannel & Message;
   }
   export interface EditedMessageUpdate extends AbstractMessageUpdate {
     /** New version of a message that is known to the bot and was edited */
-    edited_message: Message;
+    edited_message: Edited & NonChannel & Message;
   }
   export interface ChannelPostUpdate extends AbstractMessageUpdate {
     /** New incoming channel post of any kind — text, photo, sticker, etc. */
-    channel_post: Message;
+    channel_post: New & Channel & Message;
   }
   export interface EditedChannelPostUpdate extends AbstractMessageUpdate {
     /** New version of a channel post that is known to the bot and was edited */
-    edited_channel_post: Message;
+    edited_channel_post: Edited & Channel & Message;
   }
   export interface InlineQueryUpdate extends AbstractMessageUpdate {
     /** New incoming inline query */
@@ -111,7 +138,7 @@ export interface UserFromGetMe extends User {
   supports_inline_queries: Boolean;
 }
 
-declare namespace Chat {
+export namespace Chat {
   // ABSTRACT
   /** Internal type holding properties that all kinds of chats share. */
   interface AbstractChat {
@@ -211,7 +238,7 @@ export type ChatFromGetChat =
   | Chat.SupergroupGetChat
   | Chat.ChannelGetChat;
 
-declare namespace Message {
+export namespace Message {
   interface ServiceMessage {
     /** Unique message identifier inside this chat */
     message_id: Integer;
@@ -500,7 +527,7 @@ Please note:
 - Escaping inside entities is not allowed, so entity must be closed first and reopened again: use `_snake_\__case_` for italic `snake_case` and `*2*\**2=4*` for bold `2*2=4`. */
 export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
-declare namespace MessageEntity {
+export namespace MessageEntity {
   interface AbstractMessageEntity {
     /** Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
     type: String;
