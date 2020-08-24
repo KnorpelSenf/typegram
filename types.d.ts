@@ -1,33 +1,70 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 
+declare namespace Update {
+  export interface AbstractMessageUpdate {
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    update_id: Integer;
+  }
+  export interface MessageUpdate extends AbstractMessageUpdate {
+    /** New incoming message of any kind — text, photo, sticker, etc. */
+    message: Message;
+  }
+  export interface EditedMessageUpdate extends AbstractMessageUpdate {
+    /** New version of a message that is known to the bot and was edited */
+    edited_message: Message;
+  }
+  export interface ChannelPostUpdate extends AbstractMessageUpdate {
+    /** New incoming channel post of any kind — text, photo, sticker, etc. */
+    channel_post: Message;
+  }
+  export interface EditedChannelPostUpdate extends AbstractMessageUpdate {
+    /** New version of a channel post that is known to the bot and was edited */
+    edited_channel_post: Message;
+  }
+  export interface InlineQueryUpdate extends AbstractMessageUpdate {
+    /** New incoming inline query */
+    inline_query: InlineQuery;
+  }
+  export interface ChosenInlineResultUpdate extends AbstractMessageUpdate {
+    /** The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot. */
+    chosen_inline_result: ChosenInlineResult;
+  }
+  export interface CallbackQueryUpdate extends AbstractMessageUpdate {
+    /** New incoming callback query */
+    callback_query: CallbackQuery;
+  }
+  export interface ShippingQueryUpdate extends AbstractMessageUpdate {
+    /** New incoming shipping query. Only for invoices with flexible price */
+    shipping_query: ShippingQuery;
+  }
+  export interface PreCheckoutQueryUpdate extends AbstractMessageUpdate {
+    /** New incoming pre-checkout query. Contains full information about checkout */
+    pre_checkout_query: PreCheckoutQuery;
+  }
+  export interface PollUpdate extends AbstractMessageUpdate {
+    /** New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot */
+    poll: Poll;
+  }
+  export interface PollAnswerUpdate extends AbstractMessageUpdate {
+    /** A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself. */
+    poll_answer: PollAnswer;
+  }
+}
+
 /** This object represents an incoming update.
 At most one of the optional parameters can be present in any given update. */
-export interface Update {
-  /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
-  update_id: Integer;
-  /** New incoming message of any kind — text, photo, sticker, etc. */
-  message?: Message;
-  /** New version of a message that is known to the bot and was edited */
-  edited_message?: Message;
-  /** New incoming channel post of any kind — text, photo, sticker, etc. */
-  channel_post?: Message;
-  /** New version of a channel post that is known to the bot and was edited */
-  edited_channel_post?: Message;
-  /** New incoming inline query */
-  inline_query?: InlineQuery;
-  /** The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot. */
-  chosen_inline_result?: ChosenInlineResult;
-  /** New incoming callback query */
-  callback_query?: CallbackQuery;
-  /** New incoming shipping query. Only for invoices with flexible price */
-  shipping_query?: ShippingQuery;
-  /** New incoming pre-checkout query. Contains full information about checkout */
-  pre_checkout_query?: PreCheckoutQuery;
-  /** New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot */
-  poll?: Poll;
-  /** A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself. */
-  poll_answer?: PollAnswer;
-}
+export type Update =
+  | Update.MessageUpdate
+  | Update.EditedMessageUpdate
+  | Update.ChannelPostUpdate
+  | Update.EditedChannelPostUpdate
+  | Update.InlineQueryUpdate
+  | Update.ChosenInlineResultUpdate
+  | Update.CallbackQueryUpdate
+  | Update.ShippingQueryUpdate
+  | Update.PreCheckoutQueryUpdate
+  | Update.PollUpdate
+  | Update.PollAnswerUpdate;
 
 /** Contains information about the current status of a webhook. */
 export interface WebhookInfo {
