@@ -4,6 +4,7 @@ import {
   Chat,
   ChatMember,
   ChatPermissions,
+  ChatPhoto,
   File,
   ForceReply,
   GameHighScore,
@@ -89,7 +90,14 @@ export interface Telegram {
   getWebhookInfo(): WebhookInfo;
 
   /** A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object. */
-  getMe(): User;
+  getMe(): User & {
+    /** True, if the bot can be invited to groups. Returned only in getMe. */
+    can_join_groups: Boolean;
+    /** True, if privacy mode is disabled for the bot. Returned only in getMe. */
+    can_read_all_group_messages: Boolean;
+    /** True, if the bot supports inline queries. Returned only in getMe. */
+    supports_inline_queries: Boolean;
+  };
 
   /** Use this method to send text messages. On success, the sent Message is returned. */
   sendMessage(args: {
@@ -657,7 +665,24 @@ export interface Telegram {
   getChat(args: {
     /** Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
     chat_id: Integer | String;
-  }): Chat;
+  }): Chat & {
+    /** Chat photo. Returned only in getChat. */
+    photo?: ChatPhoto;
+    /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
+    description?: String;
+    /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
+    invite_link?: String;
+    /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
+    pinned_message?: Message;
+    /** Default chat member permissions, for groups and supergroups. Returned only in getChat. */
+    permissions?: ChatPermissions;
+    /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat. */
+    slow_mode_delay?: Integer;
+    /** For supergroups, name of group sticker set. Returned only in getChat. */
+    sticker_set_name?: String;
+    /** True, if the bot can change the group sticker set. Returned only in getChat. */
+    can_set_sticker_set?: Boolean;
+  };
 
   /** Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned. */
   getChatAdministrators(args: {
