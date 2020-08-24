@@ -1,6 +1,6 @@
 {
   "name": "typegram",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Type declarations for the Telegram API",
   "main": "index.js",
   "scripts": {
