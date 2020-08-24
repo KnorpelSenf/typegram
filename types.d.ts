@@ -128,40 +128,87 @@ export interface UserFromGetMe extends User {
   supports_inline_queries: Boolean;
 }
 
+declare namespace Chat {
+  export interface PrivateChat {
+    type: "private";
+    /** Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
+    id: Integer;
+    /** Username, for private chats, supergroups and channels if available */
+    username?: String;
+    /** First name of the other party in a private chat */
+    first_name: String;
+    /** Last name of the other party in a private chat */
+    last_name?: String;
+  }
+  export interface PrivateGetChat extends PrivateChat {
+    /** Chat photo. Returned only in getChat. */
+    photo?: ChatPhoto;
+  }
+  export interface NonPrivateChat {
+    type: "group" | "supergroup" | "channel";
+    /** Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
+    id: Integer;
+    /** Title, for supergroups, channels and group chats */
+    title: String;
+    /** Username, for private chats, supergroups and channels if available */
+    username?: String;
+  }
+  export interface SupergroupGetChat extends NonPrivateChat {
+    type: "supergroup";
+    /** Chat photo. Returned only in getChat. */
+    photo?: ChatPhoto;
+    /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
+    description?: String;
+    /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
+    invite_link?: String;
+    /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
+    pinned_message?: Message;
+    /** Default chat member permissions, for groups and supergroups. Returned only in getChat. */
+    permissions?: ChatPermissions;
+    /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat. */
+    slow_mode_delay?: Integer;
+    /** For supergroups, name of group sticker set. Returned only in getChat. */
+    sticker_set_name?: String;
+    /** True, if the bot can change the group sticker set. Returned only in getChat. */
+    can_set_sticker_set?: Boolean;
+  }
+  export interface GroupGetChat extends NonPrivateChat {
+    type: "group";
+    /** Chat photo. Returned only in getChat. */
+    photo?: ChatPhoto;
+    /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
+    description?: String;
+    /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
+    invite_link?: String;
+    /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
+    pinned_message?: Message;
+    /** Default chat member permissions, for groups and supergroups. Returned only in getChat. */
+    permissions?: ChatPermissions;
+    /** True, if the bot can change the group sticker set. Returned only in getChat. */
+    can_set_sticker_set?: Boolean;
+  }
+  export interface ChannelGetChat extends NonPrivateChat {
+    type: "channel";
+    /** Chat photo. Returned only in getChat. */
+    photo?: ChatPhoto;
+    /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
+    description?: String;
+    /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
+    invite_link?: String;
+    /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
+    pinned_message?: Message;
+  }
+}
+
 /** This object represents a chat. */
-export interface Chat {
-  /** Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
-  id: Integer;
-  /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
-  type: "private" | "group" | "supergroup" | "channel";
-  /** Title, for supergroups, channels and group chats */
-  title?: String;
-  /** Username, for private chats, supergroups and channels if available */
-  username?: String;
-  /** First name of the other party in a private chat */
-  first_name?: String;
-  /** Last name of the other party in a private chat */
-  last_name?: String;
-}
+export type Chat = Chat.PrivateChat | Chat.NonPrivateChat;
+
 /** This object represents a Telegram user or bot that was returned by `getChat`. */
-export interface ChatFromGetChat extends Chat {
-  /** Chat photo. Returned only in getChat. */
-  photo?: ChatPhoto;
-  /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
-  description?: String;
-  /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
-  invite_link?: String;
-  /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
-  pinned_message?: Message;
-  /** Default chat member permissions, for groups and supergroups. Returned only in getChat. */
-  permissions?: ChatPermissions;
-  /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat. */
-  slow_mode_delay?: Integer;
-  /** For supergroups, name of group sticker set. Returned only in getChat. */
-  sticker_set_name?: String;
-  /** True, if the bot can change the group sticker set. Returned only in getChat. */
-  can_set_sticker_set?: Boolean;
-}
+export type ChatFromGetChat =
+  | Chat.ChannelGetChat
+  | Chat.GroupGetChat
+  | Chat.PrivateGetChat
+  | Chat.SupergroupGetChat;
 
 declare namespace Message {
   interface ServiceMessage {
