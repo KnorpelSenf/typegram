@@ -90,19 +90,19 @@ export interface Chat {
 /** This object represents a Telegram user or bot that was returned by `getChat`. */
 export interface ChatFromGetChat extends Chat {
   /** Chat photo. Returned only in getChat. */
-  photo: ChatPhoto;
+  photo?: ChatPhoto;
   /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
-  description: String;
+  description?: String;
   /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
-  invite_link: String;
+  invite_link?: String;
   /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
-  pinned_message: Message;
+  pinned_message?: Message;
   /** Default chat member permissions, for groups and supergroups. Returned only in getChat. */
-  permissions: ChatPermissions;
+  permissions?: ChatPermissions;
   /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat. */
-  slow_mode_delay: Integer;
+  slow_mode_delay?: Integer;
   /** For supergroups, name of group sticker set. Returned only in getChat. */
-  sticker_set_name: String;
+  sticker_set_name?: String;
   /** True, if the bot can change the group sticker set. Returned only in getChat. */
   can_set_sticker_set?: Boolean;
 }
