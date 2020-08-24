@@ -2,6 +2,10 @@
 
 This project provides TypeScript types for the entire [Telegram API](https://core.telegram.org/bots/api) in version 4.9 which was released on June 4, 2020.
 
+## Installation
+
+`npm i --save-dev typegram`
+
 ## Good to know
 
 - Generally this package just exposes a huge load of `interface`s as well as another `interface Telegram` which contains all available methods of the API.
