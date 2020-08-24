@@ -64,6 +64,7 @@ export interface User {
 }
 /** This object represents a Telegram user or bot that was returned by `getMe`. */
 export interface UserFromGetMe extends User {
+  is_bot: True;
   /** True, if the bot can be invited to groups. Returned only in getMe. */
   can_join_groups: Boolean;
   /** True, if privacy mode is disabled for the bot. Returned only in getMe. */
