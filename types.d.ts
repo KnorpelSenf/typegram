@@ -1,29 +1,48 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 
 declare namespace Update {
+  interface Channel {
+    author_signature?: String;
+    chat: { type: "channel" };
+    from?: never;
+  }
+  interface NonChannel {
+    author_signature?: never;
+    from: User;
+  }
+  interface Edited {
+    edit_date: Integer;
+    forward_from?: never;
+    forward_from_chat?: never;
+    forward_from_message_id?: never;
+    forward_signature?: never;
+    forward_sender_name?: never;
+    forward_date?: never;
+  }
+
   export interface MessageUpdate {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     update_id: Integer;
     /** New incoming message of any kind — text, photo, sticker, etc. */
-    message: Message;
+    message: NonChannel & Message;
   }
   export interface EditedMessageUpdate {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     update_id: Integer;
     /** New version of a message that is known to the bot and was edited */
-    edited_message: Message;
+    edited_message: Edited & NonChannel & Message.CommonMessage;
   }
   export interface ChannelPostUpdate {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     update_id: Integer;
     /** New incoming channel post of any kind — text, photo, sticker, etc. */
-    channel_post: Message;
+    channel_post: Channel & Message;
   }
   export interface EditedChannelPostUpdate {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     update_id: Integer;
     /** New version of a channel post that is known to the bot and was edited */
-    edited_channel_post: Message;
+    edited_channel_post: Edited & NonChannel & Message.CommonMessage;
   }
   export interface InlineQueryUpdate {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
