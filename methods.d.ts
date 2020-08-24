@@ -1,12 +1,13 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 import {
   BotCommand,
-  Chat,
   ChatMember,
   ChatPermissions,
   File,
   ForceReply,
   GameHighScore,
+  ChatFromGetChat,
+  UserFromGetMe,
   InlineKeyboardMarkup,
   InlineQueryResult,
   InputFile,
@@ -24,7 +25,6 @@ import {
   ShippingOption,
   StickerSet,
   Update,
-  User,
   UserProfilePhotos,
   WebhookInfo,
 } from "./types";
@@ -89,7 +89,7 @@ export interface Telegram {
   getWebhookInfo(): WebhookInfo;
 
   /** A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object. */
-  getMe(): User;
+  getMe(): UserFromGetMe;
 
   /** Use this method to send text messages. On success, the sent Message is returned. */
   sendMessage(args: {
@@ -657,7 +657,7 @@ export interface Telegram {
   getChat(args: {
     /** Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
     chat_id: Integer | String;
-  }): Chat;
+  }): ChatFromGetChat;
 
   /** Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned. */
   getChatAdministrators(args: {

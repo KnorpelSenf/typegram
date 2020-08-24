@@ -61,12 +61,16 @@ export interface User {
   username?: String;
   /** IETF language tag of the user's language */
   language_code?: String;
+}
+/** This object represents a Telegram user or bot that was returned by `getMe`. */
+export interface UserFromGetMe extends User {
+  is_bot: True;
   /** True, if the bot can be invited to groups. Returned only in getMe. */
-  can_join_groups?: Boolean;
+  can_join_groups: Boolean;
   /** True, if privacy mode is disabled for the bot. Returned only in getMe. */
-  can_read_all_group_messages?: Boolean;
+  can_read_all_group_messages: Boolean;
   /** True, if the bot supports inline queries. Returned only in getMe. */
-  supports_inline_queries?: Boolean;
+  supports_inline_queries: Boolean;
 }
 
 /** This object represents a chat. */
@@ -83,6 +87,9 @@ export interface Chat {
   first_name?: String;
   /** Last name of the other party in a private chat */
   last_name?: String;
+}
+/** This object represents a Telegram user or bot that was returned by `getChat`. */
+export interface ChatFromGetChat extends Chat {
   /** Chat photo. Returned only in getChat. */
   photo?: ChatPhoto;
   /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
