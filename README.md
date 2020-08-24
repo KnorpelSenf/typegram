@@ -4,7 +4,9 @@ This project provides TypeScript types for the entire [Telegram API](https://cor
 
 ## Installation
 
-`npm i --save-dev typegram`
+```bash
+npm i --save-dev typegram
+```
 
 ## Good to know
 
