@@ -279,19 +279,21 @@ export namespace Message {
     /** For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text */
     entities?: MessageEntity[];
   }
-  interface MediaMessage extends CommonMessage {
+  interface CaptionableMessage extends CommonMessage {
     /** Caption for the animation, audio, document, photo, video or voice, 0-1024 characters */
     caption?: String;
     /** For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption */
     caption_entities?: MessageEntity[];
+  }
+  interface MediaMessage extends CaptionableMessage {
     /** The unique identifier of a media message group this message belongs to */
     media_group_id?: String;
   }
-  export interface AudioMessage extends MediaMessage {
+  export interface AudioMessage extends CaptionableMessage {
     /** Message is an audio file, information about the file */
     audio: Audio;
   }
-  export interface DocumentMessage extends MediaMessage {
+  export interface DocumentMessage extends CaptionableMessage {
     /** Message is a general file, information about the file */
     document: Document;
   }
@@ -315,7 +317,7 @@ export namespace Message {
     /** Message is a video note, information about the video message */
     video_note: VideoNote;
   }
-  export interface VoiceMessage extends MediaMessage {
+  export interface VoiceMessage extends CaptionableMessage {
     /** Message is a voice message, information about the file */
     voice: Voice;
   }
@@ -381,7 +383,7 @@ export namespace Message {
   }
   export interface MigrateFromChatIdMessage extends ServiceMessage {
     /** The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
-    migrate_from_chat_id?: Integer;
+    migrate_from_chat_id: Integer;
   }
   export interface PinnedMessageMessage extends ServiceMessage {
     /** Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
@@ -401,7 +403,7 @@ export namespace Message {
   }
   export interface PassportDataMessage extends ServiceMessage {
     /** Telegram Passport data */
-    passport_data?: PassportData;
+    passport_data: PassportData;
   }
 }
 
