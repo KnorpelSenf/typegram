@@ -823,17 +823,32 @@ export interface ReplyKeyboardMarkup {
   selective?: Boolean;
 }
 
-/** This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields request_contact, request_location, and request_poll are mutually exclusive. */
-export interface KeyboardButton {
-  /** Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed */
-  text: String;
-  /** If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only */
-  request_contact?: Boolean;
-  /** If True, the user's current location will be sent when the button is pressed. Available in private chats only */
-  request_location?: Boolean;
-  /** If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only */
-  request_poll?: KeyboardButtonPollType;
+export namespace KeyboardButton {
+  export interface CommonButton {
+    /** Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed */
+    text: String;
+  }
+  export interface RequestContactButton extends CommonButton {
+    /** If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only */
+    request_contact: True;
+  }
+  export interface RequestLocationButton extends CommonButton {
+    /** If True, the user's current location will be sent when the button is pressed. Available in private chats only */
+    request_location: True;
+  }
+  export interface RequestPollButton extends CommonButton {
+    /** If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only */
+    request_poll: KeyboardButtonPollType;
+  }
 }
+
+/** This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields request_contact, request_location, and request_poll are mutually exclusive. */
+export type KeyboardButton =
+  | KeyboardButton.CommonButton
+  | KeyboardButton.RequestContactButton
+  | KeyboardButton.RequestLocationButton
+  | KeyboardButton.RequestPollButton
+  | string;
 
 /** This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed. */
 export interface KeyboardButtonPollType {
@@ -857,35 +872,59 @@ export interface InlineKeyboardMarkup {
   inline_keyboard: InlineKeyboardButton[][];
 }
 
-/** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
-export interface InlineKeyboardButton {
-  /** Label text on the button */
-  text: String;
-  /** HTTP or tg:// url to be opened when button is pressed */
-  url?: String;
-  /** An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
-  login_url?: LoginUrl;
-  /** Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes */
-  callback_data?: String;
-  /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.
+export namespace InlineKeyboardButton {
+  interface AbstractInlineKeyboardButton {
+    /** Label text on the button */
+    text: String;
+  }
+  export interface UrlButton extends AbstractInlineKeyboardButton {
+    /** HTTP or tg:// url to be opened when button is pressed */
+    url: String;
+  }
+  export interface LoginButton extends AbstractInlineKeyboardButton {
+    /** An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
+    login_url: LoginUrl;
+  }
+  export interface CallbackButton extends AbstractInlineKeyboardButton {
+    /** Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes */
+    callback_data: String;
+  }
+  export interface SwitchInlineButton extends AbstractInlineKeyboardButton {
+    /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.
 
-  Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen. */
-  switch_inline_query?: String;
+    Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen. */
+    switch_inline_query: String;
+  }
+  export interface SwitchInlineCurrentChatButton
+    extends AbstractInlineKeyboardButton {
+    /** If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot's username will be inserted.
 
-  /** If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot's username will be inserted.
+    This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options. */
+    switch_inline_query_current_chat: String;
+  }
+  export interface GameButton extends AbstractInlineKeyboardButton {
+    /** Description of the game that will be launched when the user presses the button.
 
-  This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options. */
-  switch_inline_query_current_chat?: String;
+    NOTE: This type of button must always be the first button in the first row. */
+    callback_game: CallbackGame;
+  }
+  export interface PayButton extends AbstractInlineKeyboardButton {
+    /** Specify True, to send a Pay button.
 
-  /** Description of the game that will be launched when the user presses the button.
-
-  NOTE: This type of button must always be the first button in the first row. */
-  callback_game?: CallbackGame;
-  /** Specify True, to send a Pay button.
-
-  NOTE: This type of button must always be the first button in the first row. */
-  pay?: Boolean;
+    NOTE: This type of button must always be the first button in the first row. */
+    pay: True;
+  }
 }
+
+/** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
+export type InlineKeyboardButton =
+  | InlineKeyboardButton.CallbackButton
+  | InlineKeyboardButton.GameButton
+  | InlineKeyboardButton.LoginButton
+  | InlineKeyboardButton.PayButton
+  | InlineKeyboardButton.SwitchInlineButton
+  | InlineKeyboardButton.SwitchInlineCurrentChatButton
+  | InlineKeyboardButton.UrlButton;
 
 /** This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in.
 Telegram apps support these buttons as of version 5.7. */
