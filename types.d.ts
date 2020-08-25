@@ -833,11 +833,11 @@ export namespace KeyboardButton {
   }
   export interface RequestContactButton extends CommonButton {
     /** If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only */
-    request_contact: True;
+    request_contact: Boolean;
   }
   export interface RequestLocationButton extends CommonButton {
     /** If True, the user's current location will be sent when the button is pressed. Available in private chats only */
-    request_location: True;
+    request_location: Boolean;
   }
   export interface RequestPollButton extends CommonButton {
     /** If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only */
@@ -915,7 +915,7 @@ export namespace InlineKeyboardButton {
     /** Specify True, to send a Pay button.
 
     NOTE: This type of button must always be the first button in the first row. */
-    pay: True;
+    pay: Boolean;
   }
 }
 
