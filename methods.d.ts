@@ -29,6 +29,7 @@ import {
   WebhookInfo,
 } from "./types";
 
+import Edited = Update.Edited;
 /** Extracts the parameters of a given method name */
 type Params<M extends keyof Telegram> = Parameters<Telegram[M]>;
 /** Extracts the return type of a given method name */
@@ -111,7 +112,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.TextMessage;
 
   /** Use this method to forward messages of any kind. On success, the sent Message is returned. */
   forwardMessage(args: {
@@ -145,7 +146,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.PhotoMessage;
 
   /** Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
 
@@ -177,7 +178,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.AudioMessage;
 
   /** Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future. */
   sendDocument(args: {
@@ -201,7 +202,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.DocumentMessage;
 
   /** Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future. */
   sendVideo(args: {
@@ -233,7 +234,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.VideoMessage;
 
   /** Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future. */
   sendAnimation(args: {
@@ -263,7 +264,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.AnimationMessage;
 
   /** Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future. */
   sendVoice(args: {
@@ -287,7 +288,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.VoiceMessage;
 
   /** Use this method to send video messages. On success, the sent Message is returned.
   As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. */
@@ -312,7 +313,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.VideoNoteMessage;
 
   /** Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned. */
   sendMediaGroup(args: {
@@ -324,7 +325,7 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the messages are a reply, ID of the original message */
     reply_to_message_id?: Integer;
-  }): Message;
+  }): Array<Message.PhotoMessage | Message.VideoMessage>;
 
   /** Use this method to send point on the map. On success, the sent Message is returned. */
   sendLocation(args: {
@@ -346,7 +347,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.LocationMessage;
 
   /** Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. */
   editMessageLiveLocation(args: {
@@ -362,7 +363,7 @@ export interface Telegram {
     longitude: Float;
     /** A JSON-serialized object for a new inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message | True;
+  }): (Edited & Message.LocationMessage) | True;
 
   /** Use this method to stop updating a live location message before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned. */
   stopMessageLiveLocation(args: {
@@ -374,7 +375,7 @@ export interface Telegram {
     inline_message_id?: String;
     /** A JSON-serialized object for a new inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message | True;
+  }): (Edited & Message.LocationMessage) | True;
 
   /** Use this method to send information about a venue. On success, the sent Message is returned. */
   sendVenue(args: {
@@ -402,7 +403,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.VenueMessage;
 
   /** Use this method to send phone contacts. On success, the sent Message is returned. */
   sendContact(args: {
@@ -426,7 +427,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.ContactMessage;
 
   /** Use this method to send a native poll. On success, the sent Message is returned. */
   sendPoll(args: {
@@ -464,7 +465,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.PollMessage;
 
   /** Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned. */
   sendDice(args: {
@@ -482,7 +483,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.DiceMessage;
 
   /** Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success.
 
@@ -736,7 +737,7 @@ export interface Telegram {
     disable_web_page_preview?: Boolean;
     /** A JSON-serialized object for an inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message | True;
+  }): (Edited & Message.TextMessage) | True;
 
   /** Use this method to edit captions of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. */
   editMessageCaption(args: {
@@ -752,7 +753,7 @@ export interface Telegram {
     parse_mode?: ParseMode;
     /** A JSON-serialized object for an inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message | True;
+  }): (Edited & Message.CaptionableMessage) | True;
 
   /** Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. */
   editMessageMedia(args: {
@@ -766,7 +767,13 @@ export interface Telegram {
     media: InputMedia;
     /** A JSON-serialized object for a new inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message | True;
+  }):
+    | (Edited & Message.AnimationMessage)
+    | (Edited & Message.AudioMessage)
+    | (Edited & Message.DocumentMessage)
+    | (Edited & Message.PhotoMessage)
+    | (Edited & Message.VideoMessage)
+    | True;
 
   /** Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. */
   editMessageReplyMarkup(args: {
@@ -778,7 +785,7 @@ export interface Telegram {
     inline_message_id: String;
     /** A JSON-serialized object for an inline keyboard. */
     reply_markup: InlineKeyboardMarkup;
-  }): Message | True;
+  }): (Edited & Message) | True;
 
   /** Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned. */
   stopPoll(args: {
@@ -822,7 +829,7 @@ export interface Telegram {
       | ReplyKeyboardMarkup
       | ReplyKeyboardRemove
       | ForceReply;
-  }): Message;
+  }): Message.StickerMessage;
 
   /** Use this method to get a sticker set. On success, a StickerSet object is returned. */
   getStickerSet(args: {
@@ -967,7 +974,7 @@ export interface Telegram {
     reply_to_message_id?: Integer;
     /** A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message;
+  }): Message.InvoiceMessage;
 
   /** If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned. */
   answerShippingQuery(args: {
@@ -1013,7 +1020,7 @@ export interface Telegram {
     reply_to_message_id?: Integer;
     /** A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. */
     reply_markup?: InlineKeyboardMarkup;
-  }): Message;
+  }): Message.GameMessage;
 
   /** Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns the edited Message, otherwise returns True. Returns an error, if the new score is not greater than the user's current score in the chat and force is False. */
   setGameScore(args: {
@@ -1031,7 +1038,7 @@ export interface Telegram {
     message_id: Integer;
     /** Required if chat_id and message_id are not specified. Identifier of the inline message */
     inline_message_id: String;
-  }): Message | True;
+  }): (Edited & Message.GameMessage) | True;
 
   /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
 

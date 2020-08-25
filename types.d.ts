@@ -19,6 +19,7 @@ export namespace Update {
   }
   /** Internal type holding properties that updates about edited messages share. */
   interface Edited {
+    /** Date the message was last edited in Unix time */
     edit_date: Integer;
     forward_from?: never;
     forward_from_chat?: never;
