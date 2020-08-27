@@ -58,7 +58,7 @@ export interface Telegram {
     timeout?: Integer;
     /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
     Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
-    allowed_updates?: String[];
+    allowed_updates?: readonly String[];
   }): Update[];
 
   /** Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
@@ -80,7 +80,7 @@ export interface Telegram {
     max_connections?: Integer;
     /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
     Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
-    allowed_updates?: String[];
+    allowed_updates?: readonly String[];
   }): True;
 
   /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. Requires no parameters. */
@@ -320,7 +320,7 @@ export interface Telegram {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
     /** A JSON-serialized array describing photos and videos to be sent, must include 2-10 items */
-    media: Array<InputMediaPhoto | InputMediaVideo>;
+    media: ReadonlyArray<InputMediaPhoto | InputMediaVideo>;
     /** Sends the messages silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the messages are a reply, ID of the original message */
@@ -436,7 +436,7 @@ export interface Telegram {
     /** Poll question, 1-255 characters */
     question: String;
     /** A JSON-serialized list of answer options, 2-10 strings 1-100 characters each */
-    options: String[];
+    options: readonly String[];
     /** True, if the poll needs to be anonymous, defaults to True */
     is_anonymous?: Boolean;
     /** Poll type, “quiz” or “regular”, defaults to “regular” */
@@ -715,7 +715,7 @@ export interface Telegram {
   /** Use this method to change the list of the bot's commands. Returns True on success. */
   setMyCommands(args: {
     /** A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
-    commands: BotCommand[];
+    commands: readonly BotCommand[];
   }): True;
 
   /** Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. */
@@ -913,7 +913,7 @@ export interface Telegram {
     /** Unique identifier for the answered query */
     inline_query_id: String;
     /** A JSON-serialized array of results for the inline query */
-    results: InlineQueryResult[];
+    results: readonly InlineQueryResult[];
     /** The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300. */
     cache_time?: Integer;
     /** Pass True, if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query */
@@ -943,7 +943,7 @@ export interface Telegram {
     /** Three-letter ISO 4217 currency code, see more on currencies */
     currency: String;
     /** Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.) */
-    prices: LabeledPrice[];
+    prices: readonly LabeledPrice[];
     /** A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider. */
     provider_data?: String;
     /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for. */
@@ -983,7 +983,7 @@ export interface Telegram {
     /** Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible) */
     ok: Boolean;
     /** Required if ok is True. A JSON-serialized array of available shipping options. */
-    shipping_options?: ShippingOption[];
+    shipping_options?: readonly ShippingOption[];
     /** Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user. */
     error_message?: String;
   }): True;
@@ -1005,7 +1005,7 @@ export interface Telegram {
     /** User identifier */
     user_id: Integer;
     /** A JSON-serialized array describing the errors */
-    errors: PassportElementError[];
+    errors: readonly PassportElementError[];
   }): True;
 
   /** Use this method to send a game. On success, the sent Message is returned. */
