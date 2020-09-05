@@ -778,13 +778,13 @@ export interface Telegram {
   /** Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. */
   editMessageReplyMarkup(args: {
     /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
-    chat_id: Integer | String;
+    chat_id?: Integer | String;
     /** Required if inline_message_id is not specified. Identifier of the message to edit */
-    message_id: Integer;
+    message_id?: Integer;
     /** Required if chat_id and message_id are not specified. Identifier of the inline message */
-    inline_message_id: String;
+    inline_message_id?: String;
     /** A JSON-serialized object for an inline keyboard. */
-    reply_markup: InlineKeyboardMarkup;
+    reply_markup?: InlineKeyboardMarkup;
   }): (Edited & Message) | True;
 
   /** Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned. */
@@ -1033,11 +1033,11 @@ export interface Telegram {
     /** Pass True, if the game message should not be automatically edited to include the current scoreboard */
     disable_edit_message: Boolean;
     /** Required if inline_message_id is not specified. Unique identifier for the target chat */
-    chat_id: Integer;
+    chat_id?: Integer;
     /** Required if inline_message_id is not specified. Identifier of the sent message */
-    message_id: Integer;
+    message_id?: Integer;
     /** Required if chat_id and message_id are not specified. Identifier of the inline message */
-    inline_message_id: String;
+    inline_message_id?: String;
   }): (Edited & Message.GameMessage) | True;
 
   /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
@@ -1047,10 +1047,10 @@ export interface Telegram {
     /** Target user id */
     user_id: Integer;
     /** Required if inline_message_id is not specified. Unique identifier for the target chat */
-    chat_id: Integer;
+    chat_id?: Integer;
     /** Required if inline_message_id is not specified. Identifier of the sent message */
-    message_id: Integer;
+    message_id?: Integer;
     /** Required if chat_id and message_id are not specified. Identifier of the inline message */
-    inline_message_id: String;
+    inline_message_id?: String;
   }): GameHighScore[];
 }
