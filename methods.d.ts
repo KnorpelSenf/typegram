@@ -37,8 +37,10 @@ type Ret<M extends keyof Telegram> = ReturnType<Telegram[M]>;
 /** Promisifies a given method signature */
 type P<M extends keyof Telegram> = (...args: Params<M>) => Promise<Ret<M>>;
 
-/** Utility type providing the argument type for the given method name */
-export type Opts<M extends keyof Telegram> = Params<M>[0];
+/** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
+export type Opts<M extends keyof Telegram> = Params<M>[0] extends undefined
+  ? {}
+  : Params<M>[0];
 /** Utility type providing a promisified version of Telegram */
 export type TelegramP = { [M in keyof Telegram]: P<M> };
 
