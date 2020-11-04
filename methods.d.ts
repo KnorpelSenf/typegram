@@ -1,22 +1,25 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 import {
   BotCommand,
+  ChatFromGetChat,
   ChatMember,
   ChatPermissions,
   File,
   ForceReply,
   GameHighScore,
-  ChatFromGetChat,
-  UserFromGetMe,
   InlineKeyboardMarkup,
   InlineQueryResult,
   InputFile,
   InputMedia,
+  InputMediaAudio,
+  InputMediaDocument,
   InputMediaPhoto,
   InputMediaVideo,
   LabeledPrice,
   MaskPosition,
   Message,
+  MessageEntity,
+  MessageId,
   ParseMode,
   PassportElementError,
   Poll,
@@ -25,6 +28,7 @@ import {
   ShippingOption,
   StickerSet,
   Update,
+  UserFromGetMe,
   UserProfilePhotos,
   WebhookInfo,
 } from "./types";
@@ -78,21 +82,34 @@ export interface Telegram {
     url: String;
     /** Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details. */
     certificate?: InputFile;
+    /** The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS */
+    ip_address?: String;
     /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
     max_connections?: Integer;
     /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
     Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
     allowed_updates?: readonly String[];
+    /** Pass True to drop all pending updates */
+    drop_pending_updates?: Boolean;
   }): True;
 
-  /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. Requires no parameters. */
-  deleteWebhook(): True;
+  /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. */
+  deleteWebhook(args: {
+    /** Pass True to drop all pending updates */
+    drop_pending_updates?: Boolean;
+  }): True;
 
   /** Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty. */
   getWebhookInfo(): WebhookInfo;
 
   /** A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object. */
   getMe(): UserFromGetMe;
+
+  /** Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you will not be able to log in again using the same token for 10 minutes. Returns True on success. Requires no parameters. */
+  logOut(): True;
+
+  /** Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters. */
+  close(): True;
 
   /** Use this method to send text messages. On success, the sent Message is returned. */
   sendMessage(args: {
@@ -102,12 +119,16 @@ export interface Telegram {
     text: String;
     /** Mode for parsing entities in the message text. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+    entities?: MessageEntity[];
     /** Boolean Disables link previews for links in this message */
     disable_web_page_preview?: Boolean;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -128,6 +149,34 @@ export interface Telegram {
     message_id: Integer;
   }): Message;
 
+  /** Use this method to copy messages of any kind. The method is analogous to the method forwardMessages, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
+  copyMessage(args: {
+    /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+    chat_id: Integer | String;
+    /** Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername) */
+    from_chat_id: Integer | String;
+    /** Message identifier in the chat specified in from_chat_id */
+    message_id: Integer;
+    /** New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept */
+    caption?: String;
+    /** Mode for parsing entities in the new caption. See formatting options for more details. */
+    parse_mode?: String;
+    /** List of special entities that appear in the new caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
+    /** Sends the message silently. Users will receive a notification with no sound. */
+    disable_notification?: Boolean;
+    /** If the message is a reply, ID of the original message */
+    reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
+    /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+    reply_markup?:
+      | InlineKeyboardMarkup
+      | ReplyKeyboardMarkup
+      | ReplyKeyboardRemove
+      | ForceReply;
+  }): MessageId;
+
   /** Use this method to send photos. On success, the sent Message is returned. */
   sendPhoto(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
@@ -138,10 +187,14 @@ export interface Telegram {
     caption?: String;
     /** Mode for parsing entities in the photo caption. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -162,6 +215,8 @@ export interface Telegram {
     caption?: String;
     /** Mode for parsing entities in the audio caption. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
     /** Duration of the audio in seconds */
     duration?: Integer;
     /** Performer */
@@ -174,6 +229,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -194,10 +251,16 @@ export interface Telegram {
     caption?: String;
     /** Mode for parsing entities in the document caption. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
+    /** Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album. */
+    disable_content_type_detection?: Boolean;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -224,12 +287,16 @@ export interface Telegram {
     caption?: String;
     /** Mode for parsing entities in the video caption. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
     /** Pass True, if the uploaded video is suitable for streaming */
     supports_streaming?: Boolean;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -256,10 +323,14 @@ export interface Telegram {
     caption?: String;
     /** Mode for parsing entities in the animation caption. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -284,6 +355,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -309,6 +382,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -317,16 +392,20 @@ export interface Telegram {
       | ForceReply;
   }): Message.VideoNoteMessage;
 
-  /** Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned. */
+  /** Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only group in an album with messages of the same type. On success, an array of Messages that were sent is returned. */
   sendMediaGroup(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
-    /** A JSON-serialized array describing photos and videos to be sent, must include 2-10 items */
-    media: ReadonlyArray<InputMediaPhoto | InputMediaVideo>;
+    /** A JSON-serialized array describing messages to be sent, must include 2-10 items */
+    media: ReadonlyArray<
+      InputMediaAudio | InputMediaDocument | InputMediaPhoto | InputMediaVideo
+    >;
     /** Sends the messages silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
-    /** If the messages are a reply, ID of the original message */
+    /** If messages are a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
   }): Array<Message.PhotoMessage | Message.VideoMessage>;
 
   /** Use this method to send point on the map. On success, the sent Message is returned. */
@@ -337,12 +416,20 @@ export interface Telegram {
     latitude: Float;
     /** Longitude of the location */
     longitude: Float;
+    /** The radius of uncertainty for the location, measured in meters; 0-1500 */
+    horizontal_accuracy?: Float;
     /** Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400. */
     live_period?: Integer;
+    /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
+    heading?: Integer;
+    /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+    proximity_alert_radius?: Integer;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -351,7 +438,7 @@ export interface Telegram {
       | ForceReply;
   }): Message.LocationMessage;
 
-  /** Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. */
+  /** Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
   editMessageLiveLocation(args: {
     /** | String Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id?: Integer;
@@ -363,6 +450,12 @@ export interface Telegram {
     latitude: Float;
     /** Longitude of new location */
     longitude: Float;
+    /** The radius of uncertainty for the location, measured in meters; 0-1500 */
+    horizontal_accuracy?: Float;
+    /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
+    heading?: Integer;
+    /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+    proximity_alert_radius?: Integer;
     /** A JSON-serialized object for a new inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
   }): (Edited & Message.LocationMessage) | True;
@@ -395,10 +488,16 @@ export interface Telegram {
     foursquare_id?: String;
     /** Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
     foursquare_type?: String;
+    /** Google Places identifier of the venue */
+    google_place_id?: String;
+    /** Google Places type of the venue. (See supported types.) */
+    google_place_type?: String;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -423,6 +522,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -451,6 +552,8 @@ export interface Telegram {
     explanation?: String;
     /** Mode for parsing entities in the explanation. See formatting options for more details. */
     explanation_parse_mode?: ParseMode;
+    /** List of special entities that appear in the poll explanation, which can be specified instead of parse_mode */
+    explanation_entities?: MessageEntity[];
     /** Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. */
     open_period?: Integer;
     /** Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period. */
@@ -461,6 +564,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -473,12 +578,14 @@ export interface Telegram {
   sendDice(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
-    /** Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, or “🏀”. Dice can have values 1-6 for “🎲” and “🎯”, and values 1-5 for “🏀”. Defaults to “🎲” */
+    /** Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, or “🎰”. Dice can have values 1-6 for “🎲” and “🎯”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲” */
     emoji?: String;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -534,12 +641,14 @@ export interface Telegram {
     until_date?: Integer;
   }): True;
 
-  /** Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns True on success. */
+  /** Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success. */
   unbanChatMember(args: {
     /** Unique identifier for the target group or username of the target supergroup or channel (in the format @username) */
     chat_id: Integer | String;
     /** Unique identifier of the target user */
     user_id: Integer;
+    /** Do nothing if the user is not banned */
+    only_if_banned?: Boolean;
   }): True;
 
   /** Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. Returns True on success. */
@@ -560,6 +669,8 @@ export interface Telegram {
     chat_id: Integer | String;
     /** Unique identifier of the target user */
     user_id: Integer;
+    /** Pass True, if the administrator's presence in the chat is hidden */
+    is_anonymous?: Boolean;
     /** Pass True, if the administrator can change chat title, photo and other settings */
     can_change_info?: Boolean;
     /** Pass True, if the administrator can create channel posts, channels only */
@@ -634,18 +745,26 @@ export interface Telegram {
     description?: String;
   }): True;
 
-  /** Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in the channel. Returns True on success. */
+  /** Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns True on success. */
   pinChatMessage(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
     /** Identifier of a message to pin */
     message_id: Integer;
-    /** Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels. */
+    /** Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats. */
     disable_notification?: Boolean;
   }): True;
 
-  /** Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in the channel. Returns True on success. */
+  /** Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns True on success. */
   unpinChatMessage(args: {
+    /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+    chat_id: Integer | String;
+    /** Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned. */
+    message_id?: Integer;
+  }): True;
+
+  /** Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns True on success. */
+  unpinAllChatMessages(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
   }): True;
@@ -723,7 +842,7 @@ export interface Telegram {
   /** Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. */
   getMyCommands(): BotCommand[];
 
-  /** Use this method to edit text and game messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. */
+  /** Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
   editMessageText(args: {
     /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id?: Integer | String;
@@ -735,13 +854,15 @@ export interface Telegram {
     text: String;
     /** Mode for parsing entities in the message text. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+    entities?: MessageEntity[];
     /** Disables link previews for links in this message */
     disable_web_page_preview?: Boolean;
     /** A JSON-serialized object for an inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
   }): (Edited & Message.TextMessage) | True;
 
-  /** Use this method to edit captions of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. */
+  /** Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
   editMessageCaption(args: {
     /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id?: Integer | String;
@@ -757,7 +878,7 @@ export interface Telegram {
     reply_markup?: InlineKeyboardMarkup;
   }): (Edited & Message.CaptionableMessage) | True;
 
-  /** Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. */
+  /** Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. */
   editMessageMedia(args: {
     /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id?: Integer | String;
@@ -777,7 +898,7 @@ export interface Telegram {
     | (Edited & Message.VideoMessage)
     | True;
 
-  /** Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned. */
+  /** Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
   editMessageReplyMarkup(args: {
     /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id?: Integer | String;
@@ -825,6 +946,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
     reply_markup?:
       | InlineKeyboardMarkup
@@ -974,6 +1097,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
     reply_markup?: InlineKeyboardMarkup;
   }): Message.InvoiceMessage;
@@ -1020,6 +1145,8 @@ export interface Telegram {
     disable_notification?: Boolean;
     /** If the message is a reply, ID of the original message */
     reply_to_message_id?: Integer;
+    /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+    allow_sending_without_reply?: Boolean;
     /** A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. */
     reply_markup?: InlineKeyboardMarkup;
   }): Message.GameMessage;
