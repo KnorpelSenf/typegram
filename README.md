@@ -2,6 +2,8 @@
 
 This project provides TypeScript types for the entire [Telegram API](https://core.telegram.org/bots/api) in version 4.9 which was released on June 4, 2020.
 
+Note that the work for support of version 5.0 is in active progress.
+
 ## Installation
 
 ```bash
