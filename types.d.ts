@@ -102,6 +102,8 @@ export interface WebhookInfo {
   has_custom_certificate: Boolean;
   /** Number of updates awaiting delivery */
   pending_update_count: Integer;
+  /** Currently used webhook IP address */
+  ip_address?: String;
   /** Unix time for the most recent error that happened when trying to deliver an update via webhook */
   last_error_date: Integer;
   /** Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook */
@@ -191,6 +193,8 @@ export namespace Chat {
   interface GetChat {
     /** Chat photo. Returned only in getChat. */
     photo?: ChatPhoto;
+    /** The most recent pinned message (by sending date). Returned only in getChat. */
+    pinned_message?: Message;
   }
   /** Internal type holding properties that those group, supergroup, and channel chats returned from `getChat` share. */
   interface NonPrivateGetChat extends GetChat {
@@ -198,8 +202,6 @@ export namespace Chat {
     description?: String;
     /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
     invite_link?: String;
-    /** Pinned message, for groups, supergroups and channels. Returned only in getChat. */
-    pinned_message?: Message;
   }
   /** Internal type holding properties that those group and supergroup chats returned from `getChat` share. */
   interface MultiUserGetChat extends NonPrivateGetChat {
@@ -208,21 +210,34 @@ export namespace Chat {
     /** True, if the bot can change the group sticker set. Returned only in getChat. */
     can_set_sticker_set?: Boolean;
   }
+  /** Internal type holding properties that those supergroup and channel chats returned from `getChat` share. */
+  interface LargeGetChat extends NonPrivateGetChat {
+    /** Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in getChat. */
+    linked_chat_id?: Integer;
+  }
 
   // ==> GET CHATS
   /** Internal type representing private chats returned from `getChat`. */
-  export interface PrivateGetChat extends PrivateChat, GetChat {}
+  export interface PrivateGetChat extends PrivateChat, GetChat {
+    /** Bio of the other party in a private chat. Returned only in getChat. */
+    bio?: String;
+  }
   /** Internal type representing group chats returned from `getChat`. */
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
   /** Internal type representing supergroup chats returned from `getChat`. */
-  export interface SupergroupGetChat extends SupergroupChat, MultiUserGetChat {
+  export interface SupergroupGetChat
+    extends SupergroupChat,
+      MultiUserGetChat,
+      LargeGetChat {
     /** For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user. Returned only in getChat. */
     slow_mode_delay?: Integer;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
     sticker_set_name?: String;
+    /** For supergroups, the location to which the supergroup is connected. Returned only in getChat. */
+    location?: ChatLocation;
   }
   /** Internal type representing channel chats returned from `getChat`. */
-  export interface ChannelGetChat extends ChannelChat, NonPrivateGetChat {}
+  export interface ChannelGetChat extends ChannelChat, LargeGetChat {}
 }
 
 /** This object represents a chat. */
@@ -245,6 +260,8 @@ export namespace Message {
     message_id: Integer;
     /** Sender, empty for messages sent to channels */
     from?: User;
+    /** Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group */
+    sender_chat?: Chat;
     /** Date the message was sent in Unix time */
     date: Integer;
     /** Conversation the message belongs to */
@@ -253,7 +270,7 @@ export namespace Message {
   interface CommonMessage extends ServiceMessage {
     /** For forwarded messages, sender of the original message */
     forward_from?: User;
-    /** For messages forwarded from channels, information about the original channel */
+    /** For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
     forward_from_chat?: Chat;
     /** For messages forwarded from channels, identifier of the original message in the channel */
     forward_from_message_id?: Integer;
@@ -269,7 +286,7 @@ export namespace Message {
     via_bot?: User;
     /** Date the message was last edited in Unix time */
     edit_date?: Integer;
-    /** Signature of the post author for messages in channels */
+    /** Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
     author_signature?: String;
     /** Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
     reply_markup?: InlineKeyboardMarkup;
@@ -406,6 +423,10 @@ export namespace Message {
     /** Telegram Passport data */
     passport_data: PassportData;
   }
+  export interface ProximityAlertTriggeredMessage extends ServiceMessage {
+    /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
+    proximity_alert_triggered?: ProximityAlertTriggered;
+  }
 }
 
 /** This object represents a message. */
@@ -429,6 +450,7 @@ export type Message =
   | Message.NewChatPhotoMessage
   | Message.NewChatTitleMessage
   | Message.PassportDataMessage
+  | Message.ProximityAlertTriggeredMessage
   | Message.PhotoMessage
   | Message.PinnedMessageMessage
   | Message.PollMessage
@@ -440,6 +462,12 @@ export type Message =
   | Message.VideoMessage
   | Message.VideoNoteMessage
   | Message.VoiceMessage;
+
+/** This object represents a unique message identifier. */
+export interface MessageId {
+  /** Unique message identifier */
+  message_id: Integer;
+}
 
 /** The Bot API supports basic formatting for messages. You can use bold, italic, underlined and strikethrough text, as well as inline links and pre-formatted code in your bots' messages. Telegram clients will render them accordingly. You can use either markdown-style or HTML-style formatting.
 
@@ -626,6 +654,8 @@ export interface Audio {
   performer?: String;
   /** Title of the audio as defined by sender or by audio tags */
   title?: String;
+  /** Original filename as defined by sender */
+  file_name?: String;
   /** MIME type of the file as defined by sender */
   mime_type?: String;
   /** File size */
@@ -664,6 +694,8 @@ export interface Video {
   duration: Integer;
   /** Video thumbnail */
   thumb?: PhotoSize;
+  /** Original filename as defined by sender */
+  file_name?: String;
   /** Mime type of a file as defined by sender */
   mime_type?: String;
   /** File size */
@@ -718,7 +750,7 @@ export interface Contact {
 export interface Dice {
   /** Emoji on which the dice throw animation is based */
   emoji: String;
-  /** Value of the dice, 1-6 for “🎲” and “🎯” base emoji, 1-5 for “🏀” base emoji */
+  /** Value of the dice, 1-6 for “🎲” and “🎯” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji */
   value: Integer;
 }
 
@@ -744,7 +776,7 @@ export interface PollAnswer {
 export interface Poll {
   /** Unique poll identifier */
   id: String;
-  /** Poll question, 1-255 characters */
+  /** Poll question, 1-300 characters */
   question: String;
   /** List of poll options */
   options: PollOption[];
@@ -776,11 +808,19 @@ export interface Location {
   longitude: Float;
   /** Latitude as defined by sender */
   latitude: Float;
+  /** The radius of uncertainty for the location, measured in meters; 0-1500 */
+  horizontal_accuracy?: Float;
+  /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
+  live_period?: Integer;
+  /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
+  heading?: Integer;
+  /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+  proximity_alert_radius?: Integer;
 }
 
 /** This object represents a venue. */
 export interface Venue {
-  /** Venue location */
+  /** Venue location. Can't be a live location */
   location: Location;
   /** Name of the venue */
   title: String;
@@ -790,6 +830,20 @@ export interface Venue {
   foursquare_id?: String;
   /** Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
   foursquare_type?: String;
+  /** Google Places identifier of the venue */
+  google_place_id?: String;
+  /** Google Places type of the venue. (See supported types.) */
+  google_place_type?: String;
+}
+
+/** This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user. */
+export interface ProximityAlertTriggered {
+  /** User that triggered the alert */
+  traveler: User;
+  /** User that set the alert */
+  watcher: User;
+  /** The distance between the users */
+  distance: Integer;
 }
 
 /** This object represent a user's profile pictures. */
@@ -1015,8 +1069,8 @@ export interface ChatMember {
     | "kicked";
   /** Owner and administrators only. Custom title for this user */
   custom_title?: String;
-  /** Restricted and kicked only. Date when restrictions will be lifted for this user; unix time */
-  until_date?: Integer;
+  /** Owner and administrators only. True, if the user's presence in the chat is hidden */
+  is_anonymous?: Boolean;
   /** Administrators only. True, if the bot is allowed to edit administrator privileges of that user */
   can_be_edited?: Boolean;
   /** Administrators only. True, if the administrator can post in the channel; channels only */
@@ -1047,6 +1101,8 @@ export interface ChatMember {
   can_send_other_messages?: Boolean;
   /** Restricted only. True, if the user is allowed to add web page previews to their messages */
   can_add_web_page_previews?: Boolean;
+  /** Restricted and kicked only. Date when restrictions will be lifted for this user; unix time */
+  until_date?: Integer;
 }
 
 /** Describes actions that a non-administrator user is allowed to take in a chat. */
@@ -1067,6 +1123,14 @@ export interface ChatPermissions {
   can_invite_users?: Boolean;
   /** True, if the user is allowed to pin messages. Ignored in public supergroups */
   can_pin_messages?: Boolean;
+}
+
+/** Represents a location to which a chat is connected. */
+export interface ChatLocation {
+  /** The location to which the supergroup is connected. Can't be a live location. */
+  location: Location;
+  /** Location address; 1-64 characters, as defined by the chat owner */
+  address: String;
 }
 
 /** This object represents a bot command. */
@@ -1108,6 +1172,8 @@ export interface InputMediaPhoto {
   caption?: String;
   /** Mode for parsing entities in the photo caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
 }
 
 /** Represents a video to be sent. */
@@ -1122,6 +1188,8 @@ export interface InputMediaVideo {
   caption?: String;
   /** Mode for parsing entities in the video caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Video width */
   width?: Integer;
   /** Video height */
@@ -1144,6 +1212,8 @@ export interface InputMediaAnimation {
   caption?: String;
   /** Mode for parsing entities in the animation caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Animation width */
   width?: Integer;
   /** Animation height */
@@ -1164,6 +1234,8 @@ export interface InputMediaAudio {
   caption?: String;
   /** Mode for parsing entities in the audio caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Duration of the audio in seconds */
   duration?: Integer;
   /** Performer of the audio */
@@ -1184,6 +1256,10 @@ export interface InputMediaDocument {
   caption?: String;
   /** Mode for parsing entities in the document caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
+  /** Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album. */
+  disable_content_type_detection?: Boolean;
 }
 
 /** This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser. */
@@ -1372,6 +1448,8 @@ export interface InlineQueryResultPhoto {
   caption?: String;
   /** Mode for parsing entities in the photo caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the photo */
@@ -1458,6 +1536,8 @@ export interface InlineQueryResultVideo {
   caption?: String;
   /** Mode for parsing entities in the video caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Video width */
   video_width?: Integer;
   /** Video height */
@@ -1488,6 +1568,8 @@ export interface InlineQueryResultAudio {
   caption?: String;
   /** Mode for parsing entities in the audio caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Performer */
   performer?: String;
   /** Audio duration in seconds */
@@ -1536,6 +1618,8 @@ export interface InlineQueryResultDocument {
   caption?: String;
   /** Mode for parsing entities in the document caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** A valid URL for the file */
   document_url: String;
   /** Mime type of the content of the file, either “application/pdf” or “application/zip” */
@@ -1568,8 +1652,14 @@ export interface InlineQueryResultLocation {
   longitude: Float;
   /** Location title */
   title: String;
+  /** The radius of uncertainty for the location, measured in meters; 0-1500 */
+  horizontal_accuracy?: Float;
   /** Period in seconds for which the location can be updated, should be between 60 and 86400. */
   live_period?: Integer;
+  /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
+  heading?: Integer;
+  /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+  proximity_alert_radius?: Integer;
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the location */
@@ -1602,6 +1692,10 @@ export interface InlineQueryResultVenue {
   foursquare_id?: String;
   /** Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
   foursquare_type?: String;
+  /** Google Places identifier of the venue */
+  google_place_id?: String;
+  /** Google Places type of the venue. (See supported types.) */
+  google_place_type?: String;
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the venue */
@@ -1672,6 +1766,8 @@ export interface InlineQueryResultCachedPhoto {
   caption?: String;
   /** Mode for parsing entities in the photo caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the photo */
@@ -1753,6 +1849,8 @@ export interface InlineQueryResultCachedDocument {
   caption?: String;
   /** Mode for parsing entities in the document caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the file */
@@ -1775,6 +1873,8 @@ export interface InlineQueryResultCachedVideo {
   caption?: String;
   /** Mode for parsing entities in the video caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the video */
@@ -1817,6 +1917,8 @@ export interface InlineQueryResultCachedAudio {
   caption?: String;
   /** Mode for parsing entities in the audio caption. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+  caption_entities?: MessageEntity[];
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the audio */
@@ -1841,6 +1943,8 @@ export interface InputTextMessageContent {
   message_text: String;
   /** Mode for parsing entities in the message text. See formatting options for more details. */
   parse_mode?: ParseMode;
+  /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+  entities?: MessageEntity[];
   /** Disables link previews for links in the sent message */
   disable_web_page_preview?: Boolean;
 }
@@ -1851,8 +1955,14 @@ export interface InputLocationMessageContent {
   latitude: Float;
   /** Longitude of the location in degrees */
   longitude: Float;
+  /** The radius of uncertainty for the location, measured in meters; 0-1500 */
+  horizontal_accuracy?: Float;
   /** Period in seconds for which the location can be updated, should be between 60 and 86400. */
   live_period?: Integer;
+  /** For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. */
+  heading?: Integer;
+  /** For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified. */
+  proximity_alert_radius?: Integer;
 }
 
 /** Represents the content of a venue message to be sent as the result of an inline query. */
@@ -1869,6 +1979,10 @@ export interface InputVenueMessageContent {
   foursquare_id?: String;
   /** Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
   foursquare_type?: String;
+  /** Google Places identifier of the venue */
+  google_place_id?: String;
+  /** Google Places type of the venue. (See supported types.) */
+  google_place_type?: String;
 }
 
 /** Represents the content of a contact message to be sent as the result of an inline query. */
