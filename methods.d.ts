@@ -55,7 +55,7 @@ export interface Telegram {
   Notes
   1. This method will not work if an outgoing webhook is set up.
   2. In order to avoid getting duplicate updates, recalculate offset after each server response. */
-  getUpdates(args: {
+  getUpdates(args?: {
     /** Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten. */
     offset?: Integer;
     /** Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100. */
@@ -94,7 +94,7 @@ export interface Telegram {
   }): True;
 
   /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. */
-  deleteWebhook(args: {
+  deleteWebhook(args?: {
     /** Pass True to drop all pending updates */
     drop_pending_updates?: Boolean;
   }): True;
@@ -349,6 +349,8 @@ export interface Telegram {
     caption?: String;
     /** Mode for parsing entities in the voice message caption. See formatting options for more details. */
     parse_mode?: ParseMode;
+    /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+    caption_entities?: MessageEntity[];
     /** Duration of the voice message in seconds */
     duration?: Integer;
     /** Sends the message silently. Users will receive a notification with no sound. */
@@ -406,7 +408,12 @@ export interface Telegram {
     reply_to_message_id?: Integer;
     /** Pass True, if the message should be sent even if the specified replied-to message is not found */
     allow_sending_without_reply?: Boolean;
-  }): Array<Message.PhotoMessage | Message.VideoMessage>;
+  }): Array<
+    | Message.AudioMessage
+    | Message.DocumentMessage
+    | Message.PhotoMessage
+    | Message.VideoMessage
+  >;
 
   /** Use this method to send point on the map. On success, the sent Message is returned. */
   sendLocation(args: {
@@ -440,7 +447,7 @@ export interface Telegram {
 
   /** Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
   editMessageLiveLocation(args: {
-    /** | String Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+    /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id?: Integer;
     /** Required if inline_message_id is not specified. Identifier of the message to edit */
     message_id?: Integer;
