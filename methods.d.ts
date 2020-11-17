@@ -394,7 +394,7 @@ export interface Telegram {
       | ForceReply;
   }): Message.VideoNoteMessage;
 
-  /** Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only group in an album with messages of the same type. On success, an array of Messages that were sent is returned. */
+  /** Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Messages that were sent is returned. */
   sendMediaGroup(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: Integer | String;
