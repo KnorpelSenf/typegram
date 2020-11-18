@@ -50,7 +50,7 @@ In other words, the objects are serialized twice—the first time in order to co
 The most prominent example is the `reply_markup` property that appears in a number of different methods, but more than a dozen other properties like this can be found throughout the API.
 
 Strictly speaking, the `typegram` types do not reflect this accurately.
-Instead of using `string` (that is representing an object) as the type, `typegram` uses the type of the object itself, thus ignoring the serialization step.
+Instead of using `string` (representing a serialized object) as the type, `typegram` uses the type of the object itself, thus ignoring the serialization step.
 For instance, instead of declaring `reply_markup: string`, it declares the property as `reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply` because that is what is supposed to be serialized to `string` before calling the respective method.
 
 This makes sense for two reasons.
@@ -61,7 +61,7 @@ This makes sense for two reasons.
 2. A common use case for this library is to pull the types into some wrapper code around the Telegram Bot API.
    This wrapper code often does the necessary JSON serialization automatically for the required properties.
    The consumer then does not need to care about which properties to serialize and which not.
-   Given that `typegram` refers to the objects themselves instead of their serialized strings, the wrapper code can now simply expose the `typegram` types to its consumers without having to transform the types before.
+   Given that `typegram` refers to the objects themselves instead of their serialized strings, the wrapper code can now simply expose the `typegram` types to its consumers without having to transform them before.
 
 ## Using Promises
 
