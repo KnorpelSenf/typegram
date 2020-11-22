@@ -29,11 +29,11 @@ In fact, this pattern is used for various types, namely:
 - `MessageEntity`
 - `Update`
 
-(Naturally, when the API specification is actually modelling types to be unions (e.g. `InputMedia`), this is reflected here as a union type, too.)
+(Naturally, when the API specification is actually modelling types to be unions (e.g. `InlineQueryResult`), this is reflected here as a union type, too.)
 
 ## Available Methods
 
-In addition to the types, this package provides you with another `interface Telegram` which contains all available **methods** of the API.
+In addition to the types, this package provides you with another type `Telegram` which contains all available **methods** of the API.
 There is no further structure applied to this, but if you can come up with something reasonable, please suggest it in an issue or directly open a PR.
 
 Each method takes just a single argument with a structure that corresponds to the object expected by Telegram.
@@ -42,7 +42,7 @@ If you need to directly access that type, consider using `Opts<M>` where `M` is 
 Note that `Opts<M>` will give you an empty object type (i.e. `{}`) for methods that do not take any parameters.
 That is to say, it will not give you a type error or `undefined` (as opposed to something like `Parameters<Telegram['getMe']>[0]`).
 
-## Caveat with JSON-serialized objects
+## Caveat with JSON-Serialized Objects
 
 Some methods of the Telegram API are expected to be called with JSON-serialized objects contained in a property of the payload, rather than an actual JSON payload.
 In other words, the objects are serialized twice—the first time in order to conform with the docs, and the second time when the payload is actually sent in the POST body to the API server.
@@ -69,7 +69,62 @@ All of the methods are specified with the actual return type of the Telegram API
 If you need them to return `Promise`s instead, consider using `TelegramP`.
 This type maps all methods of `Telegram` to a promisified version.
 
-## Where do the types come from
+## Customizing `InputFile`
+
+The Telegram API lets bots send files in [three different ways](https://core.telegram.org/bots/api#sending-files).
+Two of those ways are by specifying a `string`—either a `file_id` or a URL.
+The third option, however, is by uploading files to the server.
+
+Depending on the code you're using the `typegram` types for, you may want to support different ways to specify the file to be uploaded.
+As an example, you may want to be able to make calls to `sendDocument` with an object that conforms to `{ path: string }` in order to specify the location of a local file.
+(Your code is then assumed to able to handle calls to `sendDocument` and the like when supplied with an object alike `{ path: '/tmp/file.txt' }` for the `document` property of the argument object.)
+
+`typegram` cannot possibly know what objects you want to support as `InputFile`s.
+Consequently, the exposed type `InputFile` is merely an alias for `string`, thus covering the first two means to send a file.
+
+However, you can specify your own version of what an `InputFile` is, hence effectively creating a completely new version of `typegram` with your custom `InputFile` type used throughout all affected methods and interfaces.
+
+For instance, let's stick with our example and say that you want to support `InputFile`s of the following type.
+
+```ts
+interface MyInputFile {
+  path: string;
+}
+```
+
+You can then customize `typegram` to fit your needs by
+
+1. importing the magical `Typegram` proxy type and
+2. setting this alias:
+
+```ts
+type MyTypegram = Typegram<MyInputFile>;
+```
+
+You can now access all types that must respect `MyInputFile` through the `MyTypegram` type:
+
+```ts
+// The `Telegram` type that contains all API methods:
+type Telegram = MyTypegram["Telegram"];
+// or, respectively
+type TelegramP = MyTypegram["TelegramP"];
+
+// The utility type `Opts`:
+type Opts<M extends keyof Telegram> = MyTypegram["Opts"][M];
+
+// The adjusted `InputMedia*` types:
+type InputMedia = MyTypegram["InputMedia"];
+type InputMediaPhoto = MyTypegram["InputMediaPhoto"];
+type InputMediaVideo = MyTypegram["InputMediaVideo"];
+type InputMediaAnimation = MyTypegram["InputMediaAnimation"];
+type InputMediaAudio = MyTypegram["InputMediaAudio"];
+type InputMediaDocument = MyTypegram["InputMediaDocument"];
+```
+
+All other interfaces are unaffected by the customization through `MyInputFile`.
+They can simply continued to be imported directly from `typegram`.
+
+## Where Do the Types Come from
 
 They're handwritten.
 
