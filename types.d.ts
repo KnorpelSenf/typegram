@@ -1,6 +1,7 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 import { Params, Promisify } from "./util";
 
+/** Proxy Type that enables customization of `InputFile` by transforming all affected types. */
 export interface Typegram<F> {
   /** Utility type providing a promisified version of Telegram */
   TelegramP: { [M in keyof Typegram<F>["Telegram"]]: Promisify<M, F> };
