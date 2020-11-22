@@ -9,6 +9,6 @@ export type Ret<M extends keyof Typegram<F>["Telegram"], F> = ReturnType<
   Typegram<F>["Telegram"][M]
 >;
 /** Promisifies a given method signature */
-export type P<M extends keyof Typegram<F>["Telegram"], F> = (
+export type Promisify<M extends keyof Typegram<F>["Telegram"], F> = (
   ...args: Params<M, F>
 ) => Promise<Ret<M, F>>;
