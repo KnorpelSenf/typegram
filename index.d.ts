@@ -4,29 +4,56 @@ export type String = string;
 export type Boolean = boolean;
 export type True = true;
 
+/** Utility type providing a promisified version of Telegram */
 export type Telegram = Typegram["Telegram"];
-export type InputMedia = Typegram['InputMedia']
-export type InputMediaAnimation = Typegram['InputMediaAnimation']
-export type InputMediaAudio = Typegram['InputMediaAudio']
-export type InputMediaDocument = Typegram['InputMediaDocument']
-export type InputMediaPhoto = Typegram['InputMediaPhoto']
-export type InputMediaVideo = Typegram['InputMediaVideo']
+/** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
+export type Opts<
+  M extends keyof Typegram<F>["Telegram"],
+  F = InputFile
+> = Typegram<F>["Opts"][M];
+/** Wrapper type to bundle all methods of the Telegram API */
+export type TelegramP = Typegram["TelegramP"];
+/** This object represents the content of a media message to be sent. It should be one of
+- InputMediaAnimation
+- InputMediaDocument
+- InputMediaAudio
+- InputMediaPhoto
+- InputMediaVideo */
+export type InputMedia = Typegram["InputMedia"];
+/** Represents a photo to be sent. */
+export type InputMediaPhoto = Typegram["InputMediaPhoto"];
+/** Represents a video to be sent. */
+export type InputMediaVideo = Typegram["InputMediaVideo"];
+/** Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent. */
+export type InputMediaAnimation = Typegram["InputMediaAnimation"];
+/** Represents an audio file to be treated as music to be sent. */
+export type InputMediaAudio = Typegram["InputMediaAudio"];
+/** Represents a general file to be sent. */
+export type InputMediaDocument = Typegram["InputMediaDocument"];
 
 /** Extracts the parameters of a given method name */
-type Params<M extends keyof Telegram> = Parameters<Telegram[M]>;
+type Params<M extends keyof Typegram<F>["Telegram"], F> = Parameters<
+  Typegram<F>["Telegram"][M]
+>;
 /** Extracts the return type of a given method name */
-type Ret<M extends keyof Telegram> = ReturnType<Telegram[M]>;
+type Ret<M extends keyof Typegram<F>["Telegram"], F> = ReturnType<
+  Typegram<F>["Telegram"][M]
+>;
 /** Promisifies a given method signature */
-type P<M extends keyof Telegram> = (...args: Params<M>) => Promise<Ret<M>>;
-
-/** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
-export type Opts<M extends keyof Telegram> = Params<M>[0] extends undefined
-  ? {}
-  : Exclude<Params<M>[0], undefined>;
-/** Utility type providing a promisified version of Telegram */
-export type TelegramP = { [M in keyof Telegram]: P<M> };
+type P<M extends keyof Typegram<F>["Telegram"], F> = (
+  ...args: Params<M, F>
+) => Promise<Ret<M, F>>;
 
 export interface Typegram<F = InputFile> {
+  /** Utility type providing a promisified version of Telegram */
+  TelegramP: { [M in keyof Typegram<F>["Telegram"]]: P<M, F> };
+  /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
+  Opts: {
+    [M in keyof Typegram<F>["Telegram"]]: Params<M, F>[0] extends undefined
+      ? {}
+      : Exclude<Params<M, F>[0], undefined>;
+  };
+
   /** Wrapper type to bundle all methods of the Telegram API */
   Telegram: {
     /** Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
@@ -379,7 +406,10 @@ export interface Typegram<F = InputFile> {
       chat_id: Integer | String;
       /** A JSON-serialized array describing messages to be sent, must include 2-10 items */
       media: ReadonlyArray<
-        InputMediaAudio | InputMediaDocument | InputMediaPhoto | InputMediaVideo
+        | Typegram<F>["InputMediaAudio"]
+        | Typegram<F>["InputMediaDocument"]
+        | Typegram<F>["InputMediaPhoto"]
+        | Typegram<F>["InputMediaVideo"]
       >;
       /** Sends the messages silently. Users will receive a notification with no sound. */
       disable_notification?: Boolean;
@@ -876,7 +906,7 @@ export interface Typegram<F = InputFile> {
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: String;
       /** A JSON-serialized object for a new media content of the message */
-      media: InputMedia;
+      media: Typegram<F>["InputMedia"];
       /** A JSON-serialized object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }):
@@ -1180,11 +1210,11 @@ export interface Typegram<F = InputFile> {
   - InputMediaPhoto
   - InputMediaVideo */
   InputMedia:
-    | Typegram["InputMediaAnimation"]
-    | Typegram["InputMediaDocument"]
-    | Typegram["InputMediaAudio"]
-    | Typegram["InputMediaPhoto"]
-    | Typegram["InputMediaVideo"];
+    | Typegram<F>["InputMediaAnimation"]
+    | Typegram<F>["InputMediaDocument"]
+    | Typegram<F>["InputMediaAudio"]
+    | Typegram<F>["InputMediaPhoto"]
+    | Typegram<F>["InputMediaVideo"];
 
   /** Represents a photo to be sent. */
   InputMediaPhoto: {
