@@ -1,7 +1,7 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
 import { P, Params } from "./util";
 
-export interface Typegram<F = InputFile> {
+export interface Typegram<F> {
   /** Utility type providing a promisified version of Telegram */
   TelegramP: { [M in keyof Typegram<F>["Telegram"]]: P<M, F> };
   /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
