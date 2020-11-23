@@ -9,7 +9,7 @@ import {
   GameHighScore,
   InlineKeyboardMarkup,
   InlineQueryResult,
-  InputFile,
+  InputFile as LegacyInputFile,
   InputMedia,
   InputMediaAudio,
   InputMediaDocument,
@@ -41,6 +41,16 @@ type Ret<M extends keyof Telegram> = ReturnType<Telegram[M]>;
 /** Promisifies a given method signature */
 type P<M extends keyof Telegram> = (...args: Params<M>) => Promise<Ret<M>>;
 
+export interface Typegram<InputFile> {
+  Telegram: _Telegram<InputFile>;
+  TelegramP: { [M in keyof _Telegram<InputFile>]: P<M> };
+  Opts: {
+    [M in keyof _Telegram<InputFile>]: M extends (args?: infer O) => unknown
+      ? O
+      : {};
+  };
+}
+
 /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
 export type Opts<M extends keyof Telegram> = Params<M>[0] extends undefined
   ? {}
@@ -49,7 +59,8 @@ export type Opts<M extends keyof Telegram> = Params<M>[0] extends undefined
 export type TelegramP = { [M in keyof Telegram]: P<M> };
 
 /** Wrapper type to bundle all methods of the Telegram API */
-export interface Telegram {
+export type Telegram = _Telegram<LegacyInputFile>;
+interface _Telegram<InputFile> {
   /** Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
 
   Notes
