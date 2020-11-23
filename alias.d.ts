@@ -1,4 +1,3 @@
-import { InputFile } from "./file";
 import { Typegram } from "./proxied";
 
 export type Integer = number;
@@ -6,6 +5,9 @@ export type Float = number;
 export type String = string;
 export type Boolean = boolean;
 export type True = true;
+
+/** This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser. */
+export type InputFile = String;
 
 type DefaultTypegram = Typegram<InputFile>;
 
