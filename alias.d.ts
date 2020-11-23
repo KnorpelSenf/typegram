@@ -1,4 +1,5 @@
-import { InputFile, Typegram } from "./types";
+import { InputFile } from "./file";
+import { Typegram } from "./proxied";
 
 export type Integer = number;
 export type Float = number;
@@ -10,12 +11,15 @@ type DefaultTypegram = Typegram<InputFile>;
 
 /** Wrapper type to bundle all methods of the Telegram API */
 export type Telegram = DefaultTypegram["Telegram"];
+
 /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
 export type Opts<
-M extends keyof DefaultTypegram["Telegram"]
+  M extends keyof DefaultTypegram["Telegram"]
 > = DefaultTypegram["Opts"][M];
+
 /** Utility type providing a promisified version of Telegram */
 export type TelegramP = DefaultTypegram["TelegramP"];
+
 /** This object represents the content of a media message to be sent. It should be one of
 - InputMediaAnimation
 - InputMediaDocument
