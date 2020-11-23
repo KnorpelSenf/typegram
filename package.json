@@ -16,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/KnorpelSenf/typegram/issues"
   },
-  "homepage": "https://github.com/KnorpelSenf/typegram#readme",
-  "devDependencies": {
-    "@types/node": "^14.14.8"
-  }
+  "homepage": "https://github.com/KnorpelSenf/typegram#readme"
 }
