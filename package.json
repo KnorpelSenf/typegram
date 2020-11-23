@@ -3,16 +3,20 @@
   "version": "2.3.3",
   "description": "Type declarations for the Telegram API",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KnorpelSenf/typegram.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "telegram",
+    "telegraf",
+    "bot",
+    "api",
+    "types",
+    "typings"
+  ],
+  "author": "KnorpelSenf",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/KnorpelSenf/typegram/issues"
   },
