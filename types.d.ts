@@ -1262,7 +1262,11 @@ export interface InputMediaDocument {
   disable_content_type_detection?: Boolean;
 }
 
-/** This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser. */
+/**
+ * This object represents the contents of a file to be uploaded.
+ * Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
+ * @deprecated
+ */
 export type InputFile =
   | FileId
   | InputFileByPath
@@ -1270,20 +1274,25 @@ export type InputFile =
   | InputFileByBuffer
   | InputFileByURL;
 
+/** @deprecated */
 export type FileId = String;
 
+/** @deprecated */
 export interface InputFileByPath {
   source: String;
 }
 
+/** @deprecated */
 export interface InputFileByReadableStream {
   source: NodeJS.ReadableStream;
 }
 
+/** @deprecated */
 export interface InputFileByBuffer {
   source: Buffer;
 }
 
+/** @deprecated */
 export interface InputFileByURL {
   url: String;
   filename: String;
