@@ -1,6 +1,5 @@
 export * from "./alias";
 export * from "./callback";
-export * from "./file";
 export * from "./inline";
 export * from "./manage";
 export * from "./message";
