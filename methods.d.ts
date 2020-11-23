@@ -908,7 +908,7 @@ interface _Telegram<InputFile> {
     /** Required if chat_id and message_id are not specified. Identifier of the inline message */
     inline_message_id?: String;
     /** A JSON-serialized object for a new media content of the message */
-    media: InputMedia;
+    media: InputMedia<InputFile>;
     /** A JSON-serialized object for a new inline keyboard. */
     reply_markup?: InlineKeyboardMarkup;
   }):
