@@ -73,16 +73,21 @@ This type maps all methods of `Telegram` to a promisified version.
 
 The Telegram API lets bots send files in [three different ways](https://core.telegram.org/bots/api#sending-files).
 Two of those ways are by specifying a `string`—either a `file_id` or a URL.
-The third option, however, is by uploading files to the server.
+The third option, however, is by uploading files to the server using multipart/form-data.
 
+The first two means to send a file are already covered by the type annotations across the library.
+In all places where a `file_id` or a URL is permitted, the corresponding property allows a `string`.
+
+We will now look at the type declarations that are relevant for uploading files directly.
 Depending on the code you're using the `typegram` types for, you may want to support different ways to specify the file to be uploaded.
 As an example, you may want to be able to make calls to `sendDocument` with an object that conforms to `{ path: string }` in order to specify the location of a local file.
-(Your code is then assumed to able to handle calls to `sendDocument` and the like when supplied with an object alike `{ path: '/tmp/file.txt' }` for the `document` property of the argument object.)
+(Your code is then assumed to able to translate calls to `sendDocument` and the like to multipart/form-data uploads when supplied with an object alike `{ path: '/tmp/file.txt' }` in the `document` property of the argument object.)
 
 `typegram` cannot possibly know what objects you want to support as `InputFile`s.
-Consequently, the exposed type `InputFile` is merely an alias for `string`, thus covering the first two means to send a file.
+Consequently, the exposed type `InputFile` is merely an alias for `never`.
 
 However, you can specify your own version of what an `InputFile` is, hence effectively creating a completely new version of `typegram` with your custom `InputFile` type used throughout all affected methods and interfaces.
+This is possible by what we call a _proxy type_.
 
 For instance, let's stick with our example and say that you want to support `InputFile`s of the following type.
 
@@ -98,6 +103,8 @@ You can then customize `typegram` to fit your needs by
 2. setting this alias:
 
 ```ts
+import { Typegram } from "typegram";
+
 type MyTypegram = Typegram<MyInputFile>;
 ```
 
@@ -121,7 +128,11 @@ type InputMediaAudio = MyTypegram["InputMediaAudio"];
 type InputMediaDocument = MyTypegram["InputMediaDocument"];
 ```
 
-All other interfaces are unaffected by the customization through `MyInputFile`.
+In fact, if you are using the type annotations of `typegram` without relying on the `Typegram` proxy type, you are actually still using a default proxy type under the hood.
+The declaration of this default proxy type may help you to define your own version.
+Check out [the default.d.ts file](https://github.com/KnorpelSenf/typegram/blob/master/default.d.ts).
+
+Note that interfaces other than the ones mentioned above are unaffected by the customization through `MyInputFile`.
 They can simply continued to be imported directly from `typegram`.
 
 ## Where Do the Types Come from
