@@ -133,7 +133,7 @@ The declaration of this default proxy type may help you to define your own versi
 Check out [the default.d.ts file](https://github.com/KnorpelSenf/typegram/blob/master/default.d.ts).
 
 Note that interfaces other than the ones mentioned above are unaffected by the customization through `MyInputFile`.
-They can simply continued to be imported directly from `typegram`.
+They can simply continue to be imported directly from `typegram`.
 
 ## Where Do the Types Come from
 
