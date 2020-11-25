@@ -552,21 +552,27 @@ export interface Poll {
   close_date?: Integer;
 }
 
-/** This object represents a point on the map. */
-export interface Location {
-  /** Longitude as defined by sender */
-  longitude: Float;
-  /** Latitude as defined by sender */
-  latitude: Float;
-  /** The radius of uncertainty for the location, measured in meters; 0-1500 */
-  horizontal_accuracy?: Float;
-  /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
-  live_period?: Integer;
-  /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
-  heading?: Integer;
-  /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
-  proximity_alert_radius?: Integer;
+export namespace Location {
+  export interface CommonLocation {
+    /** Longitude as defined by sender */
+    longitude: Float;
+    /** Latitude as defined by sender */
+    latitude: Float;
+    /** The radius of uncertainty for the location, measured in meters; 0-1500 */
+    horizontal_accuracy?: Float;
+  }
+  export interface LiveLocation extends CommonLocation {
+    /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
+    live_period: Integer;
+    /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
+    heading: Integer;
+    /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+    proximity_alert_radius?: Integer;
+  }
 }
+
+/** This object represents a point on the map. */
+export type Location = Location.CommonLocation | Location.LiveLocation;
 
 /** This object represents a venue. */
 export interface Venue {
