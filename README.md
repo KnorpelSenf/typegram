@@ -27,6 +27,7 @@ In fact, this pattern is used for various types, namely:
 - `KeyboardButton`
 - `Message`
 - `MessageEntity`
+- `Location`
 - `Update`
 
 (Naturally, when the API specification is actually modelling types to be unions (e.g. `InlineQueryResult`), this is reflected here as a union type, too.)
