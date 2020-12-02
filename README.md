@@ -141,7 +141,7 @@ They can simply continue to be imported directly from `typegram`.
 They're handwritten.
 
 That is, they're of course not entirely handwritten.
-The initial version of them were produced in one afternoon by a combination of copying and pasting from the website, VIM magic, regular expressions and VSCode auto-formatting the rest.
+The initial version of them were produced in one afternoon by a combination of copying and pasting from the website, VIM magic, regular expressions, and VSCode auto-formatting the rest.
 
 After that, some more work and a few community contributions did the polishing.
 
