@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/KnorpelSenf/typegram/issues"
   },
+  "files": [
+    "*.d.ts"
+  ],
   "homepage": "https://github.com/KnorpelSenf/typegram#readme"
 }
