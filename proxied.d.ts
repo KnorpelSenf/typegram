@@ -28,6 +28,7 @@ import {
 import { PassportElementError } from "./passport";
 import { LabeledPrice, ShippingOption } from "./payment";
 import { Update } from "./update";
+import { ApiResponse } from "./api";
 
 /** Extracts the parameters of a given method name */
 type Params<M extends keyof Typegram<F>["Telegram"], F> = Parameters<
@@ -37,15 +38,33 @@ type Params<M extends keyof Typegram<F>["Telegram"], F> = Parameters<
 type Ret<M extends keyof Typegram<F>["Telegram"], F> = ReturnType<
   Typegram<F>["Telegram"][M]
 >;
+
+/** Wraps the given type into a promise */
+type P<T> = Promise<T>;
+/** Wraps the given type into an API response */
+type R<T> = ApiResponse<T>;
+
 /** Promisifies a given method signature */
 type Promisify<M extends keyof Typegram<F>["Telegram"], F> = (
   ...args: Params<M, F>
-) => Promise<Ret<M, F>>;
+) => P<Ret<M, F>>;
+/** Responsifies a given method signature */
+type Responsify<M extends keyof Typegram<F>["Telegram"], F> = (
+  ...args: Params<M, F>
+) => R<Ret<M, F>>;
+/** Responsifies and in turn promisifies a given method signature */
+type PromiseResponsify<M extends keyof Typegram<F>["Telegram"], F> = (
+  ...args: Params<M, F>
+) => P<R<Ret<M, F>>>;
 
 /** Proxy Type that enables customization of `InputFile` by transforming all affected types. */
 export interface Typegram<F> {
   /** Utility type providing a promisified version of Telegram */
   TelegramP: { [M in keyof Typegram<F>["Telegram"]]: Promisify<M, F> };
+  /** Utility type providing a version Telegram where all methods return ApiResponse objects instead of raw data */
+  TelegramR: { [M in keyof Typegram<F>["Telegram"]]: Responsify<M, F> };
+  /** Utility type providing a version Telegram where all methods return Promises of ApiResponse objects, combination of TelegramP and TelegramR */
+  TelegramPR: { [M in keyof Typegram<F>["Telegram"]]: PromiseResponsify<M, F> };
   /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
   Opts: {
     [M in keyof Typegram<F>["Telegram"]]: Params<M, F>[0] extends undefined

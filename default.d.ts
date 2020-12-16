@@ -15,6 +15,10 @@ export type Opts<
 
 /** Utility type providing a promisified version of Telegram */
 export type TelegramP = DefaultTypegram["TelegramP"];
+/** Utility type providing a version Telegram where all methods return ApiResponse objects instead of raw data */
+export type TelegramR = DefaultTypegram["TelegramR"];
+/** Utility type providing a version Telegram where all methods return Promises of ApiResponse objects, combination of TelegramP and TelegramR */
+export type TelegramPR = DefaultTypegram["TelegramPR"];
 
 /** This object represents the content of a media message to be sent. It should be one of
 - InputMediaAnimation
