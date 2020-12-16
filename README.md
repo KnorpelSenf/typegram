@@ -70,6 +70,21 @@ All of the methods are specified with the actual return type of the Telegram API
 If you need them to return `Promise`s instead, consider using `TelegramP`.
 This type maps all methods of `Telegram` to a promisified version.
 
+## Using API Response Objects
+
+The Telegram API does not return just the requested data in the body of the response objects.
+Instead, they are wrapped inside an object that has an `ok: boolean` status flag, indicating success or failure of the preceding API request.
+This outer object is modelled in `typegram` by the `ApiResponse` type.
+
+If you need the methods of `Telegram` to return `ApiResponse` objects instead of the raw data, consider using `TelegramR`.
+This works analogously to `TelegramP`.
+The type maps all methods of `Telegram` to a version where they return `ApiResponse` objects of the data, instead of the data themselves.
+
+## Using Both Promises and API Response Objects
+
+Yes.
+`TelegramPR`.
+
 ## Customizing `InputFile`
 
 The Telegram API lets bots send files in [three different ways](https://core.telegram.org/bots/api#sending-files).
