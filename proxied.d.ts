@@ -1,4 +1,5 @@
 import { Boolean, Float, Integer, String, True } from "./alias";
+import { ApiResponse } from "./api";
 import {
   ForceReply,
   ReplyKeyboardMarkup,
@@ -28,7 +29,6 @@ import {
 import { PassportElementError } from "./passport";
 import { LabeledPrice, ShippingOption } from "./payment";
 import { Update } from "./update";
-import { ApiResponse } from "./api";
 
 /** Extracts the parameters of a given method name */
 type Params<M extends keyof Typegram<F>["Telegram"], F> = Parameters<
