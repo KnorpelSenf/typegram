@@ -10,6 +10,16 @@ It contains zero bytes of executable code.
 npm install --save-dev typegram
 ```
 
+## Deno Support
+
+Deno projects can install directly from GitHub.
+
+```ts
+import { Message } from "https://raw.githubusercontent.com/KnorpelSenf/typegram/deno/index.d.ts";
+```
+
+These files are derived from the declaration files via `npm run derive-deno-files`.
+
 ## Available Types
 
 Generally this package just exposes a huge load of `interface`s that correspond to the **types** used throughout the Telegram API.
