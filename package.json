@@ -3,6 +3,10 @@
   "version": "3.1.1",
   "description": "Type declarations for the Telegram API",
   "main": "index.js",
+  "scripts": {
+    "prepare": "npm run derive-deno-files",
+    "derive-deno-files": "rm -rf deno && mkdir deno && cp *.d.ts deno && ls deno/* | xargs -I % sed -Ei -e 's/from(\\s+)\"\\.\\/([a-z\\-]+)\"/from\\1\".\\/\\2.d.ts\"/g' %"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KnorpelSenf/typegram.git"
