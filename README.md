@@ -130,7 +130,7 @@ You can now access all types that must respect `MyInputFile` through the `MyType
 // The `Telegram` type that contains all API methods:
 type Telegram = MyTypegram["Telegram"];
 // or, respectively
-type TelegramP = MyTypegram["TelegramP"];
+type TelegramP = MyTypegram["TelegramP"]; // same for TelegramR and TelegramPR
 
 // The utility type `Opts`:
 type Opts<M extends keyof Telegram> = MyTypegram["Opts"][M];
