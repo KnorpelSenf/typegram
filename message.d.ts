@@ -94,7 +94,7 @@ export namespace Message {
     contact: Contact;
   }
   export interface DiceMessage extends CommonMessage {
-    /** Message is a dice with random value from 1 to 6 */
+    /** Message is a dice with random value */
     dice: Dice;
   }
   export interface GameMessage extends CommonMessage {
