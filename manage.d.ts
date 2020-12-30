@@ -1,5 +1,5 @@
 import { Boolean, Integer, String, True } from "./alias";
-import { Message, PhotoSize } from "./message";
+import { Location, Message, PhotoSize } from "./message";
 
 /** Contains information about the current status of a webhook. */
 export interface WebhookInfo {

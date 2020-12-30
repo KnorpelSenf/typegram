@@ -16,6 +16,7 @@
     "typings"
   ],
   "author": "KnorpelSenf",
+  "types": "index.d.ts",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/KnorpelSenf/typegram/issues"
