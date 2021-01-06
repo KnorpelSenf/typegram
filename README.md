@@ -1,6 +1,6 @@
-# Types for the Telegram API
+# Types for the Telegram Bot API
 
-This project provides TypeScript types for the entire [Telegram API](https://core.telegram.org/bots/api) in version 5.0 which was released on November 4, 2020.
+This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.0 which was released on November 4, 2020.
 
 It contains zero bytes of executable code.
 
@@ -12,7 +12,7 @@ npm install --save-dev typegram
 
 ## Available Types
 
-Generally this package just exposes a huge load of `interface`s that correspond to the **types** used throughout the Telegram API.
+Generally this package just exposes a huge load of `interface`s that correspond to the **types** used throughout the Telegram Bot API.
 
 Note that the API specification sometimes only has one name for multiple variants of a type, e.g. there is a number of different `Update`s you can receive, but they're all just called `Update`.
 This package represents such types as large unions of all possible options of what an `Update` could be, such that type narrowing can work as expected on your side.
@@ -45,7 +45,7 @@ That is to say, it will not give you a type error or `undefined` (as opposed to 
 
 ## Caveat with JSON-Serialized Objects
 
-Some methods of the Telegram API are expected to be called with JSON-serialized objects contained in a property of the payload, rather than an actual JSON payload.
+Some methods of the Telegram Bot API are expected to be called with JSON-serialized objects contained in a property of the payload, rather than an actual JSON payload.
 In other words, the objects are serialized twice—the first time in order to conform with the docs, and the second time when the payload is actually sent in the POST body to the API server.
 
 The most prominent example is the `reply_markup` property that appears in a number of different methods, but more than a dozen other properties like this can be found throughout the API.
@@ -66,13 +66,13 @@ This makes sense for two reasons.
 
 ## Using Promises
 
-All of the methods are specified with the actual return type of the Telegram API.
+All of the methods are specified with the actual return type of the Telegram Bot API.
 If you need them to return `Promise`s instead, consider using `TelegramP`.
 This type maps all methods of `Telegram` to a promisified version.
 
 ## Using API Response Objects
 
-The Telegram API does not return just the requested data in the body of the response objects.
+The Telegram Bot API does not return just the requested data in the body of the response objects.
 Instead, they are wrapped inside an object that has an `ok: boolean` status flag, indicating success or failure of the preceding API request.
 This outer object is modelled in `typegram` by the `ApiResponse` type.
 
@@ -87,7 +87,7 @@ Yes.
 
 ## Customizing `InputFile`
 
-The Telegram API lets bots send files in [three different ways](https://core.telegram.org/bots/api#sending-files).
+The Telegram Bot API lets bots send files in [three different ways](https://core.telegram.org/bots/api#sending-files).
 Two of those ways are by specifying a `string`—either a `file_id` or a URL.
 The third option, however, is by uploading files to the server using multipart/form-data.
 
