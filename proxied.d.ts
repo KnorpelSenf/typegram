@@ -1195,9 +1195,9 @@ export interface Typegram<F> {
       /** New score, must be non-negative */
       score: Integer;
       /** Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters */
-      force: Boolean;
+      force?: Boolean;
       /** Pass True, if the game message should not be automatically edited to include the current scoreboard */
-      disable_edit_message: Boolean;
+      disable_edit_message?: Boolean;
       /** Required if inline_message_id is not specified. Unique identifier for the target chat */
       chat_id?: Integer;
       /** Required if inline_message_id is not specified. Identifier of the sent message */
