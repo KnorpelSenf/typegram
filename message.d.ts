@@ -31,7 +31,7 @@ export namespace Message {
     /** For forwarded messages, date the original message was sent in Unix time */
     forward_date?: Integer;
     /** For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
-    reply_to_message?: Omit<Message, "reply_to_message">;
+    reply_to_message?: Message & { reply_to_message: undefined };
     /** Bot through which the message was sent */
     via_bot?: User;
     /** Date the message was last edited in Unix time */
@@ -155,7 +155,7 @@ export namespace Message {
   }
   export interface PinnedMessageMessage extends ServiceMessage {
     /** Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
-    pinned_message: Omit<Message, "reply_to_message">;
+    pinned_message: Message & { reply_to_message: undefined };
   }
   export interface InvoiceMessage extends ServiceMessage {
     /** Message is an invoice for a payment, information about the invoice. More about payments » */
