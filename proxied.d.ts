@@ -570,7 +570,7 @@ export interface Typegram<F> {
     sendPoll(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: Integer | String;
-      /** Poll question, 1-255 characters */
+      /** Poll question, 1-300 characters */
       question: String;
       /** A JSON-serialized list of answer options, 2-10 strings 1-100 characters each */
       options: readonly String[];
