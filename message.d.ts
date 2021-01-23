@@ -175,7 +175,7 @@ export namespace Message {
   }
   export interface ProximityAlertTriggeredMessage extends ServiceMessage {
     /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
-    proximity_alert_triggered?: ProximityAlertTriggered;
+    proximity_alert_triggered: ProximityAlertTriggered;
   }
 }
 
