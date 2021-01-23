@@ -31,7 +31,7 @@ export namespace Message {
     /** For forwarded messages, date the original message was sent in Unix time */
     forward_date?: Integer;
     /** For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
-    reply_to_message?: Message & { reply_to_message: undefined };
+    reply_to_message?: ReplyMessage;
     /** Bot through which the message was sent */
     via_bot?: User;
     /** Date the message was last edited in Unix time */
@@ -155,7 +155,7 @@ export namespace Message {
   }
   export interface PinnedMessageMessage extends ServiceMessage {
     /** Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
-    pinned_message: Message & { reply_to_message: undefined };
+    pinned_message: ReplyMessage;
   }
   export interface InvoiceMessage extends ServiceMessage {
     /** Message is an invoice for a payment, information about the invoice. More about payments » */
@@ -179,21 +179,14 @@ export namespace Message {
   }
 }
 
-/** This object represents a message. */
-export type Message =
-  | Message.AnimationMessage
-  | Message.AudioMessage
+/** Helper type that bundles all possible `Message.ServiceMessage`s. More specifically, bundles all messages that do not have a `reply_to_message` field, i.e. are not a `Message.CommonMessage`. */
+type ServiceMessageBundle =
   | Message.ChannelChatCreatedMessage
   | Message.ConnectedWebsiteMessage
-  | Message.ContactMessage
   | Message.DeleteChatPhotoMessage
-  | Message.DiceMessage
-  | Message.DocumentMessage
-  | Message.GameMessage
   | Message.GroupChatCreatedMessage
   | Message.InvoiceMessage
   | Message.LeftChatMemberMessage
-  | Message.LocationMessage
   | Message.MigrateFromChatIdMessage
   | Message.MigrateToChatIdMessage
   | Message.NewChatMembersMessage
@@ -201,17 +194,34 @@ export type Message =
   | Message.NewChatTitleMessage
   | Message.PassportDataMessage
   | Message.ProximityAlertTriggeredMessage
-  | Message.PhotoMessage
   | Message.PinnedMessageMessage
+  | Message.SuccessfulPaymentMessage
+  | Message.SupergroupChatCreated;
+
+/** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
+type CommonMessageBundle =
+  | Message.AnimationMessage
+  | Message.AudioMessage
+  | Message.ContactMessage
+  | Message.DiceMessage
+  | Message.DocumentMessage
+  | Message.GameMessage
+  | Message.LocationMessage
+  | Message.PhotoMessage
   | Message.PollMessage
   | Message.StickerMessage
-  | Message.SuccessfulPaymentMessage
-  | Message.SupergroupChatCreated
   | Message.TextMessage
   | Message.VenueMessage
   | Message.VideoMessage
   | Message.VideoNoteMessage
   | Message.VoiceMessage;
+
+type ReplyMessage =
+  | ServiceMessageBundle
+  | (CommonMessageBundle & { reply_to_message: undefined });
+
+/** This object represents a message. */
+export type Message = ServiceMessageBundle | CommonMessageBundle;
 
 /** This object represents a unique message identifier. */
 export interface MessageId {
