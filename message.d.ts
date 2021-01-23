@@ -216,6 +216,7 @@ type CommonMessageBundle =
   | Message.VideoNoteMessage
   | Message.VoiceMessage;
 
+/** Helper type that represents a message which occurs in a `reply_to_message` field. */
 type ReplyMessage =
   | ServiceMessageBundle
   | (CommonMessageBundle & { reply_to_message: undefined });
