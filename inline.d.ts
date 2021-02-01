@@ -266,7 +266,7 @@ export interface InlineQueryResultVideo {
   /** A valid URL for the embedded video player or video file */
   video_url: String;
   /** Mime type of the content of video url, “text/html” or “video/mp4” */
-  mime_type: String;
+  mime_type: "text/html" | "video/mp4";
   /** URL of the thumbnail (jpeg only) for the video */
   thumb_url: String;
   /** Title for the result */
@@ -362,7 +362,7 @@ export interface InlineQueryResultDocument {
   /** A valid URL for the file */
   document_url: String;
   /** Mime type of the content of the file, either “application/pdf” or “application/zip” */
-  mime_type: String;
+  mime_type: "application/pdf" | "application/zip";
   /** Short description of the result */
   description?: String;
   /** Inline keyboard attached to the message */
