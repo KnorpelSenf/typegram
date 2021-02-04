@@ -5,7 +5,6 @@
   "main": "index.js",
   "exports": {
     ".": "./index.js",
-    "./alias": "./index.js",
     "./api": "./index.js",
     "./callback": "./index.js",
     "./default": "./index.js",

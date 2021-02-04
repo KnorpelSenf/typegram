@@ -1,4 +1,3 @@
-import { Boolean, Float, Integer, String, True } from "./alias";
 import { InlineKeyboardMarkup } from "./inline";
 import { Chat, User } from "./manage";
 import { PassportData } from "./passport";
@@ -7,13 +6,13 @@ import { Invoice, SuccessfulPayment } from "./payment";
 export namespace Message {
   interface ServiceMessage {
     /** Unique message identifier inside this chat */
-    message_id: Integer;
+    message_id: number;
     /** Sender, empty for messages sent to channels */
     from?: User;
     /** Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group */
     sender_chat?: Chat;
     /** Date the message was sent in Unix time */
-    date: Integer;
+    date: number;
     /** Conversation the message belongs to */
     chat: Chat;
   }
@@ -23,39 +22,39 @@ export namespace Message {
     /** For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
     forward_from_chat?: Chat;
     /** For messages forwarded from channels, identifier of the original message in the channel */
-    forward_from_message_id?: Integer;
+    forward_from_message_id?: number;
     /** For messages forwarded from channels, signature of the post author if present */
-    forward_signature?: String;
+    forward_signature?: string;
     /** Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
-    forward_sender_name?: String;
+    forward_sender_name?: string;
     /** For forwarded messages, date the original message was sent in Unix time */
-    forward_date?: Integer;
+    forward_date?: number;
     /** For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
     reply_to_message?: ReplyMessage;
     /** Bot through which the message was sent */
     via_bot?: User;
     /** Date the message was last edited in Unix time */
-    edit_date?: Integer;
+    edit_date?: number;
     /** Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
-    author_signature?: String;
+    author_signature?: string;
     /** Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
     reply_markup?: InlineKeyboardMarkup;
   }
   export interface TextMessage extends CommonMessage {
     /** For text messages, the actual UTF-8 text of the message, 0-4096 characters */
-    text: String;
+    text: string;
     /** For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text */
     entities?: MessageEntity[];
   }
   interface CaptionableMessage extends CommonMessage {
     /** Caption for the animation, audio, document, photo, video or voice, 0-1024 characters */
-    caption?: String;
+    caption?: string;
     /** For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption */
     caption_entities?: MessageEntity[];
   }
   interface MediaMessage extends CaptionableMessage {
     /** The unique identifier of a media message group this message belongs to */
-    media_group_id?: String;
+    media_group_id?: string;
   }
   export interface AudioMessage extends CaptionableMessage {
     /** Message is an audio file, information about the file */
@@ -123,7 +122,7 @@ export namespace Message {
   }
   export interface NewChatTitleMessage extends ServiceMessage {
     /** A chat title was changed to this value */
-    new_chat_title: String;
+    new_chat_title: string;
   }
   export interface NewChatPhotoMessage extends ServiceMessage {
     /** A chat photo was change to this value */
@@ -131,27 +130,27 @@ export namespace Message {
   }
   export interface DeleteChatPhotoMessage extends ServiceMessage {
     /** Service message: the chat photo was deleted */
-    delete_chat_photo: True;
+    delete_chat_photo: true;
   }
   export interface GroupChatCreatedMessage extends ServiceMessage {
     /** Service message: the group has been created */
-    group_chat_created: True;
+    group_chat_created: true;
   }
   export interface SupergroupChatCreated extends ServiceMessage {
     /** Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup. */
-    supergroup_chat_created: True;
+    supergroup_chat_created: true;
   }
   export interface ChannelChatCreatedMessage extends ServiceMessage {
     /** Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel. */
-    channel_chat_created: True;
+    channel_chat_created: true;
   }
   export interface MigrateToChatIdMessage extends ServiceMessage {
     /** The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
-    migrate_to_chat_id: Integer;
+    migrate_to_chat_id: number;
   }
   export interface MigrateFromChatIdMessage extends ServiceMessage {
     /** The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
-    migrate_from_chat_id: Integer;
+    migrate_from_chat_id: number;
   }
   export interface PinnedMessageMessage extends ServiceMessage {
     /** Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
@@ -167,7 +166,7 @@ export namespace Message {
   }
   export interface ConnectedWebsiteMessage extends ServiceMessage {
     /** The domain name of the website on which the user has logged in. More about Telegram Login » */
-    connected_website: String;
+    connected_website: string;
   }
   export interface PassportDataMessage extends ServiceMessage {
     /** Telegram Passport data */
@@ -227,7 +226,7 @@ export type Message = ServiceMessageBundle | CommonMessageBundle;
 /** This object represents a unique message identifier. */
 export interface MessageId {
   /** Unique message identifier */
-  message_id: Integer;
+  message_id: number;
 }
 
 /** The Bot API supports basic formatting for messages. You can use bold, italic, underlined and strikethrough text, as well as inline links and pre-formatted code in your bots' messages. Telegram clients will render them accordingly. You can use either markdown-style or HTML-style formatting.
@@ -322,11 +321,11 @@ export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 export namespace MessageEntity {
   interface AbstractMessageEntity {
     /** Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
-    type: String;
+    type: string;
     /** Offset in UTF-16 code units to the start of the entity */
-    offset: Integer;
+    offset: number;
     /** Length of the entity in UTF-16 code units */
-    length: Integer;
+    length: number;
   }
   export interface CommonMessageEntity extends AbstractMessageEntity {
     type:
@@ -346,7 +345,7 @@ export namespace MessageEntity {
   export interface TextLinkMessageEntity extends AbstractMessageEntity {
     type: "text_link";
     /** For “text_link” only, url that will be opened after user taps on the text */
-    url: String;
+    url: string;
   }
   export interface TextMentionMessageEntity extends AbstractMessageEntity {
     type: "text_mention";
@@ -356,7 +355,7 @@ export namespace MessageEntity {
   export interface PreMessageEntity extends AbstractMessageEntity {
     type: "pre";
     /** For “pre” only, the programming language of the entity text */
-    language?: String;
+    language?: string;
   }
 }
 
@@ -370,57 +369,57 @@ export type MessageEntity =
 /** This object represents one size of a photo or a file / sticker thumbnail. */
 export interface PhotoSize {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Photo width */
-  width: Integer;
+  width: number;
   /** Photo height */
-  height: Integer;
+  height: number;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound). */
 export interface Animation {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Video width as defined by sender */
-  width: Integer;
+  width: number;
   /** Video height as defined by sender */
-  height: Integer;
+  height: number;
   /** Duration of the video in seconds as defined by sender */
-  duration: Integer;
+  duration: number;
   /** Animation thumbnail as defined by sender */
   thumb?: PhotoSize;
   /** Original animation filename as defined by sender */
-  file_name?: String;
+  file_name?: string;
   /** MIME type of the file as defined by sender */
-  mime_type?: String;
+  mime_type?: string;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents an audio file to be treated as music by the Telegram clients. */
 export interface Audio {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Duration of the audio in seconds as defined by sender */
-  duration: Integer;
+  duration: number;
   /** Performer of the audio as defined by sender or by audio tags */
-  performer?: String;
+  performer?: string;
   /** Title of the audio as defined by sender or by audio tags */
-  title?: String;
+  title?: string;
   /** Original filename as defined by sender */
-  file_name?: String;
+  file_name?: string;
   /** MIME type of the file as defined by sender */
-  mime_type?: String;
+  mime_type?: string;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
   /** Thumbnail of the album cover to which the music file belongs */
   thumb?: PhotoSize;
 }
@@ -428,157 +427,157 @@ export interface Audio {
 /** This object represents a general file (as opposed to photos, voice messages and audio files). */
 export interface Document {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Document thumbnail as defined by sender */
   thumb?: PhotoSize;
   /** Original filename as defined by sender */
-  file_name?: String;
+  file_name?: string;
   /** MIME type of the file as defined by sender */
-  mime_type?: String;
+  mime_type?: string;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents a video file. */
 export interface Video {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Video width as defined by sender */
-  width: Integer;
+  width: number;
   /** Video height as defined by sender */
-  height: Integer;
+  height: number;
   /** Duration of the video in seconds as defined by sender */
-  duration: Integer;
+  duration: number;
   /** Video thumbnail */
   thumb?: PhotoSize;
   /** Original filename as defined by sender */
-  file_name?: String;
+  file_name?: string;
   /** Mime type of a file as defined by sender */
-  mime_type?: String;
+  mime_type?: string;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents a video message (available in Telegram apps as of v.4.0). */
 export interface VideoNote {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Video width and height (diameter of the video message) as defined by sender */
-  length: Integer;
+  length: number;
   /** Duration of the video in seconds as defined by sender */
-  duration: Integer;
+  duration: number;
   /** Video thumbnail */
   thumb?: PhotoSize;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents a voice note. */
 export interface Voice {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Duration of the audio in seconds as defined by sender */
-  duration: Integer;
+  duration: number;
   /** MIME type of the file as defined by sender */
-  mime_type?: String;
+  mime_type?: string;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents a phone contact. */
 export interface Contact {
   /** Contact's phone number */
-  phone_number: String;
+  phone_number: string;
   /** Contact's first name */
-  first_name: String;
+  first_name: string;
   /** Contact's last name */
-  last_name?: String;
+  last_name?: string;
   /** Contact's user identifier in Telegram */
-  user_id?: Integer;
+  user_id?: number;
   /** Additional data about the contact in the form of a vCard */
-  vcard?: String;
+  vcard?: string;
 }
 
 /** This object represents an animated emoji that displays a random value. */
 export interface Dice {
   /** Emoji on which the dice throw animation is based */
-  emoji: String;
+  emoji: string;
   /** Value of the dice, 1-6 for “🎲” and “🎯” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji */
-  value: Integer;
+  value: number;
 }
 
 /** This object contains information about one answer option in a poll. */
 export interface PollOption {
   /** Option text, 1-100 characters */
-  text: String;
+  text: string;
   /** Number of users that voted for this option */
-  voter_count: Integer;
+  voter_count: number;
 }
 
 /** This object represents an answer of a user in a non-anonymous poll. */
 export interface PollAnswer {
   /** Unique poll identifier */
-  poll_id: String;
+  poll_id: string;
   /** The user, who changed the answer to the poll */
   user: User;
   /** 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote. */
-  option_ids: Integer[];
+  option_ids: number[];
 }
 
 /** This object contains information about a poll. */
 export interface Poll {
   /** Unique poll identifier */
-  id: String;
+  id: string;
   /** Poll question, 1-300 characters */
-  question: String;
+  question: string;
   /** List of poll options */
   options: PollOption[];
   /** Total number of users that voted in the poll */
-  total_voter_count: Integer;
+  total_voter_count: number;
   /** True, if the poll is closed */
-  is_closed: Boolean;
+  is_closed: boolean;
   /** True, if the poll is anonymous */
-  is_anonymous: Boolean;
+  is_anonymous: boolean;
   /** Poll type, currently can be “regular” or “quiz” */
   type: "regular" | "quiz";
   /** True, if the poll allows multiple answers */
-  allows_multiple_answers: Boolean;
+  allows_multiple_answers: boolean;
   /** 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot. */
-  correct_option_id?: Integer;
+  correct_option_id?: number;
   /** Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters */
-  explanation?: String;
+  explanation?: string;
   /** Special entities like usernames, URLs, bot commands, etc. that appear in the explanation */
   explanation_entities?: MessageEntity[];
   /** Amount of time in seconds the poll will be active after creation */
-  open_period?: Integer;
+  open_period?: number;
   /** Point in time (Unix timestamp) when the poll will be automatically closed */
-  close_date?: Integer;
+  close_date?: number;
 }
 
 export namespace Location {
   export interface CommonLocation {
     /** Longitude as defined by sender */
-    longitude: Float;
+    longitude: number;
     /** Latitude as defined by sender */
-    latitude: Float;
+    latitude: number;
     /** The radius of uncertainty for the location, measured in meters; 0-1500 */
-    horizontal_accuracy?: Float;
+    horizontal_accuracy?: number;
   }
   export interface LiveLocation extends CommonLocation {
     /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
-    live_period: Integer;
+    live_period: number;
     /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
-    heading: Integer;
+    heading: number;
     /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
-    proximity_alert_radius?: Integer;
+    proximity_alert_radius?: number;
   }
 }
 
@@ -590,17 +589,17 @@ export interface Venue {
   /** Venue location. Can't be a live location */
   location: Location;
   /** Name of the venue */
-  title: String;
+  title: string;
   /** Address of the venue */
-  address: String;
+  address: string;
   /** Foursquare identifier of the venue */
-  foursquare_id?: String;
+  foursquare_id?: string;
   /** Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
-  foursquare_type?: String;
+  foursquare_type?: string;
   /** Google Places identifier of the venue */
-  google_place_id?: String;
+  google_place_id?: string;
   /** Google Places type of the venue. (See supported types.) */
-  google_place_type?: String;
+  google_place_type?: string;
 }
 
 /** This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user. */
@@ -610,43 +609,43 @@ export interface ProximityAlertTriggered {
   /** User that set the alert */
   watcher: User;
   /** The distance between the users */
-  distance: Integer;
+  distance: number;
 }
 
 /** This object represents a sticker. */
 export interface Sticker {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** Sticker width */
-  width: Integer;
+  width: number;
   /** Sticker height */
-  height: Integer;
+  height: number;
   /** True, if the sticker is animated */
-  is_animated: Boolean;
+  is_animated: boolean;
   /** Sticker thumbnail in the .WEBP or .JPG format */
   thumb?: PhotoSize;
   /** Emoji associated with the sticker */
-  emoji?: String;
+  emoji?: string;
   /** Name of the sticker set to which the sticker belongs */
-  set_name?: String;
+  set_name?: string;
   /** For mask stickers, the position where the mask should be placed */
   mask_position?: MaskPosition;
   /** File size */
-  file_size?: Integer;
+  file_size?: number;
 }
 
 /** This object represents a sticker set. */
 export interface StickerSet {
   /** Sticker set name */
-  name: String;
+  name: string;
   /** Sticker set title */
-  title: String;
+  title: string;
   /** True, if the sticker set contains animated stickers */
-  is_animated: Boolean;
+  is_animated: boolean;
   /** True, if the sticker set contains masks */
-  contains_masks: Boolean;
+  contains_masks: boolean;
   /** List of all set stickers */
   stickers: Sticker[];
   /** Sticker set thumbnail in the .WEBP or .TGS format */
@@ -658,23 +657,23 @@ export interface MaskPosition {
   /** The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”. */
   point: "forehead" | "eyes" | "mouth" | "chin";
   /** Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position. */
-  x_shift: Float;
+  x_shift: number;
   /** Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. For example, 1.0 will place the mask just below the default mask position. */
-  y_shift: Float;
+  y_shift: number;
   /** Mask scaling coefficient. For example, 2.0 means double size. */
-  scale: Float;
+  scale: number;
 }
 
 /** This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers. */
 export interface Game {
   /** Title of the game */
-  title: String;
+  title: string;
   /** Description of the game */
-  description: String;
+  description: string;
   /** Photo that will be displayed in the game message in chats. */
   photo: PhotoSize[];
   /** Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls setGameScore, or manually edited using editMessageText. 0-4096 characters. */
-  text: String;
+  text: string;
   /** Special entities that appear in text, such as usernames, URLs, bot commands, etc. */
   text_entities: MessageEntity[];
   /** Animation that will be displayed in the game message in chats. Upload via BotFather */
@@ -684,9 +683,9 @@ export interface Game {
 /** This object represents one row of the high scores table for a game. */
 export interface GameHighScore {
   /** Position in high score table for the game */
-  position: Integer;
+  position: number;
   /** User */
   user: User;
   /** Score */
-  score: Integer;
+  score: number;
 }

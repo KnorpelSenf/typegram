@@ -1,5 +1,3 @@
-import { Integer, String } from "./alias";
-
 /** Contains information about Telegram Passport data shared with the bot by the user. */
 export interface PassportData {
   /** Array with information about documents and other Telegram Passport elements that was shared with the bot */
@@ -11,13 +9,13 @@ export interface PassportData {
 /** This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB. */
 export interface PassportFile {
   /** Identifier for this file, which can be used to download or reuse the file */
-  file_id: String;
+  file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
-  file_unique_id: String;
+  file_unique_id: string;
   /** File size */
-  file_size: Integer;
+  file_size: number;
   /** Unix time when the file was uploaded */
-  file_date: Integer;
+  file_date: number;
 }
 
 /** Contains information about documents or other Telegram Passport elements shared with the bot by the user. */
@@ -38,11 +36,11 @@ export interface EncryptedPassportElement {
     | "phone_number"
     | "email";
   /** Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying EncryptedCredentials. */
-  data?: String;
+  data?: string;
   /** User's verified phone number, available only for “phone_number” type */
-  phone_number?: String;
+  phone_number?: string;
   /** User's verified email address, available only for “email” type */
-  email?: String;
+  email?: string;
   /** Array of encrypted files with documents provided by the user, available for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials. */
   files?: PassportFile[];
   /** Encrypted file with the front side of the document, provided by the user. Available for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials. */
@@ -54,17 +52,17 @@ export interface EncryptedPassportElement {
   /** Array of encrypted files with translated versions of documents provided by the user. Available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials. */
   translation?: PassportFile[];
   /** Base64-encoded element hash for using in PassportElementErrorUnspecified */
-  hash: String;
+  hash: string;
 }
 
 /** Contains data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes. */
 export interface EncryptedCredentials {
   /** Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication */
-  data: String;
+  data: string;
   /** Base64-encoded data hash for data authentication */
-  hash: String;
+  hash: string;
   /** Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption */
-  secret: String;
+  secret: string;
 }
 
 /** This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
@@ -102,11 +100,11 @@ export interface PassportElementErrorDataField {
     | "internal_passport"
     | "address";
   /** Name of the data field which has the error */
-  field_name: String;
+  field_name: string;
   /** Base64-encoded data hash */
-  data_hash: String;
+  data_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes. */
@@ -116,9 +114,9 @@ export interface PassportElementErrorFrontSide {
   /** The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport” */
   type: "passport" | "driver_license" | "identity_card" | "internal_passport";
   /** Base64-encoded hash of the file with the front side of the document */
-  file_hash: String;
+  file_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes. */
@@ -128,9 +126,9 @@ export interface PassportElementErrorReverseSide {
   /** The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card” */
   type: "driver_license" | "identity_card";
   /** Base64-encoded hash of the file with the reverse side of the document */
-  file_hash: String;
+  file_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes. */
@@ -140,9 +138,9 @@ export interface PassportElementErrorSelfie {
   /** The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport” */
   type: "passport" | "driver_license" | "identity_card" | "internal_passport";
   /** Base64-encoded hash of the file with the selfie */
-  file_hash: String;
+  file_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes. */
@@ -157,9 +155,9 @@ export interface PassportElementErrorFile {
     | "passport_registration"
     | "temporary_registration";
   /** Base64-encoded file hash */
-  file_hash: String;
+  file_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes. */
@@ -174,9 +172,9 @@ export interface PassportElementErrorFiles {
     | "passport_registration"
     | "temporary_registration";
   /** List of base64-encoded file hashes */
-  file_hashes: String[];
+  file_hashes: string[];
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes. */
@@ -195,9 +193,9 @@ export interface PassportElementErrorTranslationFile {
     | "passport_registration"
     | "temporary_registration";
   /** Base64-encoded file hash */
-  file_hash: String;
+  file_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change. */
@@ -216,9 +214,9 @@ export interface PassportElementErrorTranslationFiles {
     | "passport_registration"
     | "temporary_registration";
   /** List of base64-encoded file hashes */
-  file_hashes: String[];
+  file_hashes: string[];
   /** Error message */
-  message: String;
+  message: string;
 }
 
 /** Represents an issue in an unspecified place. The error is considered resolved when new data is added. */
@@ -226,9 +224,9 @@ export interface PassportElementErrorUnspecified {
   /** Error source, must be unspecified */
   source: "unspecified";
   /** Type of element of the user's Telegram Passport which has the issue */
-  type: String;
+  type: string;
   /** Base64-encoded element hash */
-  element_hash: String;
+  element_hash: string;
   /** Error message */
-  message: String;
+  message: string;
 }

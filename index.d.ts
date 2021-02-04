@@ -1,4 +1,3 @@
-export * from "./alias";
 export * from "./api";
 export * from "./callback";
 export * from "./default";
