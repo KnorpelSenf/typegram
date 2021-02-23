@@ -1,0 +1,24 @@
+{
+  "name": "grammy-types",
+  "version": "1.0.0",
+  "description": "Telegram Bot API type declarations for grammY",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grammy-js/grammy-types.git"
+  },
+  "keywords": [
+    "grammy",
+    "telegram",
+    "bot",
+    "api",
+    "types"
+  ],
+  "author": "KnorpelSenf",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grammy-js/grammy-types/issues"
+  },
+  "homepage": "https://github.com/grammy-js/grammy-types#readme"
+}
