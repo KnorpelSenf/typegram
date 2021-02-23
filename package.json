@@ -1,5 +1,5 @@
 {
-  "name": "grammy-types",
+  "name": "@grammy/types",
   "version": "1.0.0",
   "description": "Telegram Bot API type declarations for grammY",
   "main": "index.js",
