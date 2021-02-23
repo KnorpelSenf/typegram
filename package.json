@@ -3,6 +3,20 @@
   "version": "3.1.9",
   "description": "Type declarations for the Telegram API",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./alias": "./index.js",
+    "./api": "./index.js",
+    "./callback": "./index.js",
+    "./default": "./index.js",
+    "./inline": "./index.js",
+    "./manage": "./index.js",
+    "./message": "./index.js",
+    "./passport": "./index.js",
+    "./payment": "./index.js",
+    "./proxied": "./index.js",
+    "./update": "./index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KnorpelSenf/typegram.git"
