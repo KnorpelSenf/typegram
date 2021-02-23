@@ -30,12 +30,12 @@ import { LabeledPrice, ShippingOption } from "./payment";
 import { Update } from "./update";
 
 /** Extracts the parameters of a given method name */
-type Params<M extends keyof Typegram<F>["Telegram"], F> = Parameters<
-  Typegram<F>["Telegram"][M]
+type Params<M extends keyof InputFileProxy<F>["Telegram"], F> = Parameters<
+  InputFileProxy<F>["Telegram"][M]
 >;
 /** Extracts the return type of a given method name */
-type Ret<M extends keyof Typegram<F>["Telegram"], F> = ReturnType<
-  Typegram<F>["Telegram"][M]
+type Ret<M extends keyof InputFileProxy<F>["Telegram"], F> = ReturnType<
+  InputFileProxy<F>["Telegram"][M]
 >;
 
 /** Wraps the given type into a promise */
@@ -44,29 +44,29 @@ type P<T> = Promise<T>;
 type R<T> = ApiResponse<T>;
 
 /** Promisifies a given method signature */
-type Promisify<M extends keyof Typegram<F>["Telegram"], F> = (
+type Promisify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
   ...args: Params<M, F>
 ) => P<Ret<M, F>>;
 /** Responsifies a given method signature */
-type Responsify<M extends keyof Typegram<F>["Telegram"], F> = (
+type Responsify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
   ...args: Params<M, F>
 ) => R<Ret<M, F>>;
 /** Responsifies and in turn promisifies a given method signature */
-type PromiseResponsify<M extends keyof Typegram<F>["Telegram"], F> = (
+type PromiseResponsify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
   ...args: Params<M, F>
 ) => P<R<Ret<M, F>>>;
 
 /** Proxy Type that enables customization of `InputFile` by transforming all affected types. */
-export interface Typegram<F> {
+export interface InputFileProxy<F> {
   /** Utility type providing a promisified version of Telegram */
-  TelegramP: { [M in keyof Typegram<F>["Telegram"]]: Promisify<M, F> };
+  TelegramP: { [M in keyof InputFileProxy<F>["Telegram"]]: Promisify<M, F> };
   /** Utility type providing a version Telegram where all methods return ApiResponse objects instead of raw data */
-  TelegramR: { [M in keyof Typegram<F>["Telegram"]]: Responsify<M, F> };
+  TelegramR: { [M in keyof InputFileProxy<F>["Telegram"]]: Responsify<M, F> };
   /** Utility type providing a version Telegram where all methods return Promises of ApiResponse objects, combination of TelegramP and TelegramR */
-  TelegramPR: { [M in keyof Typegram<F>["Telegram"]]: PromiseResponsify<M, F> };
+  TelegramPR: { [M in keyof InputFileProxy<F>["Telegram"]]: PromiseResponsify<M, F> };
   /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
   Opts: {
-    [M in keyof Typegram<F>["Telegram"]]: Params<M, F>[0] extends undefined ? {}
+    [M in keyof InputFileProxy<F>["Telegram"]]: Params<M, F>[0] extends undefined ? {}
       : Exclude<Params<M, F>[0], undefined>;
   };
 
@@ -422,10 +422,10 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** A JSON-serialized array describing messages to be sent, must include 2-10 items */
       media: ReadonlyArray<
-        | Typegram<F>["InputMediaAudio"]
-        | Typegram<F>["InputMediaDocument"]
-        | Typegram<F>["InputMediaPhoto"]
-        | Typegram<F>["InputMediaVideo"]
+        | InputFileProxy<F>["InputMediaAudio"]
+        | InputFileProxy<F>["InputMediaDocument"]
+        | InputFileProxy<F>["InputMediaPhoto"]
+        | InputFileProxy<F>["InputMediaVideo"]
       >;
       /** Sends the messages silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -922,7 +922,7 @@ export interface Typegram<F> {
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: string;
       /** A JSON-serialized object for a new media content of the message */
-      media: Typegram<F>["InputMedia"];
+      media: InputFileProxy<F>["InputMedia"];
       /** A JSON-serialized object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }):
@@ -1226,11 +1226,11 @@ export interface Typegram<F> {
   - InputMediaPhoto
   - InputMediaVideo */
   InputMedia:
-    | Typegram<F>["InputMediaAnimation"]
-    | Typegram<F>["InputMediaDocument"]
-    | Typegram<F>["InputMediaAudio"]
-    | Typegram<F>["InputMediaPhoto"]
-    | Typegram<F>["InputMediaVideo"];
+    | InputFileProxy<F>["InputMediaAnimation"]
+    | InputFileProxy<F>["InputMediaDocument"]
+    | InputFileProxy<F>["InputMediaAudio"]
+    | InputFileProxy<F>["InputMediaPhoto"]
+    | InputFileProxy<F>["InputMediaVideo"];
 
   /** Represents a photo to be sent. */
   InputMediaPhoto: {
