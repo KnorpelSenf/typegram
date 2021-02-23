@@ -45,7 +45,7 @@ export type KeyboardButton =
 /** This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed. */
 export interface KeyboardButtonPollType {
   /** If quiz is passed, the user will be allowed to create only polls in the quiz mode. If regular is passed, only regular polls will be allowed. Otherwise, the user will be allowed to create a poll of any type. */
-  type?: string;
+  type?: "quiz" | "regular";
 }
 
 /** Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup). */
