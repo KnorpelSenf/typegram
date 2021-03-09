@@ -1,6 +1,6 @@
 # Types for the Telegram Bot API
 
-This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.0 which was released on November 4, 2020.
+This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.1 which was released on March 9, 2021.
 
 It contains zero bytes of executable code.
 
