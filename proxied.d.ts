@@ -8,6 +8,7 @@ import { InlineKeyboardMarkup, InlineQueryResult } from "./inline";
 import {
   BotCommand,
   ChatFromGetChat,
+  ChatInviteLink,
   ChatMember,
   ChatPermissions,
   File,
@@ -85,8 +86,9 @@ export interface Typegram<F> {
       limit?: number;
       /** Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only. */
       timeout?: number;
-      /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
-    Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
+      /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
+
+      Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
       allowed_updates?: readonly string[];
     }): Update[];
 
@@ -172,7 +174,7 @@ export interface Typegram<F> {
       message_id: number;
     }): Message;
 
-    /** Use this method to copy messages of any kind. The method is analogous to the method forwardMessages, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
+    /** Use this method to copy messages of any kind. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
     copyMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -611,7 +613,7 @@ export interface Typegram<F> {
     sendDice(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
-      /** Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, or “🎰”. Dice can have values 1-6 for “🎲” and “🎯”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲” */
+      /** Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲” */
       emoji?: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -675,6 +677,8 @@ export interface Typegram<F> {
       user_id: number;
       /** Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only. */
       until_date?: number;
+      /** Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels. */
+      revoke_messages?: boolean;
     }): true;
 
     /** Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success. */
@@ -707,22 +711,26 @@ export interface Typegram<F> {
       user_id: number;
       /** Pass True, if the administrator's presence in the chat is hidden */
       is_anonymous?: boolean;
-      /** Pass True, if the administrator can change chat title, photo and other settings */
-      can_change_info?: boolean;
+      /** Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergoups and ignore slow mode. Implied by any other administrator privilege */
+      can_manage_chat?: boolean;
       /** Pass True, if the administrator can create channel posts, channels only */
       can_post_messages?: boolean;
       /** Pass True, if the administrator can edit messages of other users and can pin messages, channels only */
       can_edit_messages?: boolean;
       /** Pass True, if the administrator can delete messages of other users */
       can_delete_messages?: boolean;
-      /** Pass True, if the administrator can invite new users to the chat */
-      can_invite_users?: boolean;
+      /** Pass True, if the administrator can manage voice chats, supergroups only */
+      can_manage_voice_chats?: boolean;
       /** Pass True, if the administrator can restrict, ban or unban chat members */
       can_restrict_members?: boolean;
-      /** Pass True, if the administrator can pin messages, supergroups only */
-      can_pin_messages?: boolean;
       /** Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) */
       can_promote_members?: boolean;
+      /** Pass True, if the administrator can change chat title, photo and other settings */
+      can_change_info?: boolean;
+      /** Pass True, if the administrator can invite new users to the chat */
+      can_invite_users?: boolean;
+      /** Pass True, if the administrator can pin messages, supergroups only */
+      can_pin_messages?: boolean;
     }): true;
 
     /** Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success. */
@@ -743,13 +751,43 @@ export interface Typegram<F> {
       permissions: ChatPermissions;
     }): true;
 
-    /** Use this method to generate a new invite link for a chat; any previously generated link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
+    /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
 
-    Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink — after this the link will become available to the bot via the getChat method. If your bot needs to generate a new invite link replacing its previous one, use exportChatInviteLink again. */
+    Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink or by calling the getChat method. If your bot needs to generate a new primary invite link replacing its previous one, use exportChatInviteLink again. */
     exportChatInviteLink(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
     }): string;
+
+    /** Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. */
+    createChatInviteLink(args: {
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** Point in time (Unix timestamp) when the link will expire */
+      expire_date?: number;
+      /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+      member_limit?: number;
+    }): ChatInviteLink;
+
+    /** Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the edited invite link as a ChatInviteLink object. */
+    editChatInviteLink(args: {
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** The invite link to edit */
+      invite_link: string;
+      /** Point in time (Unix timestamp) when the link will expire */
+      expire_date?: number;
+      /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+      member_limit?: number;
+    }): ChatInviteLink;
+
+    /** Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the revoked invite link as ChatInviteLink object. */
+    revokeChatInviteLink(args: {
+      /** Unique identifier of the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** The invite link to revoke*/
+      invite_link: string;
+    }): ChatInviteLink;
 
     /** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
     setChatPhoto(args: {

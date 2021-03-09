@@ -115,7 +115,7 @@ export interface CallbackGame {}
 - InlineQueryResultVideo
 - InlineQueryResultVoice
 
-Note: It is necessary to enable inline feedback via @Botfather in order to receive these objects in updates. */
+Note: All URLs passed in inline query results will be available to end users and therefore must be assumed to be public. */
 export type InlineQueryResult =
   | InlineQueryResultCachedAudio
   | InlineQueryResultCachedDocument
@@ -735,7 +735,9 @@ export interface InputContactMessageContent {
   vcard?: string;
 }
 
-/** Represents a result of an inline query that was chosen by the user and sent to their chat partner. */
+/** Represents a result of an inline query that was chosen by the user and sent to their chat partner.
+
+Note: It is necessary to enable inline feedback via @Botfather in order to receive these objects in updates. */
 export interface ChosenInlineResult {
   /** The unique identifier for the result that was chosen */
   result_id: string;
