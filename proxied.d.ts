@@ -716,7 +716,7 @@ export interface InputFileProxy<F> {
       user_id: number;
       /** Pass True, if the administrator's presence in the chat is hidden */
       is_anonymous?: boolean;
-      /** Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergoups and ignore slow mode. Implied by any other administrator privilege */
+      /** Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
       can_manage_chat?: boolean;
       /** Pass True, if the administrator can create channel posts, channels only */
       can_post_messages?: boolean;
