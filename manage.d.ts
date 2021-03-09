@@ -217,7 +217,7 @@ export interface ChatMember {
   is_anonymous?: boolean;
   /** Administrators only. True, if the bot is allowed to edit administrator privileges of that user */
   can_be_edited?: boolean;
-  /** Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergoups and ignore slow mode. Implied by any other administrator privilege */
+  /** Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
   can_manage_chat?: boolean;
   /** Administrators only. True, if the administrator can post in the channel; channels only */
   can_post_messages?: boolean;
