@@ -16,13 +16,13 @@ export interface WebhookInfo {
   last_error_message: string;
   /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
   max_connections: number;
-  /** A list of update types the bot is subscribed to. Defaults to all update types */
+  /** A list of update types the bot is subscribed to. Defaults to all update types except chat_member */
   allowed_updates: string[];
 }
 
 /** This object represents a Telegram user or bot. */
 export interface User {
-  /** Unique identifier for this user or bot */
+  /** Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. */
   id: number;
   /** True, if this user is a bot */
   is_bot: boolean;
@@ -54,7 +54,7 @@ export namespace Chat {
   interface AbstractChat {
     /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
     type: string;
-    /** Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
+    /** Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     id: number;
   }
 
@@ -102,12 +102,14 @@ export namespace Chat {
     photo?: ChatPhoto;
     /** The most recent pinned message (by sending date). Returned only in getChat. */
     pinned_message?: Message;
+    /** The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat. */
+    message_auto_delete_time?: number;
   }
   /** Internal type holding properties that those group, supergroup, and channel chats returned from `getChat` share. */
   interface NonPrivateGetChat extends GetChat {
     /** Description, for groups, supergroups and channel chats. Returned only in getChat. */
     description?: string;
-    /** Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat. */
+    /** Primary invite link, for groups, supergroups and channel chats. Returned only in getChat. */
     invite_link?: string;
   }
   /** Internal type holding properties that those group and supergroup chats returned from `getChat` share. */
@@ -181,6 +183,22 @@ export interface ChatPhoto {
   big_file_unique_id: string;
 }
 
+/** Represents an invite link for a chat. */
+export interface ChatInviteLink {
+  /** The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”. */
+  invite_link: string;
+  /** Creator of the link */
+  creator: User;
+  /** True, if the link is primary */
+  is_primary: boolean;
+  /** True, if the link is revoked */
+  is_revoked: boolean;
+  /** Point in time (Unix timestamp) when the link will expire or has been expired */
+  expire_date?: number;
+  /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+  member_limit?: number;
+}
+
 /** This object contains information about one member of a chat. */
 export interface ChatMember {
   /** Information about the user */
@@ -199,12 +217,16 @@ export interface ChatMember {
   is_anonymous?: boolean;
   /** Administrators only. True, if the bot is allowed to edit administrator privileges of that user */
   can_be_edited?: boolean;
+  /** Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergoups and ignore slow mode. Implied by any other administrator privilege */
+  can_manage_chat?: boolean;
   /** Administrators only. True, if the administrator can post in the channel; channels only */
   can_post_messages?: boolean;
   /** Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only */
   can_edit_messages?: boolean;
   /** Administrators only. True, if the administrator can delete messages of other users */
   can_delete_messages?: boolean;
+  /** Administrators only. True, if the administrator can manage voice chats */
+  can_manage_voice_chats?: boolean;
   /** Administrators only. True, if the administrator can restrict, ban or unban chat members */
   can_restrict_members?: boolean;
   /** Administrators only. True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
@@ -229,6 +251,22 @@ export interface ChatMember {
   can_add_web_page_previews?: boolean;
   /** Restricted and kicked only. Date when restrictions will be lifted for this user; unix time */
   until_date?: number;
+}
+
+/** This object represents changes in the status of a chat member. */
+export interface ChatMemberUpdated {
+  /** Chat the user belongs to */
+  chat: Chat;
+  /** Performer of the action, which resulted in the change */
+  from: User;
+  /** Date the change was done in Unix time */
+  date: number;
+  /** Previous information about the chat member */
+  old_chat_member: ChatMember;
+  /** New information about the chat member */
+  new_chat_member: ChatMember;
+  /** Chat invite link, which was used by the user to join the chat; for joining by invite link events only. */
+  invite_link?: ChatInviteLink;
 }
 
 /** Describes actions that a non-administrator user is allowed to take in a chat. */
@@ -269,7 +307,7 @@ export interface BotCommand {
 
 /** Contains information about why a request was unsuccessful. */
 export interface ResponseParameters {
-  /** The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
+  /** The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
   migrate_to_chat_id?: number;
   /** In case of exceeding flood control, the number of seconds left to wait before the request can be repeated */
   retry_after?: number;

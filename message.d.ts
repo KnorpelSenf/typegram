@@ -144,12 +144,16 @@ export namespace Message {
     /** Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel. */
     channel_chat_created: true;
   }
+  export interface MessageAutoDeleteTimerChangedMessage extends ServiceMessage {
+    /** Service message: auto-delete timer settings changed in the chat */
+    message_auto_delete_timer_changed: MessageAutoDeleteTimerChanged;
+  }
   export interface MigrateToChatIdMessage extends ServiceMessage {
-    /** The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
+    /** The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     migrate_to_chat_id: number;
   }
   export interface MigrateFromChatIdMessage extends ServiceMessage {
-    /** The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. */
+    /** The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     migrate_from_chat_id: number;
   }
   export interface PinnedMessageMessage extends ServiceMessage {
@@ -176,6 +180,18 @@ export namespace Message {
     /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     proximity_alert_triggered: ProximityAlertTriggered;
   }
+  export interface VoiceChatStartedMessage extends ServiceMessage {
+    /** Service message: voice chat started */
+    voice_chat_started: VoiceChatStarted;
+  }
+  export interface VoiceChatEndedMessage extends ServiceMessage {
+    /** Service message: voice chat ended */
+    voice_chat_ended: VoiceChatEnded;
+  }
+  export interface VoiceChatParticipantsInvitedMessage extends ServiceMessage {
+    /** Service message: new participants invited to a voice chat */
+    voice_chat_participants_invited: VoiceChatParticipantsInvited;
+  }
 }
 
 /** Helper type that bundles all possible `Message.ServiceMessage`s. More specifically, bundles all messages that do not have a `reply_to_message` field, i.e. are not a `Message.CommonMessage`. */
@@ -186,6 +202,7 @@ type ServiceMessageBundle =
   | Message.GroupChatCreatedMessage
   | Message.InvoiceMessage
   | Message.LeftChatMemberMessage
+  | Message.MessageAutoDeleteTimerChangedMessage
   | Message.MigrateFromChatIdMessage
   | Message.MigrateToChatIdMessage
   | Message.NewChatMembersMessage
@@ -195,7 +212,10 @@ type ServiceMessageBundle =
   | Message.ProximityAlertTriggeredMessage
   | Message.PinnedMessageMessage
   | Message.SuccessfulPaymentMessage
-  | Message.SupergroupChatCreated;
+  | Message.SupergroupChatCreated
+  | Message.VoiceChatStartedMessage
+  | Message.VoiceChatEndedMessage
+  | Message.VoiceChatParticipantsInvitedMessage;
 
 /** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
 type CommonMessageBundle =
@@ -500,7 +520,7 @@ export interface Contact {
   first_name: string;
   /** Contact's last name */
   last_name?: string;
-  /** Contact's user identifier in Telegram */
+  /** Contact's user identifier in Telegram. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. */
   user_id?: number;
   /** Additional data about the contact in the form of a vCard */
   vcard?: string;
@@ -510,7 +530,7 @@ export interface Contact {
 export interface Dice {
   /** Emoji on which the dice throw animation is based */
   emoji: string;
-  /** Value of the dice, 1-6 for “🎲” and “🎯” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji */
+  /** Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji */
   value: number;
 }
 
@@ -610,6 +630,27 @@ export interface ProximityAlertTriggered {
   watcher: User;
   /** The distance between the users */
   distance: number;
+}
+
+/** This object represents a service message about a change in auto-delete timer settings. */
+export interface MessageAutoDeleteTimerChanged {
+  /** New auto-delete time for messages in the chat */
+  message_auto_delete_time: number;
+}
+
+/** This object represents a service message about a voice chat started in the chat. Currently holds no information. */
+export interface VoiceChatStarted {}
+
+/** This object represents a service message about a voice chat ended in the chat. */
+export interface VoiceChatEnded {
+  /** Voice chat duration; in seconds */
+  duration: number;
+}
+
+/** This object represents a service message about new members invited to a voice chat. */
+export interface VoiceChatParticipantsInvited {
+  /** New members that were invited to the voice chat */
+  users: User[];
 }
 
 /** This object represents a sticker. */
