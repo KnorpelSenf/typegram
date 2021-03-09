@@ -1,11 +1,5 @@
-/** Intersect all member of a union type U */
-type UnionToIntersection<U> = (
-  U extends unknown ? (k: U) => void : never
-) extends (k: infer I) => void
-  ? I
-  : never;
 /** Creates the maximum neighborhood of a type T */
-type Neighborhood<T> = string & keyof UnionToIntersection<T>;
+type Neighborhood<T> = T extends unknown ? string & keyof T : never;
 /** Creates the boundary of a type T for a given neighborhood N */
 type Boundary<T, N extends string> = Record<Exclude<N, keyof T>, undefined>;
 /** Creates a closed type for a given type T based on its neighborhood N */
