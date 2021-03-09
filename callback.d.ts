@@ -1,6 +1,6 @@
+import { Close } from "./close";
 import { User } from "./manage";
 import { Message } from "./message";
-import { Close } from "./close";
 
 /** This object represents a custom keyboard with reply options (see Introduction to bots for details and examples). */
 export interface ReplyKeyboardMarkup {
