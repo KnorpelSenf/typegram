@@ -195,7 +195,7 @@ export namespace Message {
 }
 
 /** Helper type that bundles all possible `Message.ServiceMessage`s. More specifically, bundles all messages that do not have a `reply_to_message` field, i.e. are not a `Message.CommonMessage`. */
-type ServiceMessageBundle =
+export type ServiceMessageBundle =
   | Message.ChannelChatCreatedMessage
   | Message.ConnectedWebsiteMessage
   | Message.DeleteChatPhotoMessage
@@ -218,7 +218,7 @@ type ServiceMessageBundle =
   | Message.VoiceChatParticipantsInvitedMessage;
 
 /** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
-type CommonMessageBundle =
+export type CommonMessageBundle =
   | Message.AnimationMessage
   | Message.AudioMessage
   | Message.ContactMessage

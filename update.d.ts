@@ -1,7 +1,7 @@
 import { CallbackQuery } from "./callback";
 import { ChosenInlineResult, InlineQuery } from "./inline";
 import { Chat, ChatMemberUpdated, User } from "./manage";
-import { Message, Poll, PollAnswer } from "./message";
+import { CommonMessageBundle, Message, Poll, PollAnswer } from "./message";
 import { PreCheckoutQuery, ShippingQuery } from "./payment";
 
 export namespace Update {
@@ -43,7 +43,7 @@ export namespace Update {
   }
   export interface EditedMessageUpdate extends AbstractUpdate {
     /** New version of a message that is known to the bot and was edited */
-    edited_message: Edited & NonChannel & Message;
+    edited_message: Edited & NonChannel & CommonMessageBundle;
   }
   export interface ChannelPostUpdate extends AbstractUpdate {
     /** New incoming channel post of any kind — text, photo, sticker, etc. */
@@ -51,7 +51,7 @@ export namespace Update {
   }
   export interface EditedChannelPostUpdate extends AbstractUpdate {
     /** New version of a channel post that is known to the bot and was edited */
-    edited_channel_post: Edited & Channel & Message;
+    edited_channel_post: Edited & Channel & CommonMessageBundle;
   }
   export interface InlineQueryUpdate extends AbstractUpdate {
     /** New incoming inline query */
