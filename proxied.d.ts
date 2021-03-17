@@ -790,7 +790,7 @@ export interface InputFileProxy<F> {
     revokeChatInviteLink(args: {
       /** Unique identifier of the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
-      /** The invite link to revoke*/
+      /** The invite link to revoke */
       invite_link: string;
     }): ChatInviteLink;
 
