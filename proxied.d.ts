@@ -724,7 +724,7 @@ export interface InputFileProxy<F> {
       can_edit_messages?: boolean;
       /** Pass True, if the administrator can delete messages of other users */
       can_delete_messages?: boolean;
-      /** Pass True, if the administrator can manage voice chats, supergroups only */
+      /** Pass True, if the administrator can manage voice chats */
       can_manage_voice_chats?: boolean;
       /** Pass True, if the administrator can restrict, ban or unban chat members */
       can_restrict_members?: boolean;
