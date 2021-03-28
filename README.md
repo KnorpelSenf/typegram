@@ -1,5 +1,7 @@
 # Types for the Telegram Bot API
 
+> Please consider contributing to [@grammyjs/types](https://github.com/grammyjs/types) instead, which `typegram` only mirrors now
+
 This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.1 which was released on March 9, 2021.
 
 It contains zero bytes of executable code.
