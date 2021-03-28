@@ -59,14 +59,6 @@ type PromiseResponsify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
 
 /** Proxy Type that enables customization of `InputFile` by transforming all affected types. */
 export interface InputFileProxy<F> {
-  /** Utility type providing a promisified version of Telegram */
-  TelegramP: { [M in keyof InputFileProxy<F>["Telegram"]]: Promisify<M, F> };
-  /** Utility type providing a version Telegram where all methods return ApiResponse objects instead of raw data */
-  TelegramR: { [M in keyof InputFileProxy<F>["Telegram"]]: Responsify<M, F> };
-  /** Utility type providing a version Telegram where all methods return Promises of ApiResponse objects, combination of TelegramP and TelegramR */
-  TelegramPR: {
-    [M in keyof InputFileProxy<F>["Telegram"]]: PromiseResponsify<M, F>;
-  };
   /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
   Opts: {
     [M in keyof InputFileProxy<F>["Telegram"]]: Params<
