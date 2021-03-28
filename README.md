@@ -160,7 +160,7 @@ After that, some more work and a few community contributions did the polishing.
 
 Subsequent updates to the API were integrated manually in a similar fashion.
 
-The [grammY](https://github.com/grammyjs/grammY) bot framework is based on `typegram` which served as the starting point for [the grammY types package](https://github.com/grammyjs/grammy-types).
+The [grammY](https://github.com/grammyjs/grammY) bot framework is based on `typegram` which served as the starting point for [the grammY types package](https://github.com/grammyjs/types).
 Since the upgrade to Bot API 5.0, most changes and updates to `typegram` were simply `git cherry-pick`ed from this repository.
 If you want to contribute to `typegram`, it may make sense to add them to grammY first and then can easily be backported to `typegram`.
 
