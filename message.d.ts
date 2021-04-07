@@ -1,248 +1,121 @@
-import { Close } from "./close";
 import { InlineKeyboardMarkup } from "./inline";
 import { Chat, User } from "./manage";
 import { PassportData } from "./passport";
 import { Invoice, SuccessfulPayment } from "./payment";
 
-export namespace Message {
-  interface ServiceMessage {
-    /** Unique message identifier inside this chat */
-    message_id: number;
-    /** Sender, empty for messages sent to channels */
-    from?: User;
-    /** Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group */
-    sender_chat?: Chat;
-    /** Date the message was sent in Unix time */
-    date: number;
-    /** Conversation the message belongs to */
-    chat: Chat;
-  }
-  interface CommonMessage extends ServiceMessage {
-    /** For forwarded messages, sender of the original message */
-    forward_from?: User;
-    /** For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
-    forward_from_chat?: Chat;
-    /** For messages forwarded from channels, identifier of the original message in the channel */
-    forward_from_message_id?: number;
-    /** For messages forwarded from channels, signature of the post author if present */
-    forward_signature?: string;
-    /** Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
-    forward_sender_name?: string;
-    /** For forwarded messages, date the original message was sent in Unix time */
-    forward_date?: number;
-    /** For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
-    reply_to_message?: ReplyMessage;
-    /** Bot through which the message was sent */
-    via_bot?: User;
-    /** Date the message was last edited in Unix time */
-    edit_date?: number;
-    /** Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
-    author_signature?: string;
-    /** Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
-    reply_markup?: InlineKeyboardMarkup;
-  }
-  export interface TextMessage extends CommonMessage {
-    /** For text messages, the actual UTF-8 text of the message, 0-4096 characters */
-    text: string;
-    /** For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text */
-    entities?: MessageEntity[];
-  }
-  export interface CaptionableMessage extends CommonMessage {
-    /** Caption for the animation, audio, document, photo, video or voice, 0-1024 characters */
-    caption?: string;
-    /** For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption */
-    caption_entities?: MessageEntity[];
-  }
-  interface MediaMessage extends CaptionableMessage {
-    /** The unique identifier of a media message group this message belongs to */
-    media_group_id?: string;
-  }
-  export interface AudioMessage extends CaptionableMessage {
-    /** Message is an audio file, information about the file */
-    audio: Audio;
-  }
-  export interface DocumentMessage extends CaptionableMessage {
-    /** Message is a general file, information about the file */
-    document: Document;
-  }
-  export interface AnimationMessage extends DocumentMessage {
-    /** Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set */
-    animation: Animation;
-  }
-  export interface PhotoMessage extends MediaMessage {
-    /** Message is a photo, available sizes of the photo */
-    photo: PhotoSize[];
-  }
-  export interface StickerMessage extends CommonMessage {
-    /** Message is a sticker, information about the sticker */
-    sticker: Sticker;
-  }
-  export interface VideoMessage extends MediaMessage {
-    /** Message is a video, information about the video */
-    video: Video;
-  }
-  export interface VideoNoteMessage extends CommonMessage {
-    /** Message is a video note, information about the video message */
-    video_note: VideoNote;
-  }
-  export interface VoiceMessage extends CaptionableMessage {
-    /** Message is a voice message, information about the file */
-    voice: Voice;
-  }
-  export interface ContactMessage extends CommonMessage {
-    /** Message is a shared contact, information about the contact */
-    contact: Contact;
-  }
-  export interface DiceMessage extends CommonMessage {
-    /** Message is a dice with random value */
-    dice: Dice;
-  }
-  export interface GameMessage extends CommonMessage {
-    /** Message is a game, information about the game. More about games » */
-    game: Game;
-  }
-  export interface PollMessage extends CommonMessage {
-    /** Message is a native poll, information about the poll */
-    poll: Poll;
-  }
-  export interface LocationMessage extends CommonMessage {
-    /** Message is a shared location, information about the location */
-    location: Location;
-  }
-  export interface VenueMessage extends LocationMessage {
-    /** Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set */
-    venue: Venue;
-  }
-  export interface NewChatMembersMessage extends ServiceMessage {
-    /** New members that were added to the group or supergroup and information about them (the bot itself may be one of these members) */
-    new_chat_members: User[];
-  }
-  export interface LeftChatMemberMessage extends ServiceMessage {
-    /** A member was removed from the group, information about them (this member may be the bot itself) */
-    left_chat_member: User;
-  }
-  export interface NewChatTitleMessage extends ServiceMessage {
-    /** A chat title was changed to this value */
-    new_chat_title: string;
-  }
-  export interface NewChatPhotoMessage extends ServiceMessage {
-    /** A chat photo was change to this value */
-    new_chat_photo: PhotoSize[];
-  }
-  export interface DeleteChatPhotoMessage extends ServiceMessage {
-    /** Service message: the chat photo was deleted */
-    delete_chat_photo: true;
-  }
-  export interface GroupChatCreatedMessage extends ServiceMessage {
-    /** Service message: the group has been created */
-    group_chat_created: true;
-  }
-  export interface SupergroupChatCreated extends ServiceMessage {
-    /** Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup. */
-    supergroup_chat_created: true;
-  }
-  export interface ChannelChatCreatedMessage extends ServiceMessage {
-    /** Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel. */
-    channel_chat_created: true;
-  }
-  export interface MessageAutoDeleteTimerChangedMessage extends ServiceMessage {
-    /** Service message: auto-delete timer settings changed in the chat */
-    message_auto_delete_timer_changed: MessageAutoDeleteTimerChanged;
-  }
-  export interface MigrateToChatIdMessage extends ServiceMessage {
-    /** The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
-    migrate_to_chat_id: number;
-  }
-  export interface MigrateFromChatIdMessage extends ServiceMessage {
-    /** The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
-    migrate_from_chat_id: number;
-  }
-  export interface PinnedMessageMessage extends ServiceMessage {
-    /** Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
-    pinned_message: ReplyMessage;
-  }
-  export interface InvoiceMessage extends ServiceMessage {
-    /** Message is an invoice for a payment, information about the invoice. More about payments » */
-    invoice: Invoice;
-  }
-  export interface SuccessfulPaymentMessage extends ServiceMessage {
-    /** Message is a service message about a successful payment, information about the payment. More about payments » */
-    successful_payment: SuccessfulPayment;
-  }
-  export interface ConnectedWebsiteMessage extends ServiceMessage {
-    /** The domain name of the website on which the user has logged in. More about Telegram Login » */
-    connected_website: string;
-  }
-  export interface PassportDataMessage extends ServiceMessage {
-    /** Telegram Passport data */
-    passport_data: PassportData;
-  }
-  export interface ProximityAlertTriggeredMessage extends ServiceMessage {
-    /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
-    proximity_alert_triggered: ProximityAlertTriggered;
-  }
-  export interface VoiceChatStartedMessage extends ServiceMessage {
-    /** Service message: voice chat started */
-    voice_chat_started: VoiceChatStarted;
-  }
-  export interface VoiceChatEndedMessage extends ServiceMessage {
-    /** Service message: voice chat ended */
-    voice_chat_ended: VoiceChatEnded;
-  }
-  export interface VoiceChatParticipantsInvitedMessage extends ServiceMessage {
-    /** Service message: new participants invited to a voice chat */
-    voice_chat_participants_invited: VoiceChatParticipantsInvited;
-  }
-}
-
-/** Helper type that bundles all possible `Message.ServiceMessage`s. More specifically, bundles all messages that do not have a `reply_to_message` field, i.e. are not a `Message.CommonMessage`. */
-type ServiceMessageBundle =
-  | Message.ChannelChatCreatedMessage
-  | Message.ConnectedWebsiteMessage
-  | Message.DeleteChatPhotoMessage
-  | Message.GroupChatCreatedMessage
-  | Message.InvoiceMessage
-  | Message.LeftChatMemberMessage
-  | Message.MessageAutoDeleteTimerChangedMessage
-  | Message.MigrateFromChatIdMessage
-  | Message.MigrateToChatIdMessage
-  | Message.NewChatMembersMessage
-  | Message.NewChatPhotoMessage
-  | Message.NewChatTitleMessage
-  | Message.PassportDataMessage
-  | Message.PinnedMessageMessage
-  | Message.ProximityAlertTriggeredMessage
-  | Message.SuccessfulPaymentMessage
-  | Message.SupergroupChatCreated
-  | Message.VoiceChatStartedMessage
-  | Message.VoiceChatEndedMessage
-  | Message.VoiceChatParticipantsInvitedMessage;
-
-/** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
-type CommonMessageBundle =
-  | Message.AnimationMessage
-  | Message.AudioMessage
-  | Message.ContactMessage
-  | Message.DiceMessage
-  | Message.DocumentMessage
-  | Message.GameMessage
-  | Message.LocationMessage
-  | Message.PhotoMessage
-  | Message.PollMessage
-  | Message.StickerMessage
-  | Message.TextMessage
-  | Message.VenueMessage
-  | Message.VideoMessage
-  | Message.VideoNoteMessage
-  | Message.VoiceMessage;
-
-/** Helper type that represents a message which occurs in a `reply_to_message` field. */
-type ReplyMessage =
-  | ServiceMessageBundle
-  | (CommonMessageBundle & { reply_to_message: undefined });
-
 /** This object represents a message. */
-export type Message = Close<ServiceMessageBundle | CommonMessageBundle>;
+export interface Message {
+  /** Unique message identifier inside this chat */
+  message_id: number;
+  /** Sender, empty for messages sent to channels */
+  from?: User;
+  /** Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group */
+  sender_chat?: Chat;
+  /** Date the message was sent in Unix time */
+  date: number;
+  /** Conversation the message belongs to */
+  chat: Chat;
+  /** For forwarded messages, sender of the original message */
+  forward_from?: User;
+  /** For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
+  forward_from_chat?: Chat;
+  /** For messages forwarded from channels, identifier of the original message in the channel */
+  forward_from_message_id?: number;
+  /** For messages forwarded from channels, signature of the post author if present */
+  forward_signature?: string;
+  /** Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
+  forward_sender_name?: string;
+  /** For forwarded messages, date the original message was sent in Unix time */
+  forward_date?: number;
+  /** For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
+  reply_to_message?: Message;
+  /** Bot through which the message was sent */
+  via_bot?: User;
+  /** Date the message was last edited in Unix time */
+  edit_date?: number;
+  /** The unique identifier of a media message group this message belongs to */
+  media_group_id?: string;
+  /** Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
+  author_signature?: string;
+  /** For text messages, the actual UTF-8 text of the message, 0-4096 characters */
+  text?: string;
+  /** For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text */
+  entities?: MessageEntity[];
+  /** Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set */
+  animation?: Animation;
+  /** Message is an audio file, information about the file */
+  audio?: Audio;
+  /** Message is a general file, information about the file */
+  document?: Document;
+  /** Message is a photo, available sizes of the photo */
+  photo?: PhotoSize[];
+  /** Message is a sticker, information about the sticker */
+  sticker?: Sticker;
+  /** Message is a video, information about the video */
+  video?: Video;
+  /** Message is a video note, information about the video message */
+  video_note?: VideoNote;
+  /** Message is a voice message, information about the file */
+  voice?: Voice;
+  /** Caption for the animation, audio, document, photo, video or voice, 0-1024 characters */
+  caption?: string;
+  /** For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption */
+  caption_entities?: MessageEntity[];
+  /** Message is a shared contact, information about the contact */
+  contact?: Contact;
+  /** Message is a dice with random value */
+  dice?: Dice;
+  /** Message is a game, information about the game. More about games » */
+  game?: Game;
+  /** Message is a native poll, information about the poll */
+  poll?: Poll;
+  /** Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set */
+  venue?: Venue;
+  /** Message is a shared location, information about the location */
+  location?: Location;
+  /** New members that were added to the group or supergroup and information about them (the bot itself may be one of these members) */
+  new_chat_members?: User[];
+  /** A member was removed from the group, information about them (this member may be the bot itself) */
+  left_chat_member?: User;
+  /** A chat title was changed to this value */
+  new_chat_title?: string;
+  /** A chat photo was change to this value */
+  new_chat_photo?: PhotoSize[];
+  /** Service message: the chat photo was deleted */
+  delete_chat_photo?: true;
+  /** Service message: the group has been created */
+  group_chat_created?: true;
+  /** Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup. */
+  supergroup_chat_created?: true;
+  /** Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel. */
+  channel_chat_created?: true;
+  /** Service message: auto-delete timer settings changed in the chat */
+  message_auto_delete_timer_changed?: MessageAutoDeleteTimerChanged;
+  /** The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
+  migrate_to_chat_id?: number;
+  /** The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
+  migrate_from_chat_id?: number;
+  /** Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
+  pinned_message?: Message;
+  /** Message is an invoice for a payment, information about the invoice. More about payments » */
+  invoice?: Invoice;
+  /** Message is a service message about a successful payment, information about the payment. More about payments » */
+  successful_payment?: SuccessfulPayment;
+  /** The domain name of the website on which the user has logged in. More about Telegram Login » */
+  connected_website?: string;
+  /** Telegram Passport data */
+  passport_data?: PassportData;
+  /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
+  proximity_alert_triggered?: ProximityAlertTriggered;
+  /** Service message: voice chat started */
+  voice_chat_started?: VoiceChatStarted;
+  /** Service message: voice chat ended */
+  voice_chat_ended?: VoiceChatEnded;
+  /** Service message: new participants invited to a voice chat */
+  voice_chat_participants_invited?: VoiceChatParticipantsInvited;
+  /** Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
+  reply_markup?: InlineKeyboardMarkup;
+}
 
 /** This object represents a unique message identifier. */
 export interface MessageId {
@@ -381,12 +254,11 @@ export namespace MessageEntity {
 }
 
 /** This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. */
-export type MessageEntity = Close<
+export type MessageEntity =
   | MessageEntity.CommonMessageEntity
   | MessageEntity.PreMessageEntity
   | MessageEntity.TextLinkMessageEntity
-  | MessageEntity.TextMentionMessageEntity
->;
+  | MessageEntity.TextMentionMessageEntity;
 
 /** This object represents one size of a photo or a file / sticker thumbnail. */
 export interface PhotoSize {
@@ -584,27 +456,21 @@ export interface Poll {
   close_date?: number;
 }
 
-export namespace Location {
-  export interface CommonLocation {
-    /** Longitude as defined by sender */
-    longitude: number;
-    /** Latitude as defined by sender */
-    latitude: number;
-    /** The radius of uncertainty for the location, measured in meters; 0-1500 */
-    horizontal_accuracy?: number;
-  }
-  export interface LiveLocation extends CommonLocation {
-    /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
-    live_period: number;
-    /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
-    heading: number;
-    /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
-    proximity_alert_radius?: number;
-  }
-}
-
 /** This object represents a point on the map. */
-export type Location = Close<Location.CommonLocation | Location.LiveLocation>;
+export interface Location {
+  /** Longitude as defined by sender */
+  longitude: number;
+  /** Latitude as defined by sender */
+  latitude: number;
+  /** Optional. The radius of uncertainty for the location, measured in meters; 0-1500 */
+  horizontal_accuracy: number;
+  /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
+  live_period?: number;
+  /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
+  heading?: number;
+  /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+  proximity_alert_radius?: number;
+}
 
 /** This object represents a venue. */
 export interface Venue {
