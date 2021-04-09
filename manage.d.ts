@@ -1,3 +1,4 @@
+import { Merge } from "./merge";
 import { Location, Message, PhotoSize } from "./message";
 import { Update } from "./update";
 
@@ -151,18 +152,17 @@ export namespace Chat {
 }
 
 /** This object represents a chat. */
-export type Chat =
-  | Chat.PrivateChat
-  | Chat.GroupChat
-  | Chat.SupergroupChat
-  | Chat.ChannelChat;
+export type Chat = Merge<
+  Chat.PrivateChat | Chat.GroupChat | Chat.SupergroupChat | Chat.ChannelChat
+>;
 
 /** This object represents a Telegram user or bot that was returned by `getChat`. */
-export type ChatFromGetChat =
+export type ChatFromGetChat = Merge<
   | Chat.PrivateGetChat
   | Chat.GroupGetChat
   | Chat.SupergroupGetChat
-  | Chat.ChannelGetChat;
+  | Chat.ChannelGetChat
+>;
 
 /** This object represent a user's profile pictures. */
 export interface UserProfilePhotos {
