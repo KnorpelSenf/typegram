@@ -1,4 +1,3 @@
-import { ApiResponse } from "./api";
 import {
   ForceReply,
   ReplyKeyboardMarkup,
@@ -34,28 +33,6 @@ import { Update } from "./update";
 type Params<M extends keyof InputFileProxy<F>["Telegram"], F> = Parameters<
   InputFileProxy<F>["Telegram"][M]
 >;
-/** Extracts the return type of a given method name */
-type Ret<M extends keyof InputFileProxy<F>["Telegram"], F> = ReturnType<
-  InputFileProxy<F>["Telegram"][M]
->;
-
-/** Wraps the given type into a promise */
-type P<T> = Promise<T>;
-/** Wraps the given type into an API response */
-type R<T> = ApiResponse<T>;
-
-/** Promisifies a given method signature */
-type Promisify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
-  ...args: Params<M, F>
-) => P<Ret<M, F>>;
-/** Responsifies a given method signature */
-type Responsify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
-  ...args: Params<M, F>
-) => R<Ret<M, F>>;
-/** Responsifies and in turn promisifies a given method signature */
-type PromiseResponsify<M extends keyof InputFileProxy<F>["Telegram"], F> = (
-  ...args: Params<M, F>
-) => P<R<Ret<M, F>>>;
 
 /** Proxy Type that enables customization of `InputFile` by transforming all affected types. */
 export interface InputFileProxy<F> {
