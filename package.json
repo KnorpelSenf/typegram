@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grammy-js/grammy-types.git"
+    "url": "git+https://github.com/grammyjs/types.git"
   },
   "keywords": [
     "grammy",
@@ -18,7 +18,7 @@
   "types": "index.d.ts",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grammy-js/grammy-types/issues"
+    "url": "https://github.com/grammyjs/grammy/issues"
   },
-  "homepage": "https://github.com/grammy-js/grammy-types#readme"
+  "homepage": "https://grammy.dev/"
 }
