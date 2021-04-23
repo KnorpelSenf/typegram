@@ -86,7 +86,7 @@ export interface Typegram<F> {
       limit?: number;
       /** Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only. */
       timeout?: number;
-      /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
+      /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
 
       Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
       allowed_updates?: readonly string[];
@@ -111,7 +111,7 @@ export interface Typegram<F> {
       ip_address?: string;
       /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
       max_connections?: number;
-      /** A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
+      /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
     Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
       allowed_updates?: readonly string[];
       /** Pass True to drop all pending updates */
@@ -154,7 +154,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -194,7 +194,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -220,7 +220,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -256,7 +256,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -286,7 +286,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -322,7 +322,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -356,7 +356,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -384,7 +384,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -411,7 +411,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -423,7 +423,7 @@ export interface Typegram<F> {
     sendMediaGroup(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
-      /** A JSON-serialized array describing messages to be sent, must include 2-10 items */
+      /** An array describing messages to be sent, must include 2-10 items */
       media: ReadonlyArray<
         | Typegram<F>["InputMediaAudio"]
         | Typegram<F>["InputMediaDocument"]
@@ -465,7 +465,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -491,7 +491,7 @@ export interface Typegram<F> {
       heading?: number;
       /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
       proximity_alert_radius?: number;
-      /** A JSON-serialized object for a new inline keyboard. */
+      /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.LocationMessage) | true;
 
@@ -503,7 +503,7 @@ export interface Typegram<F> {
       message_id?: number;
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: string;
-      /** A JSON-serialized object for a new inline keyboard. */
+      /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.LocationMessage) | true;
 
@@ -533,7 +533,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -559,7 +559,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -573,7 +573,7 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** Poll question, 1-300 characters */
       question: string;
-      /** A JSON-serialized list of answer options, 2-10 strings 1-100 characters each */
+      /** A list of answer options, 2-10 strings 1-100 characters each */
       options: readonly string[];
       /** True, if the poll needs to be anonymous, defaults to True */
       is_anonymous?: boolean;
@@ -601,7 +601,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -621,7 +621,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -697,7 +697,7 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** Unique identifier of the target user */
       user_id: number;
-      /** A JSON-serialized object for new user permissions */
+      /** An object for new user permissions */
       permissions: ChatPermissions;
       /** Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever */
       until_date?: number;
@@ -909,7 +909,7 @@ export interface Typegram<F> {
 
     /** Use this method to change the list of the bot's commands. Returns True on success. */
     setMyCommands(args: {
-      /** A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
+      /** A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
       commands: readonly BotCommand[];
     }): true;
 
@@ -932,7 +932,7 @@ export interface Typegram<F> {
       entities?: MessageEntity[];
       /** Disables link previews for links in this message */
       disable_web_page_preview?: boolean;
-      /** A JSON-serialized object for an inline keyboard. */
+      /** An object for an inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.TextMessage) | true;
 
@@ -948,7 +948,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the message caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** A JSON-serialized object for an inline keyboard. */
+      /** An object for an inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.CaptionableMessage) | true;
 
@@ -960,9 +960,9 @@ export interface Typegram<F> {
       message_id?: number;
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: string;
-      /** A JSON-serialized object for a new media content of the message */
+      /** An object for a new media content of the message */
       media: Typegram<F>["InputMedia"];
-      /** A JSON-serialized object for a new inline keyboard. */
+      /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }):
       | (Update.Edited & Message.AnimationMessage)
@@ -980,7 +980,7 @@ export interface Typegram<F> {
       message_id?: number;
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: string;
-      /** A JSON-serialized object for an inline keyboard. */
+      /** An object for an inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message) | true;
 
@@ -990,7 +990,7 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** Identifier of the original message with the poll */
       message_id: number;
-      /** A JSON-serialized object for a new message inline keyboard. */
+      /** An object for a new message inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): Poll;
 
@@ -1022,7 +1022,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
+      /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
         | InlineKeyboardMarkup
         | ReplyKeyboardMarkup
@@ -1060,7 +1060,7 @@ export interface Typegram<F> {
       emojis: string;
       /** Pass True, if a set of mask stickers should be created */
       contains_masks?: boolean;
-      /** A JSON-serialized object for position where the mask should be placed on faces */
+      /** An object for position where the mask should be placed on faces */
       mask_position?: MaskPosition;
     }): true;
 
@@ -1076,7 +1076,7 @@ export interface Typegram<F> {
       tgs_sticker?: F;
       /** One or more emoji corresponding to the sticker */
       emojis: string;
-      /** A JSON-serialized object for position where the mask should be placed on faces */
+      /** An object for position where the mask should be placed on faces */
       mask_position?: MaskPosition;
     }): true;
 
@@ -1111,7 +1111,7 @@ export interface Typegram<F> {
     answerInlineQuery(args: {
       /** Unique identifier for the answered query */
       inline_query_id: string;
-      /** A JSON-serialized array of results for the inline query */
+      /** An array of results for the inline query */
       results: readonly InlineQueryResult[];
       /** The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300. */
       cache_time?: number;
@@ -1141,9 +1141,9 @@ export interface Typegram<F> {
       start_parameter: string;
       /** Three-letter ISO 4217 currency code, see more on currencies */
       currency: string;
-      /** Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.) */
+      /** Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.) */
       prices: readonly LabeledPrice[];
-      /** A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider. */
+      /** Data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider. */
       provider_data?: string;
       /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for. */
       photo_url?: string;
@@ -1173,7 +1173,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
+      /** An object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
       reply_markup?: InlineKeyboardMarkup;
     }): Message.InvoiceMessage;
 
@@ -1183,7 +1183,7 @@ export interface Typegram<F> {
       shipping_query_id: string;
       /** Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible) */
       ok: boolean;
-      /** Required if ok is True. A JSON-serialized array of available shipping options. */
+      /** Required if ok is True. An array of available shipping options. */
       shipping_options?: readonly ShippingOption[];
       /** Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user. */
       error_message?: string;
@@ -1205,7 +1205,7 @@ export interface Typegram<F> {
     setPassportDataErrors(args: {
       /** User identifier */
       user_id: number;
-      /** A JSON-serialized array describing the errors */
+      /** An array describing the errors */
       errors: readonly PassportElementError[];
     }): true;
 
@@ -1221,7 +1221,7 @@ export interface Typegram<F> {
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
-      /** A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. */
+      /** An object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. */
       reply_markup?: InlineKeyboardMarkup;
     }): Message.GameMessage;
 
