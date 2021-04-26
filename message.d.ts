@@ -180,6 +180,10 @@ export namespace Message {
     /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     proximity_alert_triggered: ProximityAlertTriggered;
   }
+  /** Service message: voice chat scheduled */
+  export interface VoiceChatScheduledMessage extends ServiceMessage {
+    voice_chat_scheduled: VoiceChatScheduled;
+  }
   export interface VoiceChatStartedMessage extends ServiceMessage {
     /** Service message: voice chat started */
     voice_chat_started: VoiceChatStarted;
@@ -213,6 +217,7 @@ export type ServiceMessageBundle =
   | Message.PinnedMessageMessage
   | Message.SuccessfulPaymentMessage
   | Message.SupergroupChatCreated
+  | Message.VoiceChatScheduledMessage
   | Message.VoiceChatStartedMessage
   | Message.VoiceChatEndedMessage
   | Message.VoiceChatParticipantsInvitedMessage;
@@ -636,6 +641,12 @@ export interface ProximityAlertTriggered {
 export interface MessageAutoDeleteTimerChanged {
   /** New auto-delete time for messages in the chat */
   message_auto_delete_time: number;
+}
+
+/** This object represents a service message about a voice chat scheduled in the chat. */
+export interface VoiceChatScheduled {
+  /** Point in time (Unix timestamp) when the voice chat is supposed to be started by a chat administrator */
+  start_date: number;
 }
 
 /** This object represents a service message about a voice chat started in the chat. Currently holds no information. */
