@@ -2,7 +2,7 @@
 
 > Please consider contributing to [@grammyjs/types](https://github.com/grammyjs/types) instead, which `typegram` only mirrors now
 
-This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.1 which was released on March 9, 2021.
+This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.2 which was released on April 26, 2021.
 
 It contains zero bytes of executable code.
 
@@ -163,7 +163,7 @@ After that, some more work and a few community contributions did the polishing.
 Subsequent updates to the API were integrated manually in a similar fashion.
 
 The [grammY](https://github.com/grammyjs/grammY) bot framework is based on `typegram` which served as the starting point for [the grammY types package](https://github.com/grammyjs/types).
-Since the upgrade to Bot API 5.0, most changes and updates to `typegram` were simply `git cherry-pick`ed from this repository.
+Starting after the upgrade to Bot API 5.0, most changes and updates to `typegram` were simply `git cherry-pick`ed from this repository.
 If you want to contribute to `typegram`, it may make sense to add them to grammY first and then can easily be backported to `typegram`.
 
 Other people's previous attempts to harvest the types directly from the website using a script failed due to the required effort of handling special cases about the layout of the website.
