@@ -136,7 +136,7 @@ export interface InputFileProxy<F> {
         | ForceReply;
     }): Message.TextMessage;
 
-    /** Use this method to forward messages of any kind. On success, the sent Message is returned. */
+    /** Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent Message is returned. */
     forwardMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -148,7 +148,7 @@ export interface InputFileProxy<F> {
       message_id: number;
     }): Message;
 
-    /** Use this method to copy messages of any kind. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
+    /** Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
     copyMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -1101,8 +1101,8 @@ export interface InputFileProxy<F> {
 
     /** Use this method to send invoices. On success, the sent Message is returned. */
     sendInvoice(args: {
-      /** Unique identifier for the target private chat */
-      chat_id: number;
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
       /** Product name, 1-32 characters */
       title: string;
       /** Product description, 1-255 characters */
@@ -1111,12 +1111,16 @@ export interface InputFileProxy<F> {
       payload: string;
       /** Payments provider token, obtained via Botfather */
       provider_token: string;
-      /** Unique deep-linking parameter that can be used to generate this invoice when used as a start parameter */
-      start_parameter: string;
       /** Three-letter ISO 4217 currency code, see more on currencies */
       currency: string;
       /** Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.) */
       prices: readonly LabeledPrice[];
+      /** The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 */
+      max_tip_amount?: number;
+      /** A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount. */
+      suggested_tip_amounts?: number[];
+      /** Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter */
+      start_parameter?: string;
       /** Data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider. */
       provider_data?: string;
       /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for. */
