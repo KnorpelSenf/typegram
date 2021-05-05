@@ -305,14 +305,6 @@ export interface BotCommand {
   description: string;
 }
 
-/** Contains information about why a request was unsuccessful. */
-export interface ResponseParameters {
-  /** The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
-  migrate_to_chat_id?: number;
-  /** In case of exceeding flood control, the number of seconds left to wait before the request can be repeated */
-  retry_after?: number;
-}
-
 /** This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile. */
 export interface File {
   /** Identifier for this file, which can be used to download or reuse the file */
