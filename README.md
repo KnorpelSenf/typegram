@@ -11,7 +11,6 @@ Originally, this package is based on `typegram`, but since the update to Telegra
 Generally this package just exposes a huge load of `interface`s that correspond to the **types** used throughout the Telegram Bot API.
 
 Note that the API specification sometimes only has one name for multiple variants of a type, e.g. there is a number of different `Update`s you can receive, but they're all just called `Update`.
-This package represents such types as large unions of all possible options of what an `Update` could be, such that type narrowing can work as expected on your side.
 If you need to access the individual variants of an `Update`, refer to `Update.MessageUpdate` and its siblings.
 
 In fact, this pattern is used for various types, namely:
@@ -25,10 +24,6 @@ In fact, this pattern is used for various types, namely:
 - `MessageEntity`
 - `Location`
 - `Update`
-
-The union types are not exposed as-is.
-Instead, they are closed first.
-Read the section about type transformations to learn what closed types are for grammY.
 
 Naturally, when the API specification is actually modelling types to be unions (e.g. `InlineQueryResult`), this is reflected here as a union type, too.
 Those types are not closed.
@@ -57,6 +52,8 @@ That makes sense for the reason that grammY uses the types in its wrapper code a
 This wrapper code does the necessary JSON serialization automatically for the required properties.
 Bots written with grammY then do not need to care about which properties to serialize and which not.
 Given that `@grammyjs/types` refers to the objects themselves instead of their serialized strings, the wrapper code can now simply expose the `@grammyjs/types` types to its consumers without having to transform them before.
+
+Consequently, the descriptions of all methods are adjusted in order to reflect this, i.e. the JSDoc comments do not mention JSON serialization (in contrast to their official equivalents).
 
 ## Customizing `InputFile`
 
