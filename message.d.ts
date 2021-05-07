@@ -3,9 +3,6 @@ import { Chat, User } from "./manage";
 import { PassportData } from "./passport";
 import { Invoice, SuccessfulPayment } from "./payment";
 
-// used to make properties required
-type Value = string | number | boolean | object;
-
 export namespace Message {
   interface ServiceMessage {
     /** Unique message identifier inside this chat */
@@ -53,73 +50,90 @@ export namespace Message {
     /** The unique identifier of a media message group this message belongs to */
     media_group_id?: string;
   }
-  export type TextMessage = CommonMessage & { text: Value };
-  export type AudioMessage = CaptionableMessage & { audio: Value };
-  export type DocumentMessage = CaptionableMessage & { document: Value };
-  export type AnimationMessage = DocumentMessage & { animation: Value };
-  export type PhotoMessage = MediaMessage & { photo: Value };
-  export type StickerMessage = CommonMessage & { sticker: Value };
-  export type VideoMessage = MediaMessage & { video: Value };
-  export type VideoNoteMessage = CommonMessage & { video_note: Value };
-  export type VoiceMessage = CaptionableMessage & { voice: Value };
-  export type ContactMessage = CommonMessage & { contact: Value };
-  export type DiceMessage = CommonMessage & { dice: Value };
-  export type GameMessage = CommonMessage & { game: Value };
-  export type PollMessage = CommonMessage & { poll: Value };
-  export type LocationMessage = CommonMessage & { location: Value };
-  export type VenueMessage = LocationMessage & { venue: Value };
+
+  export type TextMessage = CommonMessage & { text: Message["text"] };
+  export type AudioMessage = CaptionableMessage & { audio: Message["audio"] };
+  export type DocumentMessage = CaptionableMessage & {
+    document: Message["document"];
+  };
+  export type AnimationMessage = DocumentMessage & {
+    animation: Message["animation"];
+  };
+  export type PhotoMessage = MediaMessage & { photo: Message["photo"] };
+  export type StickerMessage = CommonMessage & { sticker: Message["sticker"] };
+  export type VideoMessage = MediaMessage & { video: Message["video"] };
+  export type VideoNoteMessage = CommonMessage & {
+    video_note: Message["video_note"];
+  };
+  export type VoiceMessage = CaptionableMessage & { voice: Message["voice"] };
+  export type ContactMessage = CommonMessage & { contact: Message["contact"] };
+  export type DiceMessage = CommonMessage & { dice: Message["dice"] };
+  export type GameMessage = CommonMessage & { game: Message["game"] };
+  export type PollMessage = CommonMessage & { poll: Message["poll"] };
+  export type LocationMessage = CommonMessage & {
+    location: Message["location"];
+  };
+  export type VenueMessage = LocationMessage & { venue: Message["venue"] };
   export type NewChatMembersMessage = ServiceMessage & {
-    new_chat_members: Value;
+    new_chat_members: Message["new_chat_members"];
   };
   export type LeftChatMemberMessage = ServiceMessage & {
-    left_chat_member: Value;
+    left_chat_member: Message["left_chat_member"];
   };
-  export type NewChatTitleMessage = ServiceMessage & { new_chat_title: Value };
-  export type NewChatPhotoMessage = ServiceMessage & { new_chat_photo: Value };
+  export type NewChatTitleMessage = ServiceMessage & {
+    new_chat_title: Message["new_chat_title"];
+  };
+  export type NewChatPhotoMessage = ServiceMessage & {
+    new_chat_photo: Message["new_chat_photo"];
+  };
   export type DeleteChatPhotoMessage = ServiceMessage & {
-    delete_chat_photo: Value;
+    delete_chat_photo: Message["delete_chat_photo"];
   };
   export type GroupChatCreatedMessage = ServiceMessage & {
-    group_chat_created: Value;
+    group_chat_created: Message["group_chat_created"];
   };
   export type SupergroupChatCreated = ServiceMessage & {
-    supergroup_chat_created: Value;
+    supergroup_chat_created: Message["supergroup_chat_created"];
   };
   export type ChannelChatCreatedMessage = ServiceMessage & {
-    channel_chat_created: Value;
+    channel_chat_created: Message["channel_chat_created"];
   };
   export type MessageAutoDeleteTimerChangedMessage = ServiceMessage & {
-    message_auto_delete_timer_changed: Value;
+    message_auto_delete_timer_changed: Message["message_auto_delete_timer_changed"];
   };
   export type MigrateToChatIdMessage = ServiceMessage & {
-    migrate_to_chat_id: Value;
+    migrate_to_chat_id: Message["migrate_to_chat_id"];
   };
   export type MigrateFromChatIdMessage = ServiceMessage & {
-    migrate_from_chat_id: Value;
+    migrate_from_chat_id: Message["migrate_from_chat_id"];
   };
-  export type PinnedMessageMessage = ServiceMessage & { pinned_message: Value };
-  export type InvoiceMessage = ServiceMessage & { invoice: Value };
+  export type PinnedMessageMessage = ServiceMessage & {
+    pinned_message: Message["pinned_message"];
+  };
+  export type InvoiceMessage = ServiceMessage & { invoice: Message["invoice"] };
   export type SuccessfulPaymentMessage = ServiceMessage & {
-    successful_payment: Value;
+    successful_payment: Message["successful_payment"];
   };
   export type ConnectedWebsiteMessage = ServiceMessage & {
-    connected_website: Value;
+    connected_website: Message["connected_website"];
   };
-  export type PassportDataMessage = ServiceMessage & { passport_data: Value };
+  export type PassportDataMessage = ServiceMessage & {
+    passport_data: Message["passport_data"];
+  };
   export type ProximityAlertTriggeredMessage = ServiceMessage & {
-    proximity_alert_triggered: Value;
+    proximity_alert_triggered: Message["proximity_alert_triggered"];
   };
   export type VoiceChatScheduledMessage = ServiceMessage & {
-    voice_chat_scheduled: Value;
+    voice_chat_scheduled: Message["voice_chat_scheduled"];
   };
   export type VoiceChatStartedMessage = ServiceMessage & {
-    voice_chat_started: Value;
+    voice_chat_started: Message["voice_chat_started"];
   };
   export type VoiceChatEndedMessage = ServiceMessage & {
-    voice_chat_ended: Value;
+    voice_chat_ended: Message["voice_chat_ended"];
   };
   export type VoiceChatParticipantsInvitedMessage = ServiceMessage & {
-    voice_chat_participants_invited: Value;
+    voice_chat_participants_invited: Message["voice_chat_participants_invited"];
   };
 }
 
