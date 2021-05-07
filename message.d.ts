@@ -3,7 +3,10 @@ import { Chat, User } from "./manage";
 import { PassportData } from "./passport";
 import { Invoice, SuccessfulPayment } from "./payment";
 
-type MsgProp<P extends keyof Message> = Exclude<Message[P], undefined>;
+type MsgWith<P extends keyof Message> = Record<
+  P,
+  Exclude<Message[P], undefined>
+>;
 
 export namespace Message {
   interface ServiceMessage {
@@ -53,114 +56,58 @@ export namespace Message {
     media_group_id?: string;
   }
 
-  export type TextMessage = CommonMessage & {
-    text: MsgProp<"text">;
-  };
-  export type AudioMessage = CaptionableMessage & {
-    audio: MsgProp<"audio">;
-  };
-  export type DocumentMessage = CaptionableMessage & {
-    document: MsgProp<"document">;
-  };
-  export type AnimationMessage = DocumentMessage & {
-    animation: MsgProp<"animation">;
-  };
-  export type PhotoMessage = MediaMessage & {
-    photo: MsgProp<"photo">;
-  };
-  export type StickerMessage = CommonMessage & {
-    sticker: MsgProp<"sticker">;
-  };
-  export type VideoMessage = MediaMessage & {
-    video: MsgProp<"video">;
-  };
-  export type VideoNoteMessage = CommonMessage & {
-    video_note: MsgProp<"video_note">;
-  };
-  export type VoiceMessage = CaptionableMessage & {
-    voice: MsgProp<"voice">;
-  };
-  export type ContactMessage = CommonMessage & {
-    contact: MsgProp<"contact">;
-  };
-  export type DiceMessage = CommonMessage & {
-    dice: MsgProp<"dice">;
-  };
-  export type GameMessage = CommonMessage & {
-    game: MsgProp<"game">;
-  };
-  export type PollMessage = CommonMessage & {
-    poll: MsgProp<"poll">;
-  };
-  export type LocationMessage = CommonMessage & {
-    location: MsgProp<"location">;
-  };
-  export type VenueMessage = LocationMessage & {
-    venue: MsgProp<"venue">;
-  };
-  export type NewChatMembersMessage = ServiceMessage & {
-    new_chat_members: MsgProp<"new_chat_members">;
-  };
-  export type LeftChatMemberMessage = ServiceMessage & {
-    left_chat_member: MsgProp<"left_chat_member">;
-  };
-  export type NewChatTitleMessage = ServiceMessage & {
-    new_chat_title: MsgProp<"new_chat_title">;
-  };
-  export type NewChatPhotoMessage = ServiceMessage & {
-    new_chat_photo: MsgProp<"new_chat_photo">;
-  };
-  export type DeleteChatPhotoMessage = ServiceMessage & {
-    delete_chat_photo: MsgProp<"delete_chat_photo">;
-  };
-  export type GroupChatCreatedMessage = ServiceMessage & {
-    group_chat_created: MsgProp<"group_chat_created">;
-  };
-  export type SupergroupChatCreated = ServiceMessage & {
-    supergroup_chat_created: MsgProp<"supergroup_chat_created">;
-  };
-  export type ChannelChatCreatedMessage = ServiceMessage & {
-    channel_chat_created: MsgProp<"channel_chat_created">;
-  };
-  export type MessageAutoDeleteTimerChangedMessage = ServiceMessage & {
-    message_auto_delete_timer_changed: MsgProp<"message_auto_delete_timer_changed">;
-  };
-  export type MigrateToChatIdMessage = ServiceMessage & {
-    migrate_to_chat_id: MsgProp<"migrate_to_chat_id">;
-  };
-  export type MigrateFromChatIdMessage = ServiceMessage & {
-    migrate_from_chat_id: MsgProp<"migrate_from_chat_id">;
-  };
-  export type PinnedMessageMessage = ServiceMessage & {
-    pinned_message: MsgProp<"pinned_message">;
-  };
-  export type InvoiceMessage = ServiceMessage & {
-    invoice: MsgProp<"invoice">;
-  };
-  export type SuccessfulPaymentMessage = ServiceMessage & {
-    successful_payment: MsgProp<"successful_payment">;
-  };
-  export type ConnectedWebsiteMessage = ServiceMessage & {
-    connected_website: MsgProp<"connected_website">;
-  };
-  export type PassportDataMessage = ServiceMessage & {
-    passport_data: MsgProp<"passport_data">;
-  };
-  export type ProximityAlertTriggeredMessage = ServiceMessage & {
-    proximity_alert_triggered: MsgProp<"proximity_alert_triggered">;
-  };
-  export type VoiceChatScheduledMessage = ServiceMessage & {
-    voice_chat_scheduled: MsgProp<"voice_chat_scheduled">;
-  };
-  export type VoiceChatStartedMessage = ServiceMessage & {
-    voice_chat_started: MsgProp<"voice_chat_started">;
-  };
-  export type VoiceChatEndedMessage = ServiceMessage & {
-    voice_chat_ended: MsgProp<"voice_chat_ended">;
-  };
-  export type VoiceChatParticipantsInvitedMessage = ServiceMessage & {
-    voice_chat_participants_invited: MsgProp<"voice_chat_participants_invited">;
-  };
+  export type TextMessage = CommonMessage & MsgWith<"text">;
+  export type AudioMessage = CaptionableMessage & MsgWith<"audio">;
+  export type DocumentMessage = CaptionableMessage & MsgWith<"document">;
+  export type AnimationMessage = DocumentMessage & MsgWith<"animation">;
+  export type PhotoMessage = MediaMessage & MsgWith<"photo">;
+  export type StickerMessage = CommonMessage & MsgWith<"sticker">;
+  export type VideoMessage = MediaMessage & MsgWith<"video">;
+  export type VideoNoteMessage = CommonMessage & MsgWith<"video_note">;
+  export type VoiceMessage = CaptionableMessage & MsgWith<"voice">;
+  export type ContactMessage = CommonMessage & MsgWith<"contact">;
+  export type DiceMessage = CommonMessage & MsgWith<"dice">;
+  export type GameMessage = CommonMessage & MsgWith<"game">;
+  export type PollMessage = CommonMessage & MsgWith<"poll">;
+  export type LocationMessage = CommonMessage & MsgWith<"location">;
+  export type VenueMessage = LocationMessage & MsgWith<"venue">;
+  export type NewChatMembersMessage = ServiceMessage &
+    MsgWith<"new_chat_members">;
+  export type LeftChatMemberMessage = ServiceMessage &
+    MsgWith<"left_chat_member">;
+  export type NewChatTitleMessage = ServiceMessage & MsgWith<"new_chat_title">;
+  export type NewChatPhotoMessage = ServiceMessage & MsgWith<"new_chat_photo">;
+  export type DeleteChatPhotoMessage = ServiceMessage &
+    MsgWith<"delete_chat_photo">;
+  export type GroupChatCreatedMessage = ServiceMessage &
+    MsgWith<"group_chat_created">;
+  export type SupergroupChatCreated = ServiceMessage &
+    MsgWith<"supergroup_chat_created">;
+  export type ChannelChatCreatedMessage = ServiceMessage &
+    MsgWith<"channel_chat_created">;
+  export type MessageAutoDeleteTimerChangedMessage = ServiceMessage &
+    MsgWith<"message_auto_delete_timer_changed">;
+  export type MigrateToChatIdMessage = ServiceMessage &
+    MsgWith<"migrate_to_chat_id">;
+  export type MigrateFromChatIdMessage = ServiceMessage &
+    MsgWith<"migrate_from_chat_id">;
+  export type PinnedMessageMessage = ServiceMessage & MsgWith<"pinned_message">;
+  export type InvoiceMessage = ServiceMessage & MsgWith<"invoice">;
+  export type SuccessfulPaymentMessage = ServiceMessage &
+    MsgWith<"successful_payment">;
+  export type ConnectedWebsiteMessage = ServiceMessage &
+    MsgWith<"connected_website">;
+  export type PassportDataMessage = ServiceMessage & MsgWith<"passport_data">;
+  export type ProximityAlertTriggeredMessage = ServiceMessage &
+    MsgWith<"proximity_alert_triggered">;
+  export type VoiceChatScheduledMessage = ServiceMessage &
+    MsgWith<"voice_chat_scheduled">;
+  export type VoiceChatStartedMessage = ServiceMessage &
+    MsgWith<"voice_chat_started">;
+  export type VoiceChatEndedMessage = ServiceMessage &
+    MsgWith<"voice_chat_ended">;
+  export type VoiceChatParticipantsInvitedMessage = ServiceMessage &
+    MsgWith<"voice_chat_participants_invited">;
 }
 
 type ReplyMessage = Message & { reply_to_message: undefined };
