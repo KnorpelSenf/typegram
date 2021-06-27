@@ -919,14 +919,14 @@ export interface Typegram<F> {
     }): true;
 
     /** Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. */
-    getMyCommands(args: {
+    getMyCommands(args?: {
       /** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
       scope?: BotCommandScope;
       /** A two-letter ISO 639-1 language code or an empty string */
       language_code?: string;
     }): BotCommand[];
 
-    deleteMyCommands(args: {
+    deleteMyCommands(args?: {
       /** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
       scope?: BotCommandScope;
       /** A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
