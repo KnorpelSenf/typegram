@@ -25,8 +25,7 @@ The following algorithm is used to determine the list of commands for a particul
  - botCommandScopeAllGroupChats + language_code
  - botCommandScopeAllGroupChats
  - botCommandScopeDefault + language_code
- - botCommandScopeDefault
- */
+ - botCommandScopeDefault */
 export type BotCommandScope =
   | BotCommandScopeDefault
   | BotCommandScopeAllPrivateChats
