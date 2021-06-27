@@ -29,6 +29,7 @@ import {
 import { PassportElementError } from "./passport";
 import { LabeledPrice, ShippingOption } from "./payment";
 import { Update } from "./update";
+import { BotCommandScope } from "./bot-command-scope";
 
 /** Extracts the parameters of a given method name */
 type Params<M extends keyof Typegram<F>["Telegram"], F> = Parameters<
@@ -911,10 +912,26 @@ export interface Typegram<F> {
     setMyCommands(args: {
       /** A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
       commands: readonly BotCommand[];
+      /** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
+      scope?: BotCommandScope;
+      /** A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
+      language_code?: string;
     }): true;
 
     /** Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. */
-    getMyCommands(): BotCommand[];
+    getMyCommands(args: {
+      /** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
+      scope?: BotCommandScope;
+      /** A two-letter ISO 639-1 language code or an empty string */
+      language_code?: string;
+    }): BotCommand[];
+
+    deleteMyCommands(args: {
+      /** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
+      scope?: BotCommandScope;
+      /** A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
+      language_code?: string;
+    }): true;
 
     /** Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
     editMessageText(args: {
