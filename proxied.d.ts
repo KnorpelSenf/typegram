@@ -671,7 +671,7 @@ export interface Typegram<F> {
     }): File;
 
     /**
-     * @deprecated
+     * @deprecated use banChatMember instead
      * Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
     kickChatMember(args: {
       /** Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername) */
@@ -877,7 +877,7 @@ export interface Typegram<F> {
     }): ChatMember[];
 
     /**
-     * @deprecated
+     * @deprecated use getChatMemberCount instead
      * Use this method to get the number of members in a chat. Returns Int on success. */
     getChatMembersCount(args: {
       /** Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
