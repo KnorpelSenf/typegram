@@ -199,7 +199,13 @@ export interface ChatInviteLink {
   member_limit?: number;
 }
 
-/** This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported: */
+/** This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
+- ChatMemberOwner
+- ChatMemberAdministrator
+- ChatMemberMember
+- ChatMemberRestricted
+- ChatMemberLeft
+- ChatMemberBanned */
 export type ChatMember =
   | ChatMemberOwner
   | ChatMemberAdministrator
@@ -210,7 +216,7 @@ export type ChatMember =
 
 /** Represents a chat member that owns the chat and has all administrator privileges. */
 export interface ChatMemberOwner {
-  /** The member's status in the chat, always creator */
+  /** The member's status in the chat, always “creator” */
   status: "creator";
   /** Information about the user */
   user: User;
@@ -222,7 +228,7 @@ export interface ChatMemberOwner {
 
 /** Represents a chat member that has some additional privileges. */
 export interface ChatMemberAdministrator {
-  /** The member's status in the chat, always administrator */
+  /** The member's status in the chat, always “administrator” */
   status: "administrator";
   /** Information about the user */
   user: User;
@@ -230,7 +236,7 @@ export interface ChatMemberAdministrator {
   can_be_edited: boolean;
   /** Custom title for this user */
   custom_title: string;
-  /**  True, if the user's presence in the chat is hidden */
+  /** True, if the user's presence in the chat is hidden */
   is_anonymous: boolean;
   /** True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
   can_manage_chat: boolean;
@@ -256,7 +262,7 @@ export interface ChatMemberAdministrator {
 
 /** Represents a chat member that has no additional privileges or restrictions. */
 export interface ChatMemberMember {
-  /** The member's status in the chat, always member */
+  /** The member's status in the chat, always “member” */
   status: "member";
   /** Information about the user */
   user: User;
@@ -264,7 +270,7 @@ export interface ChatMemberMember {
 
 /** Represents a chat member that is under certain restrictions in the chat. Supergroups only. */
 export interface ChatMemberRestricted {
-  /** The member's status in the chat, always restricted */
+  /** The member's status in the chat, always “restricted” */
   status: "restricted";
   /** Information about the user */
   user: User;
@@ -292,7 +298,7 @@ export interface ChatMemberRestricted {
 
 /** Represents a chat member that isn't currently a member of the chat, but may join it themselves. */
 export interface ChatMemberLeft {
-  /** The member's status in the chat, always left */
+  /** The member's status in the chat, always “left” */
   status: "left";
   /** Information about the user */
   user: User;
