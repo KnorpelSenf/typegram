@@ -934,9 +934,9 @@ export interface Typegram<F> {
       language_code?: string;
     }): true;
 
-    /** Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. */
-    getMyCommands(args?: {
-      /** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
+    /** Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned. */
+    getMyCommands(args: {
+      /** An object, describing scope of users. Defaults to BotCommandScopeDefault. */
       scope?: BotCommandScope;
       /** A two-letter ISO 639-1 language code or an empty string */
       language_code?: string;
