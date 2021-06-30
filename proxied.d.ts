@@ -44,7 +44,7 @@ export interface InputFileProxy<F> {
       F
     >[0] extends undefined
       ? {}
-      : Exclude<Params<M, F>[0], undefined>;
+      : NonNullable<Params<M, F>[0]>;
   };
 
   /** Wrapper type to bundle all methods of the Telegram API */

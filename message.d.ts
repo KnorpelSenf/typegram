@@ -3,10 +3,7 @@ import { Chat, User } from "./manage";
 import { PassportData } from "./passport";
 import { Invoice, SuccessfulPayment } from "./payment";
 
-type MsgWith<P extends keyof Message> = Record<
-  P,
-  Exclude<Message[P], undefined>
->;
+type MsgWith<P extends keyof Message> = Record<P, NonNullable<Message[P]>>;
 
 export namespace Message {
   interface ServiceMessage {
