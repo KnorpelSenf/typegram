@@ -1,3 +1,4 @@
+import { BotCommandScope } from "./bot-command-scope";
 import {
   ForceReply,
   ReplyKeyboardMarkup,
@@ -86,8 +87,8 @@ export interface InputFileProxy<F> {
       /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
       max_connections?: number;
       /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
-    Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
-      allowed_updates?: ReadonlyArray<keyof Update>;
+      Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
+      allowed_updates?: ReadonlyArray<Exclude<keyof Update, "update_id">>;
       /** Pass True to drop all pending updates */
       drop_pending_updates?: boolean;
     }): true;
@@ -643,8 +644,12 @@ export interface InputFileProxy<F> {
       file_id: string;
     }): File;
 
-    /** Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
-    kickChatMember(args: {
+    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
+     * @deprecated Use `banChatMember` instead. */
+    kickChatMember: InputFileProxy<F>["Telegram"]["banChatMember"];
+
+    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    banChatMember(args: {
       /** Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername) */
       chat_id: number | string;
       /** Unique identifier of the target user */
@@ -655,7 +660,7 @@ export interface InputFileProxy<F> {
       revoke_messages?: boolean;
     }): true;
 
-    /** Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success. */
+    /** Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success. */
     unbanChatMember(args: {
       /** Unique identifier for the target group or username of the target supergroup or channel (in the format @username) */
       chat_id: number | string;
@@ -835,8 +840,12 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
     }): ChatMember[];
 
+    /** Use this method to get the number of members in a chat. Returns Int on success.
+     * @deprecated Use `getChatMemberCount` instead. */
+    getChatMembersCount: InputFileProxy<F>["Telegram"]["getChatMemberCount"];
+
     /** Use this method to get the number of members in a chat. Returns Int on success. */
-    getChatMembersCount(args: {
+    getChatMemberCount(args: {
       /** Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
       chat_id: number | string;
     }): number;
@@ -875,20 +884,37 @@ export interface InputFileProxy<F> {
       show_alert?: boolean;
       /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
 
-    Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
+      Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
       url?: string;
       /** The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0. */
       cache_time?: number;
     }): true;
 
-    /** Use this method to change the list of the bot's commands. Returns True on success. */
+    /** Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success. */
     setMyCommands(args: {
       /** A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
       commands: readonly BotCommand[];
+      /** An object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
+      scope?: BotCommandScope;
+      /** A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
+      language_code?: string;
     }): true;
 
-    /** Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of BotCommand on success. */
-    getMyCommands(): BotCommand[];
+    /** Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success. */
+    deleteMyCommands(args: {
+      /** An object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
+      scope?: BotCommandScope;
+      /** A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
+      language_code?: string;
+    }): true;
+
+    /** Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned. */
+    getMyCommands(args: {
+      /** An object, describing scope of users. Defaults to BotCommandScopeDefault. */
+      scope?: BotCommandScope;
+      /** A two-letter ISO 639-1 language code or an empty string */
+      language_code?: string;
+    }): BotCommand[];
 
     /** Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
     editMessageText(args: {
@@ -1117,7 +1143,7 @@ export interface InputFileProxy<F> {
       prices: readonly LabeledPrice[];
       /** The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 */
       max_tip_amount?: number;
-      /** A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount. */
+      /** An array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount. */
       suggested_tip_amounts?: number[];
       /** Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter */
       start_parameter?: string;

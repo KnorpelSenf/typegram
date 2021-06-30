@@ -18,7 +18,7 @@ export interface WebhookInfo {
   /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
   max_connections: number;
   /** A list of update types the bot is subscribed to. Defaults to all update types except chat_member */
-  allowed_updates: Array<keyof Update>;
+  allowed_updates: Array<Exclude<keyof Update, "update_id">>;
 }
 
 /** This object represents a Telegram user or bot. */
@@ -200,58 +200,119 @@ export interface ChatInviteLink {
   member_limit?: number;
 }
 
-/** This object contains information about one member of a chat. */
-export interface ChatMember {
+/** This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
+- ChatMemberOwner
+- ChatMemberAdministrator
+- ChatMemberMember
+- ChatMemberRestricted
+- ChatMemberLeft
+- ChatMemberBanned */
+export type ChatMember =
+  | ChatMemberOwner
+  | ChatMemberAdministrator
+  | ChatMemberMember
+  | ChatMemberRestricted
+  | ChatMemberLeft
+  | ChatMemberBanned;
+
+/** Represents a chat member that owns the chat and has all administrator privileges. */
+export interface ChatMemberOwner {
+  /** The member's status in the chat, always “creator” */
+  status: "creator";
   /** Information about the user */
   user: User;
-  /** The member's status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, “left” or “kicked” */
-  status:
-    | "creator"
-    | "administrator"
-    | "member"
-    | "restricted"
-    | "left"
-    | "kicked";
-  /** Owner and administrators only. Custom title for this user */
-  custom_title?: string;
-  /** Owner and administrators only. True, if the user's presence in the chat is hidden */
-  is_anonymous?: boolean;
-  /** Administrators only. True, if the bot is allowed to edit administrator privileges of that user */
-  can_be_edited?: boolean;
-  /** Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
-  can_manage_chat?: boolean;
-  /** Administrators only. True, if the administrator can post in the channel; channels only */
-  can_post_messages?: boolean;
-  /** Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only */
-  can_edit_messages?: boolean;
-  /** Administrators only. True, if the administrator can delete messages of other users */
-  can_delete_messages?: boolean;
-  /** Administrators only. True, if the administrator can manage voice chats */
-  can_manage_voice_chats?: boolean;
-  /** Administrators only. True, if the administrator can restrict, ban or unban chat members */
-  can_restrict_members?: boolean;
-  /** Administrators only. True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
-  can_promote_members?: boolean;
-  /** Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings */
-  can_change_info?: boolean;
-  /** Administrators and restricted only. True, if the user is allowed to invite new users to the chat */
-  can_invite_users?: boolean;
-  /** Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups only */
-  can_pin_messages?: boolean;
-  /** Restricted only. True, if the user is a member of the chat at the moment of the request */
-  is_member?: boolean;
-  /** Restricted only. True, if the user is allowed to send text messages, contacts, locations and venues */
-  can_send_messages?: boolean;
-  /** Restricted only. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes */
-  can_send_media_messages?: boolean;
-  /** Restricted only. True, if the user is allowed to send polls */
-  can_send_polls?: boolean;
-  /** Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots */
-  can_send_other_messages?: boolean;
-  /** Restricted only. True, if the user is allowed to add web page previews to their messages */
-  can_add_web_page_previews?: boolean;
-  /** Restricted and kicked only. Date when restrictions will be lifted for this user; unix time */
-  until_date?: number;
+  /** Custom title for this user */
+  custom_title: string;
+  /** True, if the user's presence in the chat is hidden */
+  is_anonymous: boolean;
+}
+
+/** Represents a chat member that has some additional privileges. */
+export interface ChatMemberAdministrator {
+  /** The member's status in the chat, always “administrator” */
+  status: "administrator";
+  /** Information about the user */
+  user: User;
+  /** True, if the bot is allowed to edit administrator privileges of that user */
+  can_be_edited: boolean;
+  /** Custom title for this user */
+  custom_title: string;
+  /** True, if the user's presence in the chat is hidden */
+  is_anonymous: boolean;
+  /** True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
+  can_manage_chat: boolean;
+  /** True, if the administrator can post in the channel; channels only */
+  can_post_messages: boolean;
+  /** True, if the administrator can edit messages of other users and can pin messages; channels only */
+  can_edit_messages: boolean;
+  /** True, if the administrator can delete messages of other users */
+  can_delete_messages: boolean;
+  /** True, if the administrator can manage voice chats */
+  can_manage_voice_chats: boolean;
+  /** True, if the administrator can restrict, ban or unban chat members */
+  can_restrict_members: boolean;
+  /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
+  can_promote_members: boolean;
+  /** True, if the user is allowed to change the chat title, photo and other settings */
+  can_change_info: boolean;
+  /** True, if the user is allowed to invite new users to the chat */
+  can_invite_users: boolean;
+  /** True, if the user is allowed to pin messages; groups and supergroups only */
+  can_pin_messages: boolean;
+}
+
+/** Represents a chat member that has no additional privileges or restrictions. */
+export interface ChatMemberMember {
+  /** The member's status in the chat, always “member” */
+  status: "member";
+  /** Information about the user */
+  user: User;
+}
+
+/** Represents a chat member that is under certain restrictions in the chat. Supergroups only. */
+export interface ChatMemberRestricted {
+  /** The member's status in the chat, always “restricted” */
+  status: "restricted";
+  /** Information about the user */
+  user: User;
+  /** True, if the user is a member of the chat at the moment of the request */
+  is_member: boolean;
+  /** True, if the user is allowed to change the chat title, photo and other settings */
+  can_change_info: boolean;
+  /** True, if the user is allowed to invite new users to the chat */
+  can_invite_users: boolean;
+  /** True, if the user is allowed to pin messages; groups and supergroups only */
+  can_pin_messages: boolean;
+  /** True, if the user is allowed to send text messages, contacts, locations and venues */
+  can_send_messages: boolean;
+  /** True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes */
+  can_send_media_messages: boolean;
+  /** True, if the user is allowed to send polls */
+  can_send_polls: boolean;
+  /** True, if the user is allowed to send animations, games, stickers and use inline bots */
+  can_send_other_messages: boolean;
+  /** True, if the user is allowed to add web page previews to their messages */
+  can_add_web_page_previews: boolean;
+  /** Date when restrictions will be lifted for this user; unix time */
+  until_date: number;
+}
+
+/** Represents a chat member that isn't currently a member of the chat, but may join it themselves. */
+export interface ChatMemberLeft {
+  /** The member's status in the chat, always “left” */
+  status: "left";
+  /** Information about the user */
+  user: User;
+}
+
+/** Represents a chat member that was banned in the chat and can't return to the chat or view chat messages. */
+export interface ChatMemberBanned {
+  /** The member's status in the chat, always “kicked” */
+  status: "kicked";
+  /** Information about the user */
+  user: User;
+  /** Date when restrictions will be lifted for this user; unix time */
+  until_date: number;
 }
 
 /** This object represents changes in the status of a chat member. */
