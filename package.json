@@ -6,6 +6,7 @@
   "exports": {
     ".": "./index.js",
     "./api": "./index.js",
+    "./bot-command-scope": "./index.js",
     "./callback": "./index.js",
     "./default": "./index.js",
     "./inline": "./index.js",
