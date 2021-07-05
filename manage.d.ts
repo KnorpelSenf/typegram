@@ -221,10 +221,10 @@ export interface ChatMemberOwner {
   status: "creator";
   /** Information about the user */
   user: User;
-  /** Custom title for this user */
-  custom_title: string;
   /** True, if the user's presence in the chat is hidden */
   is_anonymous: boolean;
+  /** Custom title for this user */
+  custom_title?: string;
 }
 
 /** Represents a chat member that has some additional privileges. */
@@ -235,16 +235,10 @@ export interface ChatMemberAdministrator {
   user: User;
   /** True, if the bot is allowed to edit administrator privileges of that user */
   can_be_edited: boolean;
-  /** Custom title for this user */
-  custom_title: string;
   /** True, if the user's presence in the chat is hidden */
   is_anonymous: boolean;
   /** True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
   can_manage_chat: boolean;
-  /** True, if the administrator can post in the channel; channels only */
-  can_post_messages: boolean;
-  /** True, if the administrator can edit messages of other users and can pin messages; channels only */
-  can_edit_messages: boolean;
   /** True, if the administrator can delete messages of other users */
   can_delete_messages: boolean;
   /** True, if the administrator can manage voice chats */
@@ -257,8 +251,14 @@ export interface ChatMemberAdministrator {
   can_change_info: boolean;
   /** True, if the user is allowed to invite new users to the chat */
   can_invite_users: boolean;
+  /** True, if the administrator can post in the channel; channels only */
+  can_post_messages?: boolean;
+  /** True, if the administrator can edit messages of other users and can pin messages; channels only */
+  can_edit_messages?: boolean;
   /** True, if the user is allowed to pin messages; groups and supergroups only */
-  can_pin_messages: boolean;
+  can_pin_messages?: boolean;
+  /** Custom title for this user */
+  custom_title?: string;
 }
 
 /** Represents a chat member that has no additional privileges or restrictions. */
