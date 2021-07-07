@@ -281,7 +281,7 @@ export interface ChatMemberRestricted {
   can_change_info: boolean;
   /** True, if the user is allowed to invite new users to the chat */
   can_invite_users: boolean;
-  /** True, if the user is allowed to pin messages; groups and supergroups only */
+  /** True, if the user is allowed to pin messages */
   can_pin_messages: boolean;
   /** True, if the user is allowed to send text messages, contacts, locations and venues */
   can_send_messages: boolean;
