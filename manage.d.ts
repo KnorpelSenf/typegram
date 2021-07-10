@@ -293,7 +293,7 @@ export interface ChatMemberRestricted {
   can_send_other_messages: boolean;
   /** True, if the user is allowed to add web page previews to their messages */
   can_add_web_page_previews: boolean;
-  /** Date when restrictions will be lifted for this user; unix time */
+  /** Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever */
   until_date: number;
 }
 
@@ -311,7 +311,7 @@ export interface ChatMemberBanned {
   status: "kicked";
   /** Information about the user */
   user: User;
-  /** Date when restrictions will be lifted for this user; unix time */
+  /** Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever */
   until_date: number;
 }
 
