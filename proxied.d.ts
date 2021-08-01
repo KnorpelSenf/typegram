@@ -974,6 +974,8 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the message caption. See formatting options for more details. */
       parse_mode?: ParseMode;
+      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      caption_entities?: MessageEntity[];
       /** An object for an inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.CaptionableMessage) | true;
