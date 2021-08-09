@@ -227,7 +227,7 @@ pre-formatted fixed-width code block written in the Python programming language
 ```
 Please note:
 
-- Any character with code between 1 and 126 inclusively can be escaped anywhere with a preceding '\' character, in which case it is treated as an ordinary character and not a part of the markup.
+- Any character with code between 1 and 126 inclusively can be escaped anywhere with a preceding '\' character, in which case it is treated as an ordinary character and not a part of the markup. This implies that '\' character usually must be escaped with a preceding '\' character.
 - Inside `pre` and `code` entities, all '`' and '\' characters must be escaped with a preceding '\' character.
 - Inside `(...)` part of inline link definition, all ')' and '\' must be escaped with a preceding '\' character.
 - In all other places characters '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!' must be escaped with the preceding character '\'.
