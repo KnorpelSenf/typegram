@@ -250,7 +250,7 @@ export interface Typegram<F> {
       /** Track name */
       title?: string;
       /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-      thumb?: F | string;
+      thumb?: F;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** If the message is a reply, ID of the original message */
@@ -272,7 +272,7 @@ export interface Typegram<F> {
       /** File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. */
       document: F | string;
       /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-      thumb?: F | string;
+      thumb?: F;
       /** Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing */
       caption?: string;
       /** Mode for parsing entities in the document caption. See formatting options for more details. */
@@ -308,7 +308,7 @@ export interface Typegram<F> {
       /** Video height */
       height?: number;
       /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-      thumb?: F | string;
+      thumb?: F;
       /** Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing */
       caption?: string;
       /** Mode for parsing entities in the video caption. See formatting options for more details. */
@@ -344,7 +344,7 @@ export interface Typegram<F> {
       /** Animation height */
       height?: number;
       /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-      thumb?: F | string;
+      thumb?: F;
       /** Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing */
       caption?: string;
       /** Mode for parsing entities in the animation caption. See formatting options for more details. */
@@ -405,7 +405,7 @@ export interface Typegram<F> {
       /** Video width and height, i.e. diameter of the video message */
       length?: number;
       /**  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-      thumb?: F | string;
+      thumb?: F;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** If the message is a reply, ID of the original message */
@@ -496,7 +496,7 @@ export interface Typegram<F> {
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.LocationMessage) | true;
 
-    /** Use this method to stop updating a live location message before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned. */
+    /** Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned. */
     stopMessageLiveLocation(args: {
       /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id?: number | string;
@@ -980,7 +980,7 @@ export interface Typegram<F> {
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message.CaptionableMessage) | true;
 
-    /** Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned. */
+    /** Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
     editMessageMedia(args: {
       /** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id?: number | string;
@@ -1012,7 +1012,7 @@ export interface Typegram<F> {
       reply_markup?: InlineKeyboardMarkup;
     }): (Update.Edited & Message) | true;
 
-    /** Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned. */
+    /** Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is returned. */
     stopPoll(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -1257,7 +1257,7 @@ export interface Typegram<F> {
       reply_markup?: InlineKeyboardMarkup;
     }): Message.GameMessage;
 
-    /** Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns the edited Message, otherwise returns True. Returns an error, if the new score is not greater than the user's current score in the chat and force is False. */
+    /** Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False. */
     setGameScore(args: {
       /** User identifier */
       user_id: number;
@@ -1324,7 +1324,7 @@ export interface Typegram<F> {
     /** File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. */
     media: F | string;
     /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-    thumb?: F | string;
+    thumb?: F;
     /** Caption of the video to be sent, 0-1024 characters after entities parsing */
     caption?: string;
     /** Mode for parsing entities in the video caption. See formatting options for more details. */
@@ -1348,7 +1348,7 @@ export interface Typegram<F> {
     /** File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. */
     media: F | string;
     /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-    thumb?: F | string;
+    thumb?: F;
     /** Caption of the animation to be sent, 0-1024 characters after entities parsing */
     caption?: string;
     /** Mode for parsing entities in the animation caption. See formatting options for more details. */
@@ -1370,7 +1370,7 @@ export interface Typegram<F> {
     /** File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. */
     media: F | string;
     /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-    thumb?: F | string;
+    thumb?: F;
     /** Caption of the audio to be sent, 0-1024 characters after entities parsing */
     caption?: string;
     /** Mode for parsing entities in the audio caption. See formatting options for more details. */
@@ -1392,7 +1392,7 @@ export interface Typegram<F> {
     /** File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. */
     media: F | string;
     /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
-    thumb?: F | string;
+    thumb?: F;
     /** Caption of the document to be sent, 0-1024 characters after entities parsing */
     caption?: string;
     /** Mode for parsing entities in the document caption. See formatting options for more details. */
