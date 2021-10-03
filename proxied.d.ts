@@ -119,7 +119,7 @@ export interface InputFileProxy<F> {
       text: string;
       /** Mode for parsing entities in the message text. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in message text, which can be specified instead of parse_mode */
       entities?: MessageEntity[];
       /** Boolean Disables link previews for links in this message */
       disable_web_page_preview?: boolean;
@@ -161,7 +161,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the new caption. See formatting options for more details. */
       parse_mode?: string;
-      /** List of special entities that appear in the new caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the new caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -187,7 +187,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the photo caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -215,7 +215,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the audio caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Duration of the audio in seconds */
       duration?: number;
@@ -251,7 +251,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the document caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album. */
       disable_content_type_detection?: boolean;
@@ -287,7 +287,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the video caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Pass True, if the uploaded video is suitable for streaming */
       supports_streaming?: boolean;
@@ -323,7 +323,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the animation caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -349,7 +349,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the voice message caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Duration of the voice message in seconds */
       duration?: number;
@@ -562,7 +562,7 @@ export interface InputFileProxy<F> {
       explanation?: string;
       /** Mode for parsing entities in the explanation. See formatting options for more details. */
       explanation_parse_mode?: ParseMode;
-      /** List of special entities that appear in the poll explanation, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the poll explanation, which can be specified instead of parse_mode */
       explanation_entities?: MessageEntity[];
       /** Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. */
       open_period?: number;
@@ -726,7 +726,7 @@ export interface InputFileProxy<F> {
     setChatPermissions(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
-      /** New default chat permissions */
+      /** An object for new default chat permissions */
       permissions: ChatPermissions;
     }): true;
 
@@ -928,7 +928,7 @@ export interface InputFileProxy<F> {
       text: string;
       /** Mode for parsing entities in the message text. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in message text, which can be specified instead of parse_mode */
       entities?: MessageEntity[];
       /** Disables link previews for links in this message */
       disable_web_page_preview?: boolean;
@@ -948,7 +948,7 @@ export interface InputFileProxy<F> {
       caption?: string;
       /** Mode for parsing entities in the message caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** An object for an inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
