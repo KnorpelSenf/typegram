@@ -373,7 +373,7 @@ export interface File {
   file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
-  /** File size, if known */
+  /** File size in bytes, if known */
   file_size?: number;
   /** File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file. */
   file_path?: string;

@@ -209,7 +209,7 @@ export interface InlineQueryResultGif {
   gif_width?: number;
   /** Height of the GIF */
   gif_height?: number;
-  /** Duration of the GIF */
+  /** Duration of the GIF in seconds */
   gif_duration?: number;
   /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
   thumb_url: string;
@@ -239,7 +239,7 @@ export interface InlineQueryResultMpeg4Gif {
   mpeg4_width?: number;
   /** Video height */
   mpeg4_height?: number;
-  /** Video duration */
+  /** Video duration in seconds */
   mpeg4_duration?: number;
   /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
   thumb_url: string;
@@ -269,7 +269,7 @@ export interface InlineQueryResultVideo {
   video_url: string;
   /** Mime type of the content of video url, “text/html” or “video/mp4” */
   mime_type: "text/html" | "video/mp4";
-  /** URL of the thumbnail (jpeg only) for the video */
+  /** URL of the thumbnail (JPEG only) for the video */
   thumb_url: string;
   /** Title for the result */
   title: string;
@@ -371,7 +371,7 @@ export interface InlineQueryResultDocument {
   reply_markup?: InlineKeyboardMarkup;
   /** Content of the message to be sent instead of the file */
   input_message_content?: InputMessageContent;
-  /** URL of the thumbnail (jpeg only) for the file */
+  /** URL of the thumbnail (JPEG only) for the file */
   thumb_url?: string;
   /** Thumbnail width */
   thumb_width?: number;

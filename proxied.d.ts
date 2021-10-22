@@ -1309,7 +1309,7 @@ export interface InputFileProxy<F> {
     width?: number;
     /** Video height */
     height?: number;
-    /** Video duration */
+    /** Video duration in seconds */
     duration?: number;
     /** Pass True, if the uploaded video is suitable for streaming */
     supports_streaming?: boolean;
@@ -1333,7 +1333,7 @@ export interface InputFileProxy<F> {
     width?: number;
     /** Animation height */
     height?: number;
-    /** Animation duration */
+    /** Animation duration in seconds */
     duration?: number;
   };
 
