@@ -139,7 +139,7 @@ export namespace Chat {
     extends SupergroupChat,
       MultiUserGetChat,
       LargeGetChat {
-    /** For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user. Returned only in getChat. */
+    /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
     sticker_set_name?: string;

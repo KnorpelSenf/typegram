@@ -533,7 +533,7 @@ export interface Location {
   latitude: number;
   /** The radius of uncertainty for the location, measured in meters; 0-1500 */
   horizontal_accuracy?: number;
-  /** Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only. */
+  /** Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only. */
   live_period?: number;
   /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
   heading?: number;
@@ -571,7 +571,7 @@ export interface ProximityAlertTriggered {
 
 /** This object represents a service message about a change in auto-delete timer settings. */
 export interface MessageAutoDeleteTimerChanged {
-  /** New auto-delete time for messages in the chat */
+  /** New auto-delete time for messages in the chat; in secondss */
   message_auto_delete_time: number;
 }
 
