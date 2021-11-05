@@ -42,8 +42,7 @@ export interface InputFileProxy<F> {
     [M in keyof InputFileProxy<F>["Telegram"]]: Params<
       M,
       F
-    >[0] extends undefined
-      ? {}
+    >[0] extends undefined ? {}
       : NonNullable<Params<M, F>[0]>;
   };
 
@@ -612,7 +611,7 @@ export interface InputFileProxy<F> {
     sendChatAction(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
-      /** Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, find_location for location data, record_video_note or upload_video_note for video notes. */
+      /** Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes. */
       action:
         | "typing"
         | "upload_photo"
@@ -644,11 +643,11 @@ export interface InputFileProxy<F> {
       file_id: string;
     }): File;
 
-    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
+    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
      * @deprecated Use `banChatMember` instead. */
     kickChatMember: InputFileProxy<F>["Telegram"]["banChatMember"];
 
-    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     banChatMember(args: {
       /** Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername) */
       chat_id: number | string;
@@ -670,7 +669,7 @@ export interface InputFileProxy<F> {
       only_if_banned?: boolean;
     }): true;
 
-    /** Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. Returns True on success. */
+    /** Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success. */
     restrictChatMember(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -682,7 +681,7 @@ export interface InputFileProxy<F> {
       until_date?: number;
     }): true;
 
-    /** Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success. */
+    /** Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success. */
     promoteChatMember(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -722,7 +721,7 @@ export interface InputFileProxy<F> {
       custom_title: string;
     }): true;
 
-    /** Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success. */
+    /** Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights. Returns True on success. */
     setChatPermissions(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -730,7 +729,7 @@ export interface InputFileProxy<F> {
       permissions: ChatPermissions;
     }): true;
 
-    /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
+    /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
 
     Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink or by calling the getChat method. If your bot needs to generate a new primary invite link replacing its previous one, use exportChatInviteLink again. */
     exportChatInviteLink(args: {
@@ -738,29 +737,37 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
     }): string;
 
-    /** Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. */
+    /** Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. */
     createChatInviteLink(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Invite link name; 0-32 characters */
+      name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
       /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
+      /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
+      creates_join_request?: boolean;
     }): ChatInviteLink;
 
-    /** Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the edited invite link as a ChatInviteLink object. */
+    /** Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a ChatInviteLink object. */
     editChatInviteLink(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
       /** The invite link to edit */
       invite_link: string;
+      /** Invite link name; 0-32 characters */
+      name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
       /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
+      /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
+      creates_join_request?: boolean;
     }): ChatInviteLink;
 
-    /** Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the revoked invite link as ChatInviteLink object. */
+    /** Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as ChatInviteLink object. */
     revokeChatInviteLink(args: {
       /** Unique identifier of the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -768,7 +775,23 @@ export interface InputFileProxy<F> {
       invite_link: string;
     }): ChatInviteLink;
 
-    /** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success. */
+    approveChatJoinRequest(args: {
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** Unique identifier of the target user */
+      user_id: number;
+    }): true;
+
+    /** Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success. */
+    declineChatJoinRequest(args: {
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** Unique identifier of the target user */
+      user_id: number;
+    }): true;
+
+    /** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     setChatPhoto(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -776,13 +799,13 @@ export interface InputFileProxy<F> {
       photo: F;
     }): true;
 
-    /** Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     deleteChatPhoto(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
     }): true;
 
-    /** Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     setChatTitle(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -790,7 +813,7 @@ export interface InputFileProxy<F> {
       title: string;
     }): true;
 
-    /** Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     setChatDescription(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -858,7 +881,7 @@ export interface InputFileProxy<F> {
       user_id: number;
     }): ChatMember;
 
-    /** Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
+    /** Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
     setChatStickerSet(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -866,7 +889,7 @@ export interface InputFileProxy<F> {
       sticker_set_name: string;
     }): true;
 
-    /** Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
+    /** Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
     deleteChatStickerSet(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -880,7 +903,7 @@ export interface InputFileProxy<F> {
       callback_query_id: string;
       /** Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters */
       text?: string;
-      /** If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
+      /** If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
       show_alert?: boolean;
       /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
 

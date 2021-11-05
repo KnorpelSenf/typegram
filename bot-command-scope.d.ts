@@ -22,12 +22,12 @@ The following algorithm is used to determine the list of commands for a particul
 ### Commands in group and supergroup chats
 - botCommandScopeChatMember + language_code
 - botCommandScopeChatMember
-- botCommandScopeChatAdministrators + language_code (admins only)
-- botCommandScopeChatAdministrators (admins only)
+- botCommandScopeChatAdministrators + language_code (administrators only)
+- botCommandScopeChatAdministrators (administrators only)
 - botCommandScopeChat + language_code
 - botCommandScopeChat
-- botCommandScopeAllChatAdministrators + language_code (admins only)
-- botCommandScopeAllChatAdministrators (admins only)
+- botCommandScopeAllChatAdministrators + language_code (administrators only)
+- botCommandScopeAllChatAdministrators (administrators only)
 - botCommandScopeAllGroupChats + language_code
 - botCommandScopeAllGroupChats
 - botCommandScopeDefault + language_code
