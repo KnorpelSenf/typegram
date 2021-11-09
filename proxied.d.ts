@@ -68,8 +68,7 @@ export interface Typegram<F> {
   TelegramPR: { [M in keyof Typegram<F>["Telegram"]]: PromiseResponsify<M, F> };
   /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
   Opts: {
-    [M in keyof Typegram<F>["Telegram"]]: Params<M, F>[0] extends undefined
-      ? {}
+    [M in keyof Typegram<F>["Telegram"]]: Params<M, F>[0] extends undefined ? {}
       : NonNullable<Params<M, F>[0]>;
   };
 
@@ -128,7 +127,7 @@ export interface Typegram<F> {
     /** Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty. */
     getWebhookInfo(): WebhookInfo;
 
-    /** A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object. */
+    /** A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object. */
     getMe(): UserFromGetMe;
 
     /** Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns True on success. Requires no parameters. */
@@ -145,7 +144,7 @@ export interface Typegram<F> {
       text: string;
       /** Mode for parsing entities in the message text. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in message text, which can be specified instead of parse_mode */
       entities?: MessageEntity[];
       /** Boolean Disables link previews for links in this message */
       disable_web_page_preview?: boolean;
@@ -187,7 +186,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the new caption. See formatting options for more details. */
       parse_mode?: string;
-      /** List of special entities that appear in the new caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the new caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -213,7 +212,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the photo caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -241,7 +240,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the audio caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Duration of the audio in seconds */
       duration?: number;
@@ -277,7 +276,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the document caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album. */
       disable_content_type_detection?: boolean;
@@ -313,7 +312,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the video caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Pass True, if the uploaded video is suitable for streaming */
       supports_streaming?: boolean;
@@ -349,7 +348,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the animation caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -375,7 +374,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the voice message caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** Duration of the voice message in seconds */
       duration?: number;
@@ -588,7 +587,7 @@ export interface Typegram<F> {
       explanation?: string;
       /** Mode for parsing entities in the explanation. See formatting options for more details. */
       explanation_parse_mode?: ParseMode;
-      /** List of special entities that appear in the poll explanation, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the poll explanation, which can be specified instead of parse_mode */
       explanation_entities?: MessageEntity[];
       /** Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date. */
       open_period?: number;
@@ -638,7 +637,7 @@ export interface Typegram<F> {
     sendChatAction(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
-      /** Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, find_location for location data, record_video_note or upload_video_note for video notes. */
+      /** Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes. */
       action:
         | "typing"
         | "upload_photo"
@@ -647,6 +646,7 @@ export interface Typegram<F> {
         | "record_voice"
         | "upload_voice"
         | "upload_document"
+        | "choose_sticker"
         | "find_location"
         | "record_video_note"
         | "upload_video_note";
@@ -670,11 +670,11 @@ export interface Typegram<F> {
       file_id: string;
     }): File;
 
-    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
+    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
      * @deprecated Use `banChatMember` instead. */
     kickChatMember: Typegram<F>["Telegram"]["banChatMember"];
 
-    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     banChatMember(args: {
       /** Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername) */
       chat_id: number | string;
@@ -696,7 +696,7 @@ export interface Typegram<F> {
       only_if_banned?: boolean;
     }): true;
 
-    /** Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. Returns True on success. */
+    /** Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success. */
     restrictChatMember(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -708,7 +708,7 @@ export interface Typegram<F> {
       until_date?: number;
     }): true;
 
-    /** Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success. */
+    /** Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success. */
     promoteChatMember(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -748,15 +748,15 @@ export interface Typegram<F> {
       custom_title: string;
     }): true;
 
-    /** Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success. */
+    /** Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights. Returns True on success. */
     setChatPermissions(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
-      /** New default chat permissions */
+      /** An object for new default chat permissions */
       permissions: ChatPermissions;
     }): true;
 
-    /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
+    /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
 
     Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink or by calling the getChat method. If your bot needs to generate a new primary invite link replacing its previous one, use exportChatInviteLink again. */
     exportChatInviteLink(args: {
@@ -764,29 +764,37 @@ export interface Typegram<F> {
       chat_id: number | string;
     }): string;
 
-    /** Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. */
+    /** Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object. */
     createChatInviteLink(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Invite link name; 0-32 characters */
+      name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
       /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
+      /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
+      creates_join_request?: boolean;
     }): ChatInviteLink;
 
-    /** Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the edited invite link as a ChatInviteLink object. */
+    /** Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a ChatInviteLink object. */
     editChatInviteLink(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
       /** The invite link to edit */
       invite_link: string;
+      /** Invite link name; 0-32 characters */
+      name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
       /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
+      /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
+      creates_join_request?: boolean;
     }): ChatInviteLink;
 
-    /** Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the revoked invite link as ChatInviteLink object. */
+    /** Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as ChatInviteLink object. */
     revokeChatInviteLink(args: {
       /** Unique identifier of the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -794,7 +802,23 @@ export interface Typegram<F> {
       invite_link: string;
     }): ChatInviteLink;
 
-    /** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success. */
+    approveChatJoinRequest(args: {
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** Unique identifier of the target user */
+      user_id: number;
+    }): true;
+
+    /** Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success. */
+    declineChatJoinRequest(args: {
+      /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
+      chat_id: number | string;
+      /** Unique identifier of the target user */
+      user_id: number;
+    }): true;
+
+    /** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     setChatPhoto(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -802,13 +826,13 @@ export interface Typegram<F> {
       photo: F;
     }): true;
 
-    /** Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     deleteChatPhoto(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
     }): true;
 
-    /** Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     setChatTitle(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -816,7 +840,7 @@ export interface Typegram<F> {
       title: string;
     }): true;
 
-    /** Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. */
+    /** Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
     setChatDescription(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -884,7 +908,7 @@ export interface Typegram<F> {
       user_id: number;
     }): ChatMember;
 
-    /** Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
+    /** Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
     setChatStickerSet(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -892,7 +916,7 @@ export interface Typegram<F> {
       sticker_set_name: string;
     }): true;
 
-    /** Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
+    /** Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set ly returned in getChat requests to check if the bot can use this method. Returns True on success. */
     deleteChatStickerSet(args: {
       /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
       chat_id: number | string;
@@ -906,7 +930,7 @@ export interface Typegram<F> {
       callback_query_id: string;
       /** Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters */
       text?: string;
-      /** If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
+      /** If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
       show_alert?: boolean;
       /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
 
@@ -954,7 +978,7 @@ export interface Typegram<F> {
       text: string;
       /** Mode for parsing entities in the message text. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in message text, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in message text, which can be specified instead of parse_mode */
       entities?: MessageEntity[];
       /** Disables link previews for links in this message */
       disable_web_page_preview?: boolean;
@@ -974,7 +998,7 @@ export interface Typegram<F> {
       caption?: string;
       /** Mode for parsing entities in the message caption. See formatting options for more details. */
       parse_mode?: ParseMode;
-      /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
+      /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
       /** An object for an inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
@@ -1135,7 +1159,7 @@ export interface Typegram<F> {
     /** Use this method to send answers to an inline query. On success, True is returned.
     No more than 50 results per query are allowed.
 
-    Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities. */
+    Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities. */
     answerInlineQuery(args: {
       /** Unique identifier for the answered query */
       inline_query_id: string;
@@ -1335,7 +1359,7 @@ export interface Typegram<F> {
     width?: number;
     /** Video height */
     height?: number;
-    /** Video duration */
+    /** Video duration in seconds */
     duration?: number;
     /** Pass True, if the uploaded video is suitable for streaming */
     supports_streaming?: boolean;
@@ -1359,7 +1383,7 @@ export interface Typegram<F> {
     width?: number;
     /** Animation height */
     height?: number;
-    /** Animation duration */
+    /** Animation duration in seconds */
     duration?: number;
   };
 

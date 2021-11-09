@@ -1,7 +1,7 @@
 import { CallbackQuery } from "./callback";
 import { ChosenInlineResult, InlineQuery } from "./inline";
-import { Chat, ChatMemberUpdated, User } from "./manage";
-import { CommonMessageBundle, Message, Poll, PollAnswer } from "./message";
+import { Chat, ChatJoinRequest, ChatMemberUpdated, User } from "./manage";
+import { Message, Poll, PollAnswer } from "./message";
 import { PreCheckoutQuery, ShippingQuery } from "./payment";
 
 export namespace Update {
@@ -89,6 +89,10 @@ export namespace Update {
     /** A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates. */
     chat_member: ChatMemberUpdated;
   }
+  export interface ChatJoinRequestUpdate extends AbstractUpdate {
+    /** A request to join the chat has been sent. The bot must have the can_invite_users administrator right in the chat to receive these updates. */
+    chat_join_request?: ChatJoinRequest;
+  }
 }
 
 /** This object represents an incoming update.
@@ -106,4 +110,5 @@ export type Update =
   | Update.PreCheckoutQueryUpdate
   | Update.PollAnswerUpdate
   | Update.PollUpdate
-  | Update.ShippingQueryUpdate;
+  | Update.ShippingQueryUpdate
+  | Update.ChatJoinRequestUpdate;

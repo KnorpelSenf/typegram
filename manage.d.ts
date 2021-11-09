@@ -85,9 +85,7 @@ export namespace Chat {
   }
   /** Internal type representing super group chats. */
   export interface SupergroupChat
-    extends AbstractChat,
-      UserNameChat,
-      TitleChat {
+    extends AbstractChat, UserNameChat, TitleChat {
     type: "supergroup";
   }
   /** Internal type representing channel chats. */
@@ -135,10 +133,8 @@ export namespace Chat {
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
   /** Internal type representing supergroup chats returned from `getChat`. */
   export interface SupergroupGetChat
-    extends SupergroupChat,
-      MultiUserGetChat,
-      LargeGetChat {
-    /** For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user. Returned only in getChat. */
+    extends SupergroupChat, MultiUserGetChat, LargeGetChat {
+    /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
     sticker_set_name?: string;
@@ -189,14 +185,20 @@ export interface ChatInviteLink {
   invite_link: string;
   /** Creator of the link */
   creator: User;
+  /** True, if users joining the chat via the link need to be approved by chat administrators */
+  creates_join_request: boolean;
   /** True, if the link is primary */
   is_primary: boolean;
   /** True, if the link is revoked */
   is_revoked: boolean;
+  /** Invite link name */
+  name?: string;
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
   expire_date?: number;
   /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
   member_limit?: number;
+  /** Number of pending join requests created using this link */
+  pending_join_request_count?: number;
 }
 
 /** This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
@@ -330,6 +332,20 @@ export interface ChatMemberUpdated {
   invite_link?: ChatInviteLink;
 }
 
+/** Represents a join request sent to a chat. */
+export interface ChatJoinRequest {
+  /** Chat to which the request was sent */
+  chat: Chat;
+  /** User that sent the join request */
+  from: User;
+  /** Date the request was sent in Unix time */
+  date: number;
+  /** Bio of the user. */
+  bio?: string;
+  /** Chat invite link that was used by the user to send the join request */
+  invite_link?: ChatInviteLink;
+}
+
 /** Describes actions that a non-administrator user is allowed to take in a chat. */
 export interface ChatPermissions {
   /** True, if the user is allowed to send text messages, contacts, locations and venues */
@@ -372,7 +388,7 @@ export interface File {
   file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
-  /** File size, if known */
+  /** File size in bytes, if known */
   file_size?: number;
   /** File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file. */
   file_path?: string;

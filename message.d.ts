@@ -401,7 +401,7 @@ export interface PhotoSize {
   width: number;
   /** Photo height */
   height: number;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
@@ -423,7 +423,7 @@ export interface Animation {
   file_name?: string;
   /** MIME type of the file as defined by sender */
   mime_type?: string;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
@@ -443,7 +443,7 @@ export interface Audio {
   file_name?: string;
   /** MIME type of the file as defined by sender */
   mime_type?: string;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
   /** Thumbnail of the album cover to which the music file belongs */
   thumb?: PhotoSize;
@@ -461,7 +461,7 @@ export interface Document {
   file_name?: string;
   /** MIME type of the file as defined by sender */
   mime_type?: string;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
@@ -483,7 +483,7 @@ export interface Video {
   file_name?: string;
   /** Mime type of a file as defined by sender */
   mime_type?: string;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
@@ -499,7 +499,7 @@ export interface VideoNote {
   duration: number;
   /** Video thumbnail */
   thumb?: PhotoSize;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
@@ -513,7 +513,7 @@ export interface Voice {
   duration: number;
   /** MIME type of the file as defined by sender */
   mime_type?: string;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
@@ -639,7 +639,7 @@ export interface ProximityAlertTriggered {
 
 /** This object represents a service message about a change in auto-delete timer settings. */
 export interface MessageAutoDeleteTimerChanged {
-  /** New auto-delete time for messages in the chat */
+  /** New auto-delete time for messages in the chat; in seconds */
   message_auto_delete_time: number;
 }
 
@@ -654,7 +654,7 @@ export interface VoiceChatStarted {}
 
 /** This object represents a service message about a voice chat ended in the chat. */
 export interface VoiceChatEnded {
-  /** Voice chat duration; in seconds */
+  /** Voice chat duration in seconds */
   duration: number;
 }
 
@@ -684,7 +684,7 @@ export interface Sticker {
   set_name?: string;
   /** For mask stickers, the position where the mask should be placed */
   mask_position?: MaskPosition;
-  /** File size */
+  /** File size in bytes */
   file_size?: number;
 }
 
