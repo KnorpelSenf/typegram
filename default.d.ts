@@ -10,7 +10,7 @@ export type Telegram = DefaultTypegram["Telegram"];
 
 /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
 export type Opts<
-  M extends keyof DefaultTypegram["Telegram"]
+  M extends keyof DefaultTypegram["Telegram"],
 > = DefaultTypegram["Opts"][M];
 
 /** Utility type providing a promisified version of Telegram */

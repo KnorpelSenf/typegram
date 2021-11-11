@@ -1,7 +1,7 @@
 import { CallbackQuery } from "./callback";
 import { ChosenInlineResult, InlineQuery } from "./inline";
 import { Chat, ChatJoinRequest, ChatMemberUpdated, User } from "./manage";
-import { Message, Poll, PollAnswer } from "./message";
+import { CommonMessageBundle, Message, Poll, PollAnswer } from "./message";
 import { PreCheckoutQuery, ShippingQuery } from "./payment";
 
 export namespace Update {
