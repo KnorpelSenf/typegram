@@ -5,7 +5,7 @@
 > Instead, [@grammyjs/types](https://github.com/grammyjs/types) is maintained and kept in sync with the Bot API specification.
 > Changes are backported to `typegram` periodically to keep older projects running.
 
-This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.4.
+This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.5.
 
 It contains zero bytes of executable code.
 
