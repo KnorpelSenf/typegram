@@ -29,12 +29,16 @@ export namespace Message {
     forward_sender_name?: string;
     /** For forwarded messages, date the original message was sent in Unix time */
     forward_date?: number;
+    /** True, if the message is a channel post that was automatically forwarded to the connected discussion group */
+    is_automatic_forward?: true;
     /** For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
     reply_to_message?: ReplyMessage;
     /** Bot through which the message was sent */
     via_bot?: User;
     /** Date the message was last edited in Unix time */
     edit_date?: number;
+    /** True, if the message can't be forwarded */
+    has_protected_content?: true;
     /** Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
     author_signature?: string;
     /** Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
@@ -265,8 +269,8 @@ Message entities can be nested, providing following restrictions are met:
 
 Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username. Please note:
 
-- These links will work only if they are used inside an inline link. For example, they will not work, when used in an inline keyboard button or in a message text.
-- These mentions are only guaranteed to work if the user has contacted the bot in the past, has sent a callback query to the bot via inline button or is a member in the group where he was mentioned.
+- These links will work only if they are used inside an inline link or in an inline keyboard button. For example, they will not work, when used in a message text.
+- These mentions are only guaranteed to work if the user has contacted the bot in the past, has sent a callback query to the bot via an inline button or is a member in the group where he was mentioned.
 
 #### MarkdownV2 style
 To use this mode, pass *MarkdownV2* in the *parse_mode* field. Use the following syntax in your message:

@@ -102,6 +102,8 @@ export namespace Chat {
     pinned_message?: Message;
     /** The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat. */
     message_auto_delete_time?: number;
+    /** True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. */
+    has_protected_content?: true;
   }
   /** Internal type holding properties that those group, supergroup, and channel chats returned from `getChat` share. */
   interface NonPrivateGetChat extends GetChat {
@@ -128,6 +130,8 @@ export namespace Chat {
   export interface PrivateGetChat extends PrivateChat, GetChat {
     /** Bio of the other party in a private chat. Returned only in getChat. */
     bio?: string;
+    /** True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */
+    has_private_forwards?: true;
   }
   /** Internal type representing group chats returned from `getChat`. */
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
