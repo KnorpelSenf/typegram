@@ -30,7 +30,7 @@ export namespace InlineKeyboardButton {
     text: string;
   }
   export interface UrlButton extends AbstractInlineKeyboardButton {
-    /** HTTP or tg:// url to be opened when button is pressed */
+    /** HTTP or tg:// url to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings. */
     url: string;
   }
   export interface LoginButton extends AbstractInlineKeyboardButton {
@@ -63,7 +63,7 @@ export namespace InlineKeyboardButton {
   export interface PayButton extends AbstractInlineKeyboardButton {
     /** Specify True, to send a Pay button.
 
-    NOTE: This type of button must always be the first button in the first row. */
+    NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages. */
     pay: boolean;
   }
 }
