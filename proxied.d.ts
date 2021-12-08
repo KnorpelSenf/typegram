@@ -754,8 +754,6 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** Unique identifier of the target sender chat */
       sender_chat_id: number;
-      /** Date when the sender chat will be unbanned, unix time. If the chat is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. */
-      until_date?: number;
     }): true;
 
     /** Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns True on success. */
