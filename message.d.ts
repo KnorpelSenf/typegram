@@ -9,9 +9,9 @@ export namespace Message {
   interface ServiceMessage {
     /** Unique message identifier inside this chat */
     message_id: number;
-    /** Sender, empty for messages sent to channels */
+    /** Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     from?: User;
-    /** Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group */
+    /** Sender of the message, sent on behalf of a chat. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     sender_chat?: Chat;
     /** Date the message was sent in Unix time */
     date: number;
