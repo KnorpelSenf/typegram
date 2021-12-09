@@ -117,7 +117,7 @@ export namespace Chat {
     /** Default chat member permissions, for groups and supergroups. Returned only in getChat. */
     permissions?: ChatPermissions;
     /** True, if the bot can change the group sticker set. Returned only in getChat. */
-    can_set_sticker_set?: boolean;
+    can_set_sticker_set?: true;
   }
   /** Internal type holding properties that those supergroup and channel chats returned from `getChat` share. */
   interface LargeGetChat extends NonPrivateGetChat {
