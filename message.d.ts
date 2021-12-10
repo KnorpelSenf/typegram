@@ -9,7 +9,7 @@ export namespace Message {
     message_id: number;
     /** Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     from?: User;
-    /** Sender of the message, sent on behalf of a chat. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+    /** Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     sender_chat?: Chat;
     /** Date the message was sent in Unix time */
     date: number;
@@ -23,7 +23,7 @@ export namespace Message {
     forward_from_chat?: Chat;
     /** For messages forwarded from channels, identifier of the original message in the channel */
     forward_from_message_id?: number;
-    /** For messages forwarded from channels, signature of the post author if present */
+    /** For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present */
     forward_signature?: string;
     /** Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
     forward_sender_name?: string;
@@ -263,7 +263,7 @@ export interface MessageId {
 Note that Telegram clients will display an **alert** to the user before opening an inline link ('Open this link?' together with the full URL).
 
 Message entities can be nested, providing following restrictions are met:
-- If two entities has common characters then one of them is fully contained inside another.
+- If two entities have common characters then one of them is fully contained inside another.
 - bold, italic, underline and strikethrough entities can contain and to be contained in any other entities, except pre and code.
 - All other entities can't contain each other.
 
