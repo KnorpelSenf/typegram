@@ -217,7 +217,7 @@ export interface MessageId {
 Note that Telegram clients will display an **alert** to the user before opening an inline link ('Open this link?' together with the full URL).
 
 Message entities can be nested, providing following restrictions are met:
-- If two entities has common characters then one of them is fully contained inside another.
+- If two entities have common characters then one of them is fully contained inside another.
 - bold, italic, underline and strikethrough entities can contain and to be contained in any other entities, except pre and code.
 - All other entities can't contain each other.
 
