@@ -60,11 +60,11 @@ export namespace Message {
     /** The unique identifier of a media message group this message belongs to */
     media_group_id?: string;
   }
-  export interface AudioMessage extends CaptionableMessage {
+  export interface AudioMessage extends MediaMessage {
     /** Message is an audio file, information about the file */
     audio: Audio;
   }
-  export interface DocumentMessage extends CaptionableMessage {
+  export interface DocumentMessage extends MediaMessage {
     /** Message is a general file, information about the file */
     document: Document;
   }
