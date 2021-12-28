@@ -25,7 +25,7 @@ export namespace Message {
     forward_from_chat?: Chat;
     /** For messages forwarded from channels, identifier of the original message in the channel */
     forward_from_message_id?: number;
-    /** For messages forwarded from channels, signature of the post author if present */
+    /** For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present */
     forward_signature?: string;
     /** Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
     forward_sender_name?: string;
