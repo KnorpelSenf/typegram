@@ -150,6 +150,8 @@ export interface Typegram<F> {
       disable_web_page_preview?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of sent messages from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -170,6 +172,8 @@ export interface Typegram<F> {
       from_chat_id: number | string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the forwarded message from forwarding and saving */
+      protect_content?: boolean;
       /** Message identifier in the chat specified in from_chat_id */
       message_id: number;
     }): Message;
@@ -190,6 +194,8 @@ export interface Typegram<F> {
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -216,6 +222,8 @@ export interface Typegram<F> {
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -252,6 +260,8 @@ export interface Typegram<F> {
       thumb?: F;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -282,6 +292,8 @@ export interface Typegram<F> {
       disable_content_type_detection?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -318,6 +330,8 @@ export interface Typegram<F> {
       supports_streaming?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -352,6 +366,8 @@ export interface Typegram<F> {
       caption_entities?: MessageEntity[];
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -380,6 +396,8 @@ export interface Typegram<F> {
       duration?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -407,6 +425,8 @@ export interface Typegram<F> {
       thumb?: F;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -432,6 +452,8 @@ export interface Typegram<F> {
       >;
       /** Sends the messages silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent messages from forwarding and saving */
+      protect_content?: boolean;
       /** If messages are a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -461,6 +483,8 @@ export interface Typegram<F> {
       proximity_alert_radius?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -529,6 +553,8 @@ export interface Typegram<F> {
       google_place_type?: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -555,6 +581,8 @@ export interface Typegram<F> {
       vcard?: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -597,6 +625,8 @@ export interface Typegram<F> {
       is_closed?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -617,6 +647,8 @@ export interface Typegram<F> {
       emoji?: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -1093,6 +1125,8 @@ export interface Typegram<F> {
       sticker: F | string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -1248,6 +1282,8 @@ export interface Typegram<F> {
       is_flexible?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
@@ -1296,6 +1332,8 @@ export interface Typegram<F> {
       game_short_name: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
+      /** Protects the contents of the sent message from forwarding and saving */
+      protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
       /** Pass True, if the message should be sent even if the specified replied-to message is not found */
