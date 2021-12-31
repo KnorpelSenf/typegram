@@ -150,7 +150,7 @@ export interface Typegram<F> {
       disable_web_page_preview?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
-      /** Protects the contents of sent messages from forwarding and saving */
+      /** Protects the contents of the sent message from forwarding and saving */
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
