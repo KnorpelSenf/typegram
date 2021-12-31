@@ -212,13 +212,13 @@ export interface MessageId {
   message_id: number;
 }
 
-/** The Bot API supports basic formatting for messages. You can use bold, italic, underlined and strikethrough text, as well as inline links and pre-formatted code in your bots' messages. Telegram clients will render them accordingly. You can use either markdown-style or HTML-style formatting.
+/** The Bot API supports basic formatting for messages. You can use bold, italic, underlined, strikethrough, and spoiler text, as well as inline links and pre-formatted code in your bots' messages. Telegram clients will render them accordingly. You can use either markdown-style or HTML-style formatting.
 
 Note that Telegram clients will display an **alert** to the user before opening an inline link ('Open this link?' together with the full URL).
 
 Message entities can be nested, providing following restrictions are met:
 - If two entities have common characters then one of them is fully contained inside another.
-- bold, italic, underline and strikethrough entities can contain and to be contained in any other entities, except pre and code.
+- bold, italic, underline, strikethrough, and spoiler entities can contain and can be part of any other entities, except pre and code.
 - All other entities can't contain each other.
 
 Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username. Please note:
@@ -234,7 +234,8 @@ To use this mode, pass *MarkdownV2* in the *parse_mode* field. Use the following
 _italic \*text_
 __underline__
 ~strikethrough~
-  *bold _italic bold ~italic bold strikethrough~ __underline italic bold___ bold*
+||spoiler||
+*bold _italic bold ~italic bold strikethrough ||italic bold strikethrough spoiler||~ __underline italic bold___ bold*
 [inline URL](http://www.example.com/)
 [inline mention of a user](tg://user?id=123456789)
 `inline fixed-width code`
@@ -261,7 +262,8 @@ To use this mode, pass *HTML* in the *parse_mode* field. The following tags are 
 <i>italic</i>, <em>italic</em>
 <u>underline</u>, <ins>underline</ins>
 <s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del>
-<b>bold <i>italic bold <s>italic bold strikethrough</s> <u>underline italic bold</u></i> bold</b>
+<span class="tg-spoiler">spoiler</span>
+<b>bold <i>italic bold <s>italic bold strikethrough <span class="tg-spoiler">italic bold strikethrough spoiler</span></s> <u>underline italic bold</u></i> bold</b>
 <a href="http://www.example.com/">inline URL</a>
 <a href="tg://user?id=123456789">inline mention of a user</a>
 <code>inline fixed-width code</code>
@@ -303,7 +305,7 @@ export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
 export namespace MessageEntity {
   interface AbstractMessageEntity {
-    /** Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
+    /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
     type: string;
     /** Offset in UTF-16 code units to the start of the entity */
     offset: number;
@@ -323,6 +325,7 @@ export namespace MessageEntity {
       | "italic"
       | "underline"
       | "strikethrough"
+      | "spoiler"
       | "code";
   }
   export interface TextLinkMessageEntity extends AbstractMessageEntity {
