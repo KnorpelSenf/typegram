@@ -631,6 +631,8 @@ export interface Sticker {
   height: number;
   /** True, if the sticker is animated */
   is_animated: boolean;
+  /** True, if the sticker is a video sticker */
+  is_video: boolean;
   /** Sticker thumbnail in the .WEBP or .JPG format */
   thumb?: PhotoSize;
   /** Emoji associated with the sticker */
@@ -651,11 +653,13 @@ export interface StickerSet {
   title: string;
   /** True, if the sticker set contains animated stickers */
   is_animated: boolean;
+  /** True, if the sticker set contains video stickers */
+  is_video: boolean;
   /** True, if the sticker set contains masks */
   contains_masks: boolean;
   /** List of all set stickers */
   stickers: Sticker[];
-  /** Sticker set thumbnail in the .WEBP or .TGS format */
+  /** Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
   thumb?: PhotoSize;
 }
 
