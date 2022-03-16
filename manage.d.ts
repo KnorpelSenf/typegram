@@ -53,7 +53,7 @@ export namespace Chat {
   // ABSTRACT
   /** Internal type holding properties that all kinds of chats share. */
   interface AbstractChat {
-    /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
+    /** Type of chat, can be either "private", "group", "supergroup" or "channel" */
     type: string;
     /** Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     id: number;
@@ -186,7 +186,7 @@ export interface ChatPhoto {
 
 /** Represents an invite link for a chat. */
 export interface ChatInviteLink {
-  /** The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”. */
+  /** 	The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with "...". */
   invite_link: string;
   /** Creator of the link */
   creator: User;
@@ -223,7 +223,7 @@ export type ChatMember =
 
 /** Represents a chat member that owns the chat and has all administrator privileges. */
 export interface ChatMemberOwner {
-  /** The member's status in the chat, always “creator” */
+  /** The member's status in the chat, always "creator" */
   status: "creator";
   /** Information about the user */
   user: User;
@@ -235,7 +235,7 @@ export interface ChatMemberOwner {
 
 /** Represents a chat member that has some additional privileges. */
 export interface ChatMemberAdministrator {
-  /** The member's status in the chat, always “administrator” */
+  /** The member's status in the chat, always "administrator" */
   status: "administrator";
   /** Information about the user */
   user: User;
@@ -269,7 +269,7 @@ export interface ChatMemberAdministrator {
 
 /** Represents a chat member that has no additional privileges or restrictions. */
 export interface ChatMemberMember {
-  /** The member's status in the chat, always “member” */
+  /** The member's status in the chat, always "member" */
   status: "member";
   /** Information about the user */
   user: User;
@@ -277,7 +277,7 @@ export interface ChatMemberMember {
 
 /** Represents a chat member that is under certain restrictions in the chat. Supergroups only. */
 export interface ChatMemberRestricted {
-  /** The member's status in the chat, always “restricted” */
+  /** The member's status in the chat, always "restricted" */
   status: "restricted";
   /** Information about the user */
   user: User;
@@ -305,7 +305,7 @@ export interface ChatMemberRestricted {
 
 /** Represents a chat member that isn't currently a member of the chat, but may join it themselves. */
 export interface ChatMemberLeft {
-  /** The member's status in the chat, always “left” */
+  /** The member's status in the chat, always "left" */
   status: "left";
   /** Information about the user */
   user: User;
@@ -313,7 +313,7 @@ export interface ChatMemberLeft {
 
 /** Represents a chat member that was banned in the chat and can't return to the chat or view chat messages. */
 export interface ChatMemberBanned {
-  /** The member's status in the chat, always “kicked” */
+  /** The member's status in the chat, always "kicked" */
   status: "kicked";
   /** Information about the user */
   user: User;

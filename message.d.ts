@@ -305,7 +305,7 @@ export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
 export namespace MessageEntity {
   interface AbstractMessageEntity {
-    /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
+    /** Type of the entity. Currently, can be "mention" (@username), "hashtag" (#hashtag), "cashtag" ($USD), "bot_command" (/start@jobs_bot), "url" (https://telegram.org), "email" (do-not-reply@telegram.org), "phone_number" (+1-212-555-0123), "bold" (bold text), "italic" (italic text), "underline" (underlined text), "strikethrough" (strikethrough text), "spoiler" (spoiler message), "code" (monowidth string), "pre" (monowidth block), "text_link" (for clickable text URLs), "text_mention" (for users without usernames) */
     type: string;
     /** Offset in UTF-16 code units to the start of the entity */
     offset: number;
@@ -330,17 +330,17 @@ export namespace MessageEntity {
   }
   export interface TextLinkMessageEntity extends AbstractMessageEntity {
     type: "text_link";
-    /** For “text_link” only, url that will be opened after user taps on the text */
+    /** For "text_link" only, url that will be opened after user taps on the text */
     url: string;
   }
   export interface TextMentionMessageEntity extends AbstractMessageEntity {
     type: "text_mention";
-    /** For “text_mention” only, the mentioned user */
+    /** For "text_mention" only, the mentioned user */
     user: User;
   }
   export interface PreMessageEntity extends AbstractMessageEntity {
     type: "pre";
-    /** For “pre” only, the programming language of the entity text */
+    /** For "pre" only, the programming language of the entity text */
     language?: string;
   }
 }
@@ -496,7 +496,7 @@ export interface Contact {
 export interface Dice {
   /** Emoji on which the dice throw animation is based */
   emoji: string;
-  /** Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji */
+  /** Value of the dice, 1-6 for "🎲", "🎯" and "🎳" base emoji, 1-5 for "🏀" and "⚽" base emoji, 1-64 for "🎰" base emoji */
   value: number;
 }
 
@@ -532,7 +532,7 @@ export interface Poll {
   is_closed: boolean;
   /** True, if the poll is anonymous */
   is_anonymous: boolean;
-  /** Poll type, currently can be “regular” or “quiz” */
+  /** Poll type, currently can be "regular" or "quiz" */
   type: "regular" | "quiz";
   /** True, if the poll allows multiple answers */
   allows_multiple_answers: boolean;
@@ -574,7 +574,7 @@ export interface Venue {
   address: string;
   /** Foursquare identifier of the venue */
   foursquare_id?: string;
-  /** Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
+  /** Foursquare type of the venue. (For example, "arts_entertainment/default", "arts_entertainment/aquarium" or "food/icecream".) */
   foursquare_type?: string;
   /** Google Places identifier of the venue */
   google_place_id?: string;
@@ -665,7 +665,7 @@ export interface StickerSet {
 
 /** This object describes the position on faces where a mask should be placed by default. */
 export interface MaskPosition {
-  /** The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”. */
+  /** The part of the face relative to which the mask should be placed. One of "forehead", "eyes", "mouth", or "chin". */
   point: "forehead" | "eyes" | "mouth" | "chin";
   /** Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position. */
   x_shift: number;
