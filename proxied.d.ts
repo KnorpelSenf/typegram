@@ -998,14 +998,6 @@ export interface Typegram<F> {
       cache_time?: number;
     }): true;
 
-    /** Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned. */
-    answerWebAppQuery(args: {
-      /** Unique identifier for the query to be answered */
-      web_app_query_id: string;
-      /** An object describing the message to be sent */
-      result: InlineQueryResult;
-    }): SentWebAppMessage;
-
     /** Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success. */
     setMyCommands(args: {
       /** A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
@@ -1276,6 +1268,14 @@ export interface Typegram<F> {
       /** Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. */
       switch_pm_parameter?: string;
     }): true;
+
+    /** Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned. */
+    answerWebAppQuery(args: {
+      /** Unique identifier for the query to be answered */
+      web_app_query_id: string;
+      /** An object describing the message to be sent */
+      result: InlineQueryResult;
+    }): SentWebAppMessage;
 
     /** Use this method to send invoices. On success, the sent Message is returned. */
     sendInvoice(args: {
