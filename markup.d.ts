@@ -16,13 +16,17 @@ export namespace InlineKeyboardButton {
     /** HTTP or tg:// url to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings. */
     url: string;
   }
-  export interface LoginButton extends AbstractInlineKeyboardButton {
-    /** An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
-    login_url: LoginUrl;
-  }
   export interface CallbackButton extends AbstractInlineKeyboardButton {
     /** Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes */
     callback_data: string;
+  }
+  export interface WebAppButton extends AbstractInlineKeyboardButton {
+    /** Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. */
+    web_app: WebAppInfo;
+  }
+  export interface LoginButton extends AbstractInlineKeyboardButton {
+    /** An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
+    login_url: LoginUrl;
   }
   export interface SwitchInlineButton extends AbstractInlineKeyboardButton {
     /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.
@@ -49,10 +53,6 @@ export namespace InlineKeyboardButton {
     NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages. */
     pay: boolean;
   }
-  export interface WebAppButton extends AbstractInlineKeyboardButton {
-    /** Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. */
-    web_app: WebAppInfo;
-  }
 }
 
 /** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
@@ -63,7 +63,8 @@ export type InlineKeyboardButton =
   | InlineKeyboardButton.PayButton
   | InlineKeyboardButton.SwitchInlineButton
   | InlineKeyboardButton.SwitchInlineCurrentChatButton
-  | InlineKeyboardButton.UrlButton;
+  | InlineKeyboardButton.UrlButton
+  | InlineKeyboardButton.WebAppButton;
 
 /** This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in.
 Telegram apps support these buttons as of version 5.7. */
@@ -125,24 +126,24 @@ export namespace KeyboardButton {
     text: string;
   }
   export interface RequestContactButton extends CommonButton {
-    /** If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only */
+    /** If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only. */
     request_contact: boolean;
   }
   export interface RequestLocationButton extends CommonButton {
-    /** If True, the user's current location will be sent when the button is pressed. Available in private chats only */
+    /** If True, the user's current location will be sent when the button is pressed. Available in private chats only. */
     request_location: boolean;
   }
   export interface RequestPollButton extends CommonButton {
-    /** If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only */
+    /** If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only. */
     request_poll: KeyboardButtonPollType;
   }
   export interface WebAppButton extends CommonButton {
-    /** Description of the Web App that will be launched when the user presses the button. The Web App will be able to send a “web_app_data” service message. Available in private chats only. */
+    /** If specified, the described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only. */
     web_app: WebAppInfo;
   }
 }
 
-/** This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields request_contact, request_location, and request_poll are mutually exclusive. */
+/** This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields web_app, request_contact, request_location, and request_poll are mutually exclusive. */
 export type KeyboardButton =
   | KeyboardButton.CommonButton
   | KeyboardButton.RequestContactButton
