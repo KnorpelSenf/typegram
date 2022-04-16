@@ -113,18 +113,21 @@ export namespace Message {
   export type ProximityAlertTriggeredMessage =
     & ServiceMessage
     & MsgWith<"proximity_alert_triggered">;
-  export type VoiceChatScheduledMessage =
+  export type VideoChatScheduledMessage =
     & ServiceMessage
-    & MsgWith<"voice_chat_scheduled">;
-  export type VoiceChatStartedMessage =
+    & MsgWith<"video_chat_scheduled">;
+  export type VideoChatStartedMessage =
     & ServiceMessage
-    & MsgWith<"voice_chat_started">;
-  export type VoiceChatEndedMessage =
+    & MsgWith<"video_chat_started">;
+  export type VideoChatEndedMessage =
     & ServiceMessage
-    & MsgWith<"voice_chat_ended">;
-  export type VoiceChatParticipantsInvitedMessage =
+    & MsgWith<"video_chat_ended">;
+  export type VideoChatParticipantsInvitedMessage =
     & ServiceMessage
-    & MsgWith<"voice_chat_participants_invited">;
+    & MsgWith<"video_chat_participants_invited">;
+  export type WebAppDataMessage =
+    & ServiceMessage
+    & MsgWith<"web_app_data">;
 }
 
 type ReplyMessage = Message & { reply_to_message: undefined };
@@ -197,19 +200,28 @@ export interface Message extends Message.MediaMessage {
   /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
   proximity_alert_triggered?: ProximityAlertTriggered;
   /** Service message: voice chat scheduled */
-  voice_chat_scheduled?: VoiceChatScheduled;
-  /** Service message: voice chat started */
-  voice_chat_started?: VoiceChatStarted;
-  /** Service message: voice chat ended */
-  voice_chat_ended?: VoiceChatEnded;
-  /** Service message: new participants invited to a voice chat */
-  voice_chat_participants_invited?: VoiceChatParticipantsInvited;
+  /** Service message: video chat scheduled */
+  video_chat_scheduled?: VideoChatScheduled;
+  /** Service message: video chat started */
+  video_chat_started?: VideoChatStarted;
+  /** Service message: video chat ended */
+  video_chat_ended?: VideoChatEnded;
+  /** Service message: new participants invited to a video chat */
+  video_chat_participants_invited?: VideoChatParticipantsInvited;
+  /** Service message: data sent by a Web App */
+  web_app_data?: WebAppData;
 }
 
 /** This object represents a unique message identifier. */
 export interface MessageId {
   /** Unique message identifier */
   message_id: number;
+}
+
+/** Contains information about an inline message sent by a Web App on behalf of a user. */
+export interface SentWebAppMessage {
+  /** Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. */
+  inline_message_id: string;
 }
 
 /** The Bot API supports basic formatting for messages. You can use bold, italic, underlined, strikethrough, and spoiler text, as well as inline links and pre-formatted code in your bots' messages. Telegram clients will render them accordingly. You can use either markdown-style or HTML-style formatting.
@@ -598,25 +610,33 @@ export interface MessageAutoDeleteTimerChanged {
   message_auto_delete_time: number;
 }
 
-/** This object represents a service message about a voice chat scheduled in the chat. */
-export interface VoiceChatScheduled {
-  /** Point in time (Unix timestamp) when the voice chat is supposed to be started by a chat administrator */
+/** This object represents a service message about a video chat scheduled in the chat. */
+export interface VideoChatScheduled {
+  /** Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator */
   start_date: number;
 }
 
-/** This object represents a service message about a voice chat started in the chat. Currently holds no information. */
-export interface VoiceChatStarted {}
+/** This object represents a service message about a video chat started in the chat. Currently holds no information. */
+export interface VideoChatStarted {}
 
-/** This object represents a service message about a voice chat ended in the chat. */
-export interface VoiceChatEnded {
-  /** Voice chat duration in seconds */
+/** This object represents a service message about a video chat ended in the chat. */
+export interface VideoChatEnded {
+  /** Video chat duration in seconds */
   duration: number;
 }
 
-/** This object represents a service message about new members invited to a voice chat. */
-export interface VoiceChatParticipantsInvited {
-  /** New members that were invited to the voice chat */
-  users: User[];
+/** This object represents a service message about new members invited to a video chat. */
+export interface VideoChatParticipantsInvited {
+  /** New members that were invited to the video chat */
+  users?: User[];
+}
+
+/** Contains data sent from a Web App to the bot. */
+export interface WebAppData {
+  /** The data. Be aware that a bad client can send arbitrary data in this field. */
+  data: string;
+  /** Text of the web_app keyboard button, from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
+  button_text: string;
 }
 
 /** This object represents a sticker. */

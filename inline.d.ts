@@ -1,4 +1,5 @@
 import { Chat, User } from "./manage";
+import { InlineKeyboardMarkup } from "./markup";
 import { Location, MessageEntity, ParseMode } from "./message";
 import { LabeledPrice } from "./payment";
 
