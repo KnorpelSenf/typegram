@@ -49,6 +49,10 @@ export namespace InlineKeyboardButton {
     NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages. */
     pay: boolean;
   }
+  export interface WebAppButton extends AbstractInlineKeyboardButton {
+    /** Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. */
+    web_app: WebAppInfo;
+  }
 }
 
 /** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
@@ -132,6 +136,10 @@ export namespace KeyboardButton {
     /** If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only */
     request_poll: KeyboardButtonPollType;
   }
+  export interface WebAppButton extends CommonButton {
+    /** Description of the Web App that will be launched when the user presses the button. The Web App will be able to send a “web_app_data” service message. Available in private chats only. */
+    web_app: WebAppInfo;
+  }
 }
 
 /** This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields request_contact, request_location, and request_poll are mutually exclusive. */
@@ -140,6 +148,7 @@ export type KeyboardButton =
   | KeyboardButton.RequestContactButton
   | KeyboardButton.RequestLocationButton
   | KeyboardButton.RequestPollButton
+  | KeyboardButton.WebAppButton
   | string;
 
 /** This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed. */
@@ -174,4 +183,10 @@ export interface ForceReply {
   input_field_placeholder?: string;
   /** Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. */
   selective?: boolean;
+}
+
+/** Contains information about a Web App. */
+export interface WebAppInfo {
+  /** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
+  url: string;
 }

@@ -1,3 +1,38 @@
+import { WebAppInfo } from "./markup";
+
+/** This object describes the bot's menu button in a private chat. It should be one of
+- MenuButtonCommands
+- MenuButtonWebApp
+- MenuButtonDefault
+
+If a menu button other than MenuButtonDefault is set for a private chat, then it is applied in the chat. Otherwise the default menu button is applied. By default, the menu button opens the list of bot commands. */
+export type MenuButton =
+  | MenuButtonCommands
+  | MenuButtonWebApp
+  | MenuButtonDefault;
+
+/** Represents a menu button, which opens the bot's list of commands. */
+export interface MenuButtonCommands {
+  /** Type of the button, must be commands */
+  type: "commands";
+}
+
+/** Represents a menu button, which launches a Web App. */
+export interface MenuButtonWebApp {
+  /** Button type, must be web_app */
+  type: "web_app";
+  /** Text on the button */
+  text: string;
+  /** Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. */
+  web_app: WebAppInfo;
+}
+
+/** Describes that no specific value for the menu button was set. */
+export interface MenuButtonDefault {
+  /** Type of the button, must be default */
+  type: "default";
+}
+
 /** This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
 - BotCommandScopeDefault
 - BotCommandScopeAllPrivateChats

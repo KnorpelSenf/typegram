@@ -1,5 +1,5 @@
 import { ApiResponse } from "./api";
-import { BotCommandScope } from "./bot-command-scope";
+import { BotCommandScope, MenuButton } from "./menu-button";
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -9,6 +9,7 @@ import {
 import { InlineQueryResult } from "./inline";
 import {
   BotCommand,
+  ChatAdministratorRights,
   ChatFromGetChat,
   ChatInviteLink,
   ChatMember,
@@ -26,6 +27,7 @@ import {
   MessageId,
   ParseMode,
   Poll,
+  SentWebAppMessage,
   StickerSet,
 } from "./message";
 import { PassportElementError } from "./passport";
@@ -757,8 +759,8 @@ export interface Typegram<F> {
       can_edit_messages?: boolean;
       /** Pass True, if the administrator can delete messages of other users */
       can_delete_messages?: boolean;
-      /** Pass True, if the administrator can manage voice chats */
-      can_manage_voice_chats?: boolean;
+      /** Pass True, if the administrator can manage video chats */
+      can_manage_video_chats?: boolean;
       /** Pass True, if the administrator can restrict, ban or unban chat members */
       can_restrict_members?: boolean;
       /** Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) */
@@ -996,6 +998,14 @@ export interface Typegram<F> {
       cache_time?: number;
     }): true;
 
+    /** Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned. */
+    answerWebAppQuery(args: {
+      /** Unique identifier for the query to be answered */
+      web_app_query_id: string;
+      /** An object describing the message to be sent */
+      result: InlineQueryResult;
+    }): SentWebAppMessage;
+
     /** Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success. */
     setMyCommands(args: {
       /** A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
@@ -1021,6 +1031,34 @@ export interface Typegram<F> {
       /** A two-letter ISO 639-1 language code or an empty string */
       language_code?: string;
     }): BotCommand[];
+
+    /** Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success. */
+    setChatMenuButton(args: {
+      /** Unique identifier for the target private chat. If not specified, default bot's menu button will be changed */
+      chat_id?: number;
+      /** An object for the new bot's menu button. Defaults to MenuButtonDefault */
+      menu_button?: MenuButton;
+    }): true;
+
+    /** Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns MenuButton on success. */
+    getChatMenuButton(args: {
+      /** Unique identifier for the target private chat. If not specified, default bot's menu button will be returned */
+      chat_id?: number;
+    }): MenuButton;
+
+    /** Use this method to the change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns True on success. */
+    setMyDefaultAdministratorRights(args: {
+      /** An object describing new default administrator rights. If not specified, the default administrator rights will be cleared. */
+      rights?: ChatAdministratorRights;
+      /** Pass True to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed. */
+      for_channels?: boolean;
+    }): true;
+
+    /** Use this method to get the current default administrator rights of the bot. Returns ChatAdministratorRights on success. */
+    getMyDefaultAdministratorRights(args: {
+      /** Pass True to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned. */
+      for_channels?: boolean;
+    }): ChatAdministratorRights;
 
     /** Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
     editMessageText(args: {
