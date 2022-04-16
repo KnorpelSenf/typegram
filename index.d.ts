@@ -1,5 +1,5 @@
 export * from "./api";
-export * from "./callback";
+export * from "./markup";
 export * from "./inline";
 export * from "./manage";
 export * from "./message";

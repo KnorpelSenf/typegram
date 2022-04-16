@@ -1,4 +1,4 @@
-import { InlineKeyboardMarkup } from "./inline";
+import { InlineKeyboardMarkup } from "./markup";
 import { Chat, User } from "./manage";
 import { PassportData } from "./passport";
 import { Invoice, SuccessfulPayment } from "./payment";

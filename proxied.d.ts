@@ -1,10 +1,11 @@
 import { BotCommandScope } from "./bot-command-scope";
 import {
   ForceReply,
+  InlineKeyboardMarkup,
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
-} from "./callback";
-import { InlineKeyboardMarkup, InlineQueryResult } from "./inline";
+} from "./markup";
+import { InlineQueryResult } from "./inline";
 import {
   BotCommand,
   ChatFromGetChat,

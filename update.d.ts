@@ -1,4 +1,4 @@
-import { CallbackQuery } from "./callback";
+import { CallbackQuery } from "./markup";
 import { ChosenInlineResult, InlineQuery } from "./inline";
 import { Chat, ChatJoinRequest, ChatMemberUpdated, User } from "./manage";
 import { Message, Poll, PollAnswer } from "./message";
