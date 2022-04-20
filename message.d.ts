@@ -201,6 +201,7 @@ export namespace Message {
     video_chat_participants_invited: VideoChatParticipantsInvited;
   }
   export interface WebAppDataMessage extends ServiceMessage {
+    /** Service message: data sent by a Web App */
     web_app_data: WebAppData;
   }
 }
@@ -227,7 +228,8 @@ export type ServiceMessageBundle =
   | Message.VideoChatScheduledMessage
   | Message.VideoChatStartedMessage
   | Message.VideoChatEndedMessage
-  | Message.VideoChatParticipantsInvitedMessage;
+  | Message.VideoChatParticipantsInvitedMessage
+  | Message.WebAppDataMessage;
 
 /** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
 export type CommonMessageBundle =
