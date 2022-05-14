@@ -372,7 +372,7 @@ export interface ChatMemberUpdated {
 /** Represents a join request sent to a chat. */
 export interface ChatJoinRequest {
   /** Chat to which the request was sent */
-  chat: Chat;
+  chat: Chat.SupergroupChat | Chat.ChannelChat;
   /** User that sent the join request */
   from: User;
   /** Date the request was sent in Unix time */
