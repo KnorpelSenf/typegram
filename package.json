@@ -11,6 +11,8 @@
     "./default": "./index.js",
     "./inline": "./index.js",
     "./manage": "./index.js",
+    "./markup": "./markup.js",
+    "./menu-button": "./menu-button.js",
     "./message": "./index.js",
     "./passport": "./index.js",
     "./payment": "./index.js",
