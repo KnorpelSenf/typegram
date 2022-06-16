@@ -176,7 +176,7 @@ Explain the user how to send a command with parameters (e.g. /newpoll question a
 
 Guide the user through a step-by-step process. 'Please send me your question', 'Cool, now let's add the first answer option', 'Great. Keep adding answer options, then send /done when you're ready'.
 
-The last option is definitely more attractive. And if you use ForceReply in your bot's questions, it will receive the user's answers even if it only receives replies, commands and mentions — without any extra work for the user. */
+The last option is definitely more attractive. And if you use ForceReply in your bot's questions, it will receive the user's answers even if it only receives replies, commands and mentions - without any extra work for the user. */
 export interface ForceReply {
   /** Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply' */
   force_reply: true;

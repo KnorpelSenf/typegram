@@ -324,7 +324,7 @@ export namespace MessageEntity {
   }
   export interface TextLinkMessageEntity extends AbstractMessageEntity {
     type: "text_link";
-    /** For "text_link" only, url that will be opened after user taps on the text */
+    /** For "text_link" only, URL that will be opened after user taps on the text */
     url: string;
   }
   export interface TextMentionMessageEntity extends AbstractMessageEntity {

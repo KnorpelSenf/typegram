@@ -70,9 +70,9 @@ export interface InputFileProxy<F> {
       allowed_updates?: readonly string[];
     }): Update[];
 
-    /** Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
+    /** Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
 
-    If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. https://www.example.com/<token>. Since nobody else knows your bot's token, you can be pretty sure it's us.
+    If you'd like to make sure that the webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. https://www.example.com/<token>. Since nobody else knows your bot's token, you can be pretty sure it's us.
 
     Notes
     1. You will not be able to receive updates using getUpdates for as long as an outgoing webhook is set up.
@@ -81,13 +81,13 @@ export interface InputFileProxy<F> {
 
     NEW! If you're having any trouble setting up webhooks, please check out this amazing guide to Webhooks. */
     setWebhook(args: {
-      /** HTTPS url to send updates to. Use an empty string to remove webhook integration */
+      /** HTTPS URL to send updates to. Use an empty string to remove webhook integration */
       url: string;
       /** Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details. */
       certificate?: F;
       /** The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS */
       ip_address?: string;
-      /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
+      /** The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
       max_connections?: number;
       /** A list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
       Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
@@ -958,7 +958,7 @@ export interface InputFileProxy<F> {
       text?: string;
       /** If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
       show_alert?: boolean;
-      /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
+      /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.
 
       Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
       url?: string;
