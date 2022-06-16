@@ -25,7 +25,7 @@ export namespace InlineKeyboardButton {
     web_app: WebAppInfo;
   }
   export interface LoginButton extends AbstractInlineKeyboardButton {
-    /** An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
+    /** An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
     login_url: LoginUrl;
   }
   export interface SwitchInlineButton extends AbstractInlineKeyboardButton {

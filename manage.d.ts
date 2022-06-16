@@ -37,6 +37,10 @@ export interface User {
   username?: string;
   /** IETF language tag of the user's language */
   language_code?: string;
+  /** True, if this user is a Telegram Premium user */
+  is_premium?: true;
+  /** True, if this user added the bot to the attachment menu */
+  added_to_attachment_menu?: true;
 }
 
 /** This object represents a Telegram user or bot that was returned by `getMe`. */
@@ -107,6 +111,10 @@ export namespace Chat {
     message_auto_delete_time?: number;
     /** True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. */
     has_protected_content?: true;
+    /** True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
+    join_to_send_messages?: true;
+    /** True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat. */
+    join_by_request?: true;
   }
   /** Internal type holding properties that those group, supergroup, and channel chats returned from `getChat` share. */
   interface NonPrivateGetChat extends GetChat {
