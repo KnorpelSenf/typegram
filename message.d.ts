@@ -216,7 +216,7 @@ export interface MessageId {
   message_id: number;
 }
 
-/** Contains information about an inline message sent by a Web App on behalf of a user. */
+/** Describes an inline message sent by a Web App on behalf of a user. */
 export interface SentWebAppMessage {
   /** Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. */
   inline_message_id: string;
@@ -227,7 +227,7 @@ export interface SentWebAppMessage {
 Note that Telegram clients will display an **alert** to the user before opening an inline link ('Open this link?' together with the full URL).
 
 Message entities can be nested, providing following restrictions are met:
-- If two entities have common characters then one of them is fully contained inside another.
+- If two entities have common characters, then one of them is fully contained inside another.
 - bold, italic, underline, strikethrough, and spoiler entities can contain and can be part of any other entities, except pre and code.
 - All other entities can't contain each other.
 
@@ -452,7 +452,7 @@ export interface Video {
   thumb?: PhotoSize;
   /** Original filename as defined by sender */
   file_name?: string;
-  /** Mime type of a file as defined by sender */
+  /** MIME type of the file as defined by sender */
   mime_type?: string;
   /** File size in bytes */
   file_size?: number;
@@ -570,7 +570,7 @@ export interface Location {
   live_period?: number;
   /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
   heading?: number;
-  /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+  /** The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
   proximity_alert_radius?: number;
 }
 
@@ -629,11 +629,11 @@ export interface VideoChatParticipantsInvited {
   users: User[];
 }
 
-/** Contains data sent from a Web App to the bot. */
+/** Describes data sent from a Web App to the bot. */
 export interface WebAppData {
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
   data: string;
-  /** Text of the web_app keyboard button, from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
+  /** Text of the web_app keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
   button_text: string;
 }
 

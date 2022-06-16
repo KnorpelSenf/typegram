@@ -202,7 +202,7 @@ export interface ChatInviteLink {
   name?: string;
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
   expire_date?: number;
-  /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+  /** The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
   member_limit?: number;
   /** Number of pending join requests created using this link */
   pending_join_request_count?: number;
@@ -421,7 +421,7 @@ export interface File {
   file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
-  /** File size in bytes, if known */
+  /** File size in bytes */
   file_size?: number;
   /** File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file. */
   file_path?: string;

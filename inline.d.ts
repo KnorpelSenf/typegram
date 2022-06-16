@@ -13,7 +13,7 @@ export interface InlineQuery {
   query: string;
   /** Offset of the results to be returned, can be controlled by the bot */
   offset: string;
-  /** Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat */
+  /** Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat */
   chat_type?: "sender" | Chat["type"];
   /** Sender location, only for bots that request user location */
   location?: Location;
@@ -156,7 +156,7 @@ export interface InlineQueryResultMpeg4Gif {
   type: "mpeg4_gif";
   /** Unique identifier for this result, 1-64 bytes */
   id: string;
-  /** A valid URL for the MP4 file. File size must not exceed 1MB */
+  /** A valid URL for the MPEG4 file. File size must not exceed 1MB */
   mpeg4_url: string;
   /** Video width */
   mpeg4_width?: number;
@@ -190,7 +190,7 @@ export interface InlineQueryResultVideo {
   id: string;
   /** A valid URL for the embedded video player or video file */
   video_url: string;
-  /** Mime type of the content of video url, “text/html” or “video/mp4” */
+  /** MIME type of the content of the video URL, “text/html” or “video/mp4” */
   mime_type: "text/html" | "video/mp4";
   /** URL of the thumbnail (JPEG only) for the video */
   thumb_url: string;
@@ -286,7 +286,7 @@ export interface InlineQueryResultDocument {
   caption_entities?: MessageEntity[];
   /** A valid URL for the file */
   document_url: string;
-  /** Mime type of the content of the file, either “application/pdf” or “application/zip” */
+  /** MIME type of the content of the file, either “application/pdf” or “application/zip” */
   mime_type: "application/pdf" | "application/zip";
   /** Short description of the result */
   description?: string;
@@ -322,7 +322,7 @@ export interface InlineQueryResultLocation {
   live_period?: number;
   /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
   heading?: number;
-  /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+  /** The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
   proximity_alert_radius?: number;
   /** Inline keyboard attached to the message */
   reply_markup?: InlineKeyboardMarkup;
@@ -464,7 +464,7 @@ export interface InlineQueryResultCachedMpeg4Gif {
   type: "mpeg4_gif";
   /** Unique identifier for this result, 1-64 bytes */
   id: string;
-  /** A valid file identifier for the MP4 file */
+  /** A valid file identifier for the MPEG4 file */
   mpeg4_file_id: string;
   /** Title for the result */
   title?: string;
@@ -671,7 +671,7 @@ export interface InputInvoiceMessageContent {
   description: string;
   /** Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes. */
   payload: string;
-  /** Payment provider token, obtained via Botfather */
+  /** Payment provider token, obtained via BotFather */
   provider_token: string;
   /** Three-letter ISO 4217 currency code, see more on currencies */
   currency: string;
@@ -681,11 +681,11 @@ export interface InputInvoiceMessageContent {
   max_tip_amount?: number;
   /** An array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount. */
   suggested_tip_amounts?: number[];
-  /** An object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider. */
+  /** Data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider. */
   provider_data?: string;
-  /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for. */
+  /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. */
   photo_url?: string;
-  /** Photo size */
+  /** Photo size in bytes */
   photo_size?: number;
   /** Photo width */
   photo_width?: number;
@@ -699,9 +699,9 @@ export interface InputInvoiceMessageContent {
   need_email?: boolean;
   /** Pass True, if you require the user's shipping address to complete the order */
   need_shipping_address?: boolean;
-  /** Pass True, if user's phone number should be sent to provider */
+  /** Pass True, if the user's phone number should be sent to provider */
   send_phone_number_to_provider?: boolean;
-  /** Pass True, if user's email address should be sent to provider */
+  /** Pass True, if the user's email address should be sent to provider */
   send_email_to_provider?: boolean;
   /** Pass True, if the final price depends on the shipping method */
   is_flexible?: boolean;
@@ -709,7 +709,7 @@ export interface InputInvoiceMessageContent {
 
 /** Represents a result of an inline query that was chosen by the user and sent to their chat partner.
 
-Note: It is necessary to enable inline feedback via @Botfather in order to receive these objects in updates. */
+Note: It is necessary to enable inline feedback via @BotFather in order to receive these objects in updates. */
 export interface ChosenInlineResult {
   /** The unique identifier for the result that was chosen */
   result_id: string;

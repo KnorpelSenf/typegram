@@ -280,7 +280,7 @@ export interface InputFileProxy<F> {
         | ForceReply;
     }): Message.DocumentMessage;
 
-    /** Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future. */
+    /** Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future. */
     sendVideo(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -385,7 +385,7 @@ export interface InputFileProxy<F> {
     }): Message.VoiceMessage;
 
     /** Use this method to send video messages. On success, the sent Message is returned.
-    As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. */
+    As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. */
     sendVideoNote(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -453,7 +453,7 @@ export interface InputFileProxy<F> {
       live_period?: number;
       /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
       heading?: number;
-      /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+      /** The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
       proximity_alert_radius?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -487,7 +487,7 @@ export interface InputFileProxy<F> {
       horizontal_accuracy?: number;
       /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
       heading?: number;
-      /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+      /** The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
       proximity_alert_radius?: number;
       /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
@@ -668,11 +668,11 @@ export interface InputFileProxy<F> {
       limit?: number;
     }): UserProfilePhotos;
 
-    /** Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
+    /** Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
 
     Note: This function may not preserve the original file name and MIME type. You should save the file's MIME type and name (if available) when the File object is received. */
     getFile(args: {
-      /** File identifier to get info about */
+      /** File identifier to get information about */
       file_id: string;
     }): File;
 
@@ -794,7 +794,7 @@ export interface InputFileProxy<F> {
       name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
-      /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+      /** The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
       /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
       creates_join_request?: boolean;
@@ -810,7 +810,7 @@ export interface InputFileProxy<F> {
       name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
-      /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+      /** The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
       /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
       creates_join_request?: boolean;
@@ -946,7 +946,7 @@ export interface InputFileProxy<F> {
 
     /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
-    Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
+    Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
     answerCallbackQuery(args: {
       /** Unique identifier for the query to be answered */
       callback_query_id: string;
@@ -954,7 +954,7 @@ export interface InputFileProxy<F> {
       text?: string;
       /** If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
       show_alert?: boolean;
-      /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.
+      /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.
 
       Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
       url?: string;
@@ -1152,7 +1152,7 @@ export interface InputFileProxy<F> {
     createNewStickerSet(args: {
       /** User identifier of created sticker set owner */
       user_id: number;
-      /** Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot username>". <bot_username> is case insensitive. 1-64 characters. */
+      /** Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot username>". <bot_username> is case insensitive. 1-64 characters. */
       name: string;
       /** Sticker set title, 1-64 characters */
       title: string;
@@ -1208,7 +1208,7 @@ export interface InputFileProxy<F> {
       name: string;
       /** User identifier of the sticker set owner */
       user_id: number;
-      /** A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL. */
+      /** A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. Animated sticker set thumbnails can't be uploaded via HTTP URL. */
       thumb?: F | string;
     }): true;
 
@@ -1251,7 +1251,7 @@ export interface InputFileProxy<F> {
       description: string;
       /** Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes. */
       payload: string;
-      /** Payments provider token, obtained via Botfather */
+      /** Payment provider token, obtained via BotFather */
       provider_token: string;
       /** Three-letter ISO 4217 currency code, see more on currencies */
       currency: string;
@@ -1267,7 +1267,7 @@ export interface InputFileProxy<F> {
       provider_data?: string;
       /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for. */
       photo_url?: string;
-      /** Photo size */
+      /** Photo size in bytes */
       photo_size?: number;
       /** Photo width */
       photo_width?: number;
@@ -1281,9 +1281,9 @@ export interface InputFileProxy<F> {
       need_email?: boolean;
       /** Pass True, if you require the user's shipping address to complete the order */
       need_shipping_address?: boolean;
-      /** Pass True, if user's phone number should be sent to provider */
+      /** Pass True, if the user's phone number should be sent to provider */
       send_phone_number_to_provider?: boolean;
-      /** Pass True, if user's email address should be sent to provider */
+      /** Pass True, if the user's email address should be sent to provider */
       send_email_to_provider?: boolean;
       /** Pass True, if the final price depends on the shipping method */
       is_flexible?: boolean;
@@ -1335,7 +1335,7 @@ export interface InputFileProxy<F> {
     sendGame(args: {
       /** Unique identifier for the target chat */
       chat_id: number;
-      /** Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather. */
+      /** Short name of the game, serves as the unique identifier for the game. Set up your games via BotFather. */
       game_short_name: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -1369,7 +1369,7 @@ export interface InputFileProxy<F> {
 
     /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
 
-    This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change. */
+    This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change. */
     getGameHighScores(args: {
       /** Target user id */
       user_id: number;

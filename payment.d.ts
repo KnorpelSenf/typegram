@@ -24,7 +24,7 @@ export interface Invoice {
 
 /** This object represents a shipping address. */
 export interface ShippingAddress {
-  /** ISO 3166-1 alpha-2 country code */
+  /** Two-letter ISO 3166-1 alpha-2 country code */
   country_code: string;
   /** State, if applicable */
   state: string;
@@ -70,7 +70,7 @@ export interface SuccessfulPayment {
   invoice_payload: string;
   /** Identifier of the shipping option chosen by the user */
   shipping_option_id?: string;
-  /** Order info provided by the user */
+  /** Order information provided by the user */
   order_info?: OrderInfo;
   /** Telegram payment identifier */
   telegram_payment_charge_id: string;
@@ -104,6 +104,6 @@ export interface PreCheckoutQuery {
   invoice_payload: string;
   /** Identifier of the shipping option chosen by the user */
   shipping_option_id?: string;
-  /** Order info provided by the user */
+  /** Order information provided by the user */
   order_info?: OrderInfo;
 }
