@@ -64,7 +64,7 @@ export interface InputFileProxy<F> {
       limit?: number;
       /** Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only. */
       timeout?: number;
-      /** A list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
+      /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
 
       Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
       allowed_updates?: readonly string[];
@@ -89,7 +89,7 @@ export interface InputFileProxy<F> {
       ip_address?: string;
       /** The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
       max_connections?: number;
-      /** A list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
+      /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
       Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
       allowed_updates?: ReadonlyArray<Exclude<keyof Update, "update_id">>;
       /** Pass True to drop all pending updates */
@@ -523,7 +523,7 @@ export interface InputFileProxy<F> {
       address: string;
       /** Foursquare identifier of the venue */
       foursquare_id?: string;
-      /** Foursquare type of the venue, if known. (For example, "arts_entertainment/default", "arts_entertainment/aquarium" or "food/icecream".) */
+      /** Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
       foursquare_type?: string;
       /** Google Places identifier of the venue */
       google_place_id?: string;
@@ -583,7 +583,7 @@ export interface InputFileProxy<F> {
       options: readonly string[];
       /** True, if the poll needs to be anonymous, defaults to True */
       is_anonymous?: boolean;
-      /** Poll type, "quiz" or "regular", defaults to "regular" */
+      /** Poll type, “quiz” or “regular”, defaults to “regular” */
       type?: "quiz" | "regular";
       /** True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False */
       allows_multiple_answers?: boolean;
