@@ -1,6 +1,6 @@
 import { Location, Message, PhotoSize } from "./message";
 
-/** Contains information about the current status of a webhook. */
+/** Describes the current status of a webhook. */
 export interface WebhookInfo {
   /** Webhook URL, may be empty if webhook is not set up */
   url?: string;
@@ -16,7 +16,7 @@ export interface WebhookInfo {
   last_error_message: string;
   /** Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters */
   last_synchronization_error_date?: number;
-  /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
+  /** The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
   max_connections: number;
   /** A list of update types the bot is subscribed to. Defaults to all update types except chat_member */
   allowed_updates: string[];
@@ -36,6 +36,10 @@ export interface User {
   username?: string;
   /** IETF language tag of the user's language */
   language_code?: string;
+  /** True, if this user is a Telegram Premium user */
+  is_premium?: true;
+  /** True, if this user added the bot to the attachment menu */
+  added_to_attachment_menu?: true;
 }
 
 /** This object represents a Telegram user or bot that was returned by `getMe`. */
@@ -102,6 +106,10 @@ export namespace Chat {
   interface GetChat {
     /** Chat photo. Returned only in getChat. */
     photo?: ChatPhoto;
+    /** True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
+    join_to_send_messages?: true;
+    /** True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat. */
+    join_by_request?: true;
     /** The most recent pinned message (by sending date). Returned only in getChat. */
     pinned_message?: Message;
     /** The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat. */
@@ -205,7 +213,7 @@ export interface ChatInviteLink {
   name?: string;
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
   expire_date?: number;
-  /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+  /** The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
   member_limit?: number;
   /** Number of pending join requests created using this link */
   pending_join_request_count?: number;
@@ -424,7 +432,7 @@ export interface File {
   file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
-  /** File size in bytes, if known */
+  /** File size in bytes */
   file_size?: number;
   /** File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file. */
   file_path?: string;

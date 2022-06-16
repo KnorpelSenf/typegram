@@ -1,4 +1,4 @@
-/** Contains information about Telegram Passport data shared with the bot by the user. */
+/** Describes Telegram Passport data shared with the bot by the user. */
 export interface PassportData {
   /** Array with information about documents and other Telegram Passport elements that was shared with the bot */
   data: EncryptedPassportElement[];
@@ -18,7 +18,7 @@ export interface PassportFile {
   file_date: number;
 }
 
-/** Contains information about documents or other Telegram Passport elements shared with the bot by the user. */
+/** Describes documents or other Telegram Passport elements shared with the bot by the user. */
 export interface EncryptedPassportElement {
   /** Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”. */
   type:
@@ -55,7 +55,7 @@ export interface EncryptedPassportElement {
   hash: string;
 }
 
-/** Contains data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes. */
+/** Describes data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes. */
 export interface EncryptedCredentials {
   /** Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication */
   data: string;

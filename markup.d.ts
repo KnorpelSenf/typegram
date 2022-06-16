@@ -13,7 +13,7 @@ export namespace InlineKeyboardButton {
     text: string;
   }
   export interface UrlButton extends AbstractInlineKeyboardButton {
-    /** HTTP or tg:// url to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings. */
+    /** HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings. */
     url: string;
   }
   export interface CallbackButton extends AbstractInlineKeyboardButton {
@@ -25,7 +25,7 @@ export namespace InlineKeyboardButton {
     web_app: WebAppInfo;
   }
   export interface LoginButton extends AbstractInlineKeyboardButton {
-    /** An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
+    /** An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. */
     login_url: LoginUrl;
   }
   export interface SwitchInlineButton extends AbstractInlineKeyboardButton {
@@ -98,7 +98,7 @@ export interface CallbackQuery {
   inline_message_id?: string;
   /** Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games. */
   chat_instance: string;
-  /** Data associated with the callback button. Be aware that the message, which originated the query, can contain no callback buttons with this data. */
+  /** Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data. */
   data?: string;
   /** Short name of a Game to be returned, serves as the unique identifier for the game */
   game_short_name?: string;
@@ -176,7 +176,7 @@ Explain the user how to send a command with parameters (e.g. /newpoll question a
 
 Guide the user through a step-by-step process. 'Please send me your question', 'Cool, now let's add the first answer option', 'Great. Keep adding answer options, then send /done when you're ready'.
 
-The last option is definitely more attractive. And if you use ForceReply in your bot's questions, it will receive the user's answers even if it only receives replies, commands and mentions — without any extra work for the user. */
+The last option is definitely more attractive. And if you use ForceReply in your bot's questions, it will receive the user's answers even if it only receives replies, commands and mentions - without any extra work for the user. */
 export interface ForceReply {
   /** Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply' */
   force_reply: true;
@@ -186,7 +186,7 @@ export interface ForceReply {
   selective?: boolean;
 }
 
-/** Contains information about a Web App. */
+/** Describes a Web App. */
 export interface WebAppInfo {
   /** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
   url: string;

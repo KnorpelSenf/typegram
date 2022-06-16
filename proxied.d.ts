@@ -95,30 +95,32 @@ export interface Typegram<F> {
       allowed_updates?: readonly string[];
     }): Update[];
 
-    /** Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
+    /** Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
 
-    If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. https://www.example.com/<token>. Since nobody else knows your bot's token, you can be pretty sure it's us.
+    If you'd like to make sure that the webhook was set by you, you can specify secret data in the parameter secret_token. If specified, the request will contain a header “X-Telegram-Bot-Api-Secret-Token” with the secret token as content.
 
     Notes
     1. You will not be able to receive updates using getUpdates for as long as an outgoing webhook is set up.
     2. To use a self-signed certificate, you need to upload your public key certificate using certificate parameter. Please upload as InputFile, sending a String will not work.
     3. Ports currently supported for Webhooks: 443, 80, 88, 8443.
 
-    NEW! If you're having any trouble setting up webhooks, please check out this amazing guide to Webhooks. */
+    If you're having any trouble setting up webhooks, please check out this amazing guide to webhooks. */
     setWebhook(args: {
-      /** HTTPS url to send updates to. Use an empty string to remove webhook integration */
+      /** HTTPS URL to send updates to. Use an empty string to remove webhook integration */
       url: string;
       /** Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details. */
       certificate?: F;
       /** The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS */
       ip_address?: string;
-      /** Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
+      /** The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput. */
       max_connections?: number;
-      /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.
-      Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
-      allowed_updates?: readonly string[];
-      /** Pass True to drop all pending updates */
-      drop_pending_updates?: boolean;
+      /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
+       Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
+       allowed_updates?: readonly string[];
+       /** Pass True to drop all pending updates */
+       drop_pending_updates?: boolean;
+       /** A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you. */
+       secret_token?: string;
     }): true;
 
     /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. */
@@ -309,7 +311,7 @@ export interface Typegram<F> {
         | ForceReply;
     }): Message.DocumentMessage;
 
-    /** Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future. */
+    /** Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future. */
     sendVideo(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -414,7 +416,7 @@ export interface Typegram<F> {
     }): Message.VoiceMessage;
 
     /** Use this method to send video messages. On success, the sent Message is returned.
-    As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. */
+    As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. */
     sendVideoNote(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -482,7 +484,7 @@ export interface Typegram<F> {
       live_period?: number;
       /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
       heading?: number;
-      /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+      /** The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
       proximity_alert_radius?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -516,7 +518,7 @@ export interface Typegram<F> {
       horizontal_accuracy?: number;
       /** The direction in which user is moving, in degrees; 1-360. For active live locations only. */
       heading?: number;
-      /** Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+      /** The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
       proximity_alert_radius?: number;
       /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
@@ -697,11 +699,11 @@ export interface Typegram<F> {
       limit?: number;
     }): UserProfilePhotos;
 
-    /** Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
+    /** Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
 
     Note: This function may not preserve the original file name and MIME type. You should save the file's MIME type and name (if available) when the File object is received. */
     getFile(args: {
-      /** File identifier to get info about */
+      /** File identifier to get information about */
       file_id: string;
     }): File;
 
@@ -830,7 +832,7 @@ export interface Typegram<F> {
       name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
-      /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+      /** The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
       /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
       creates_join_request?: boolean;
@@ -846,7 +848,7 @@ export interface Typegram<F> {
       name?: string;
       /** Point in time (Unix timestamp) when the link will expire */
       expire_date?: number;
-      /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+      /** The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
       member_limit?: number;
       /** True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
       creates_join_request?: boolean;
@@ -982,7 +984,7 @@ export interface Typegram<F> {
 
     /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
-    Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
+    Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
     answerCallbackQuery(args: {
       /** Unique identifier for the query to be answered */
       callback_query_id: string;
@@ -990,7 +992,7 @@ export interface Typegram<F> {
       text?: string;
       /** If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false. */
       show_alert?: boolean;
-      /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.
+      /** URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.
 
       Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
       url?: string;
@@ -1188,7 +1190,7 @@ export interface Typegram<F> {
     createNewStickerSet(args: {
       /** User identifier of created sticker set owner */
       user_id: number;
-      /** Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in “_by_<bot username>”. <bot_username> is case insensitive. 1-64 characters. */
+      /** Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot username>". <bot_username> is case insensitive. 1-64 characters. */
       name: string;
       /** Sticker set title, 1-64 characters */
       title: string;
@@ -1244,7 +1246,7 @@ export interface Typegram<F> {
       name: string;
       /** User identifier of the sticker set owner */
       user_id: number;
-      /** A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL. */
+      /** A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. Animated sticker set thumbnails can't be uploaded via HTTP URL. */
       thumb?: F | string;
     }): true;
 
@@ -1287,7 +1289,7 @@ export interface Typegram<F> {
       description: string;
       /** Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes. */
       payload: string;
-      /** Payments provider token, obtained via Botfather */
+      /** Payment provider token, obtained via BotFather */
       provider_token: string;
       /** Three-letter ISO 4217 currency code, see more on currencies */
       currency: string;
@@ -1303,7 +1305,7 @@ export interface Typegram<F> {
       provider_data?: string;
       /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for. */
       photo_url?: string;
-      /** Photo size */
+      /** Photo size in bytes */
       photo_size?: number;
       /** Photo width */
       photo_width?: number;
@@ -1317,9 +1319,9 @@ export interface Typegram<F> {
       need_email?: boolean;
       /** Pass True, if you require the user's shipping address to complete the order */
       need_shipping_address?: boolean;
-      /** Pass True, if user's phone number should be sent to provider */
+      /** Pass True, if the user's phone number should be sent to provider */
       send_phone_number_to_provider?: boolean;
-      /** Pass True, if user's email address should be sent to provider */
+      /** Pass True, if the user's email address should be sent to provider */
       send_email_to_provider?: boolean;
       /** Pass True, if the final price depends on the shipping method */
       is_flexible?: boolean;
@@ -1334,6 +1336,50 @@ export interface Typegram<F> {
       /** An object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
       reply_markup?: InlineKeyboardMarkup;
     }): Message.InvoiceMessage;
+
+    /** Use this method to create a link for an invoice. Returns the created invoice link as String on success. */
+    createInvoiceLink(args: {
+      /** Product name, 1-32 characters */
+      title: string;
+      /** Product description, 1-255 characters */
+      description: string;
+      /** Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes. */
+      payload: string;
+      /** Payment provider token, obtained via BotFather */
+      provider_token: string;
+      /** Three-letter ISO 4217 currency code, see more on currencies */
+      currency: string;
+      /** Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.) */
+      prices: LabeledPrice[];
+      /** The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 */
+      max_tip_amount?: number;
+      /** An array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount. */
+      suggested_tip_amounts?: number[];
+      /** Data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider. */
+      provider_data?: string;
+      /** URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. */
+      photo_url?: string;
+      /** Photo size in bytes */
+      photo_size?: number;
+      /** Photo width */
+      photo_width?: number;
+      /** Photo height */
+      photo_height?: number;
+      /** Pass True, if you require the user's full name to complete the order */
+      need_name?: boolean;
+      /** Pass True, if you require the user's phone number to complete the order */
+      need_phone_number?: boolean;
+      /** Pass True, if you require the user's email address to complete the order */
+      need_email?: boolean;
+      /** Pass True, if you require the user's shipping address to complete the order */
+      need_shipping_address?: boolean;
+      /** Pass True, if the user's phone number should be sent to the provider */
+      send_phone_number_to_provider?: boolean;
+      /** Pass True, if the user's email address should be sent to the provider */
+      send_email_to_provider?: boolean;
+      /** Pass True, if the final price depends on the shipping method */
+      is_flexible?: boolean;
+    }): string;
 
     /** If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned. */
     answerShippingQuery(args: {
@@ -1371,7 +1417,7 @@ export interface Typegram<F> {
     sendGame(args: {
       /** Unique identifier for the target chat */
       chat_id: number;
-      /** Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather. */
+      /** Short name of the game, serves as the unique identifier for the game. Set up your games via BotFather. */
       game_short_name: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -1405,7 +1451,7 @@ export interface Typegram<F> {
 
     /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
 
-    This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change. */
+    This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change. */
     getGameHighScores(args: {
       /** Target user id */
       user_id: number;
