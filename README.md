@@ -73,3 +73,14 @@ Consequently, the type `InputFile` is not defined in this library.
 Instead, grammY specifies its own version of what an `InputFile` is, hence automatically adjusting `@grammyjs/types` with a custom `InputFile` type used throughout all affected methods and interfaces.
 This is possible by what we call a _proxy type_.
 grammY then imports the proxy type called `InputProxyType` and parametrises it with its version of `InputFile`.
+
+## Differences to the Bot API
+
+Some documentation strings are intentionally different from what is written on the website.
+The actual type definitions themselves are never different.
+
+1. No mentions of `JSON-serialized`.
+   As underlying libraries handle serialization, these words are removed from the explantions.
+2. No mentions of integer numbers that exceed 2^31 but not 2^51.
+   All numbers are 64-bit floats in JS, so this is irrelevant.
+   Note that JS bit operators cast numbers to 32-bit integers and back, but we deliberately ignore this because people who use bit operators on identifiers or file sizes should know what they're doing, and they should also know that it's a bad idea.

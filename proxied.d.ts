@@ -42,12 +42,8 @@ type Params<M extends keyof InputFileProxy<F>["Telegram"], F> = Parameters<
 export interface InputFileProxy<F> {
   /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
   Opts: {
-    [M in keyof InputFileProxy<F>["Telegram"]]: Params<
-      M,
-      F
-    >[0] extends undefined
-      ? {}
-      : NonNullable<Params<M, F>[0]>;
+    [M in keyof InputFileProxy<F>["Telegram"]]: Params<M, F>[0] extends
+      undefined ? {} : NonNullable<Params<M, F>[0]>;
   };
 
   /** Wrapper type to bundle all methods of the Telegram API */

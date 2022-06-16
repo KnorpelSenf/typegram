@@ -88,9 +88,7 @@ export namespace Chat {
   }
   /** Internal type representing super group chats. */
   export interface SupergroupChat
-    extends AbstractChat,
-      UserNameChat,
-      TitleChat {
+    extends AbstractChat, UserNameChat, TitleChat {
     type: "supergroup";
   }
   /** Internal type representing channel chats. */
@@ -142,9 +140,7 @@ export namespace Chat {
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
   /** Internal type representing supergroup chats returned from `getChat`. */
   export interface SupergroupGetChat
-    extends SupergroupChat,
-      MultiUserGetChat,
-      LargeGetChat {
+    extends SupergroupChat, MultiUserGetChat, LargeGetChat {
     /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
