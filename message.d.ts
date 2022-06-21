@@ -1,5 +1,5 @@
 import { InlineKeyboardMarkup } from "./markup";
-import { Chat, User } from "./manage";
+import { Chat, File, User } from "./manage";
 import { PassportData } from "./passport";
 import { Invoice, SuccessfulPayment } from "./payment";
 
@@ -47,7 +47,7 @@ export namespace Message {
     reply_markup?: InlineKeyboardMarkup;
   }
   export interface CaptionableMessage extends CommonMessage {
-    /** Caption for the animation, audio, document, photo, video or voice, 0-1024 characters */
+    /** Caption for the animation, audio, document, photo, video or voice */
     caption?: string;
     /** For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption */
     caption_entities?: MessageEntity[];
@@ -131,7 +131,7 @@ export namespace Message {
 type ReplyMessage = Message & { reply_to_message: undefined };
 
 export interface Message extends Message.MediaMessage {
-  /** For text messages, the actual UTF-8 text of the message, 0-4096 characters */
+  /** For text messages, the actual UTF-8 text of the message */
   text?: string;
   /** For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text */
   entities?: MessageEntity[];
@@ -657,6 +657,8 @@ export interface Sticker {
   emoji?: string;
   /** Name of the sticker set to which the sticker belongs */
   set_name?: string;
+  /** Premium animation for the sticker, if the sticker is premium  */
+  premium_animation?: File;
   /** For mask stickers, the position where the mask should be placed */
   mask_position?: MaskPosition;
   /** File size in bytes */
