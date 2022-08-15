@@ -353,6 +353,11 @@ export namespace MessageEntity {
     /** For “pre” only, the programming language of the entity text */
     language?: string;
   }
+  export interface CustomEmojiMessageEntity extends AbstractMessageEntity {
+    type: "custom_emoji";
+    /** For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker */
+    custom_emoji_id?: string;
+  }
 }
 
 /** This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. */
@@ -661,6 +666,8 @@ export interface Sticker {
   premium_animation?: File;
   /** For mask stickers, the position where the mask should be placed */
   mask_position?: MaskPosition;
+  /** For custom emoji stickers, unique identifier of the custom emoji */
+  custom_emoji_id?: string;
   /** File size in bytes */
   file_size?: number;
 }
@@ -671,12 +678,12 @@ export interface StickerSet {
   name: string;
   /** Sticker set title */
   title: string;
+  /** Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji” */
+  sticker_type: "regular" | "mask" | "custom_emoji";
   /** True, if the sticker set contains animated stickers */
   is_animated: boolean;
   /** True, if the sticker set contains video stickers */
   is_video: boolean;
-  /** True, if the sticker set contains masks */
-  contains_masks: boolean;
   /** List of all set stickers */
   stickers: Sticker[];
   /** Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */

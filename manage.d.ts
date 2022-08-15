@@ -85,6 +85,8 @@ export namespace Chat {
     first_name: string;
     /** Last name of the other party in a private chat */
     last_name?: string;
+    /** True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat. */
+    has_restricted_voice_and_video_messages?: true;
   }
   /** Internal type representing group chats. */
   export interface GroupChat extends AbstractChat, TitleChat {

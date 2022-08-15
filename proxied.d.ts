@@ -29,6 +29,7 @@ import {
   ParseMode,
   Poll,
   SentWebAppMessage,
+  Sticker,
   StickerSet,
 } from "./message";
 import { PassportElementError } from "./passport";
@@ -1145,6 +1146,12 @@ export interface InputFileProxy<F> {
       name: string;
     }): StickerSet;
 
+    /** Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects. */
+    getCustomEmojiStickers(args: {
+      /** List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified. */
+      custom_emoji_ids: string[];
+    }): Sticker[];
+
     /** Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success. */
     uploadStickerFile(args: {
       /** User identifier of sticker file owner */
@@ -1167,6 +1174,8 @@ export interface InputFileProxy<F> {
       tgs_sticker?: F;
       /** WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements */
       webm_sticker?: F;
+      /** Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created. */
+      sticker_type?: "regular" | "mask";
       /** One or more emoji corresponding to the sticker */
       emojis: string;
       /** Pass True, if a set of mask stickers should be created */
