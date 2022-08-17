@@ -1178,8 +1178,6 @@ export interface InputFileProxy<F> {
       sticker_type?: "regular" | "mask";
       /** One or more emoji corresponding to the sticker */
       emojis: string;
-      /** Pass True, if a set of mask stickers should be created */
-      contains_masks?: boolean;
       /** An object for position where the mask should be placed on faces */
       mask_position?: MaskPosition;
     }): true;

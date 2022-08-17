@@ -356,7 +356,7 @@ export namespace MessageEntity {
   export interface CustomEmojiMessageEntity extends AbstractMessageEntity {
     type: "custom_emoji";
     /** For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker */
-    custom_emoji_id?: string;
+    custom_emoji_id: string;
   }
 }
 
@@ -648,6 +648,8 @@ export interface Sticker {
   file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
+  /** Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video. */
+  type: "regular" | "mask" | "custom_emoji";
   /** Sticker width */
   width: number;
   /** Sticker height */
