@@ -30,6 +30,7 @@ import {
   ParseMode,
   Poll,
   SentWebAppMessage,
+  Sticker,
   StickerSet,
 } from "./message";
 import { PassportElementError } from "./passport";
@@ -118,11 +119,11 @@ export interface Typegram<F> {
       max_connections?: number;
       /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
        Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time. */
-       allowed_updates?: readonly string[];
-       /** Pass True to drop all pending updates */
-       drop_pending_updates?: boolean;
-       /** A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you. */
-       secret_token?: string;
+      allowed_updates?: readonly string[];
+      /** Pass True to drop all pending updates */
+      drop_pending_updates?: boolean;
+      /** A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you. */
+      secret_token?: string;
     }): true;
 
     /** Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. */
@@ -984,6 +985,12 @@ export interface Typegram<F> {
       chat_id: number | string;
     }): true;
 
+    /** Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects. */
+    getCustomEmojiStickers(args: {
+      /** List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified. */
+      custom_emoji_ids: string[];
+    }): Sticker[];
+
     /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
     Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
@@ -1202,10 +1209,10 @@ export interface Typegram<F> {
       tgs_sticker?: F;
       /** WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements */
       webm_sticker?: F;
+      /** Type of stickers in the set. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created */
+      sticker_type?: "regular" | "mask";
       /** One or more emoji corresponding to the sticker */
       emojis: string;
-      /** Pass True, if a set of mask stickers should be created */
-      contains_masks?: boolean;
       /** An object for position where the mask should be placed on faces */
       mask_position?: MaskPosition;
     }): true;

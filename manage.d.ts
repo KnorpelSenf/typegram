@@ -116,6 +116,8 @@ export namespace Chat {
     message_auto_delete_time?: number;
     /** True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. */
     has_protected_content?: true;
+    /** True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat. */
+    has_restricted_voice_and_video_messages?: true;
   }
   /** Internal type holding properties that those group, supergroup, and channel chats returned from `getChat` share. */
   interface NonPrivateGetChat extends GetChat {
