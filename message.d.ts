@@ -338,6 +338,11 @@ export namespace MessageEntity {
       | "spoiler"
       | "code";
   }
+  export interface PreMessageEntity extends AbstractMessageEntity {
+    type: "pre";
+    /** For “pre” only, the programming language of the entity text */
+    language?: string;
+  }
   export interface TextLinkMessageEntity extends AbstractMessageEntity {
     type: "text_link";
     /** For “text_link” only, URL that will be opened after user taps on the text */
@@ -347,11 +352,6 @@ export namespace MessageEntity {
     type: "text_mention";
     /** For “text_mention” only, the mentioned user */
     user: User;
-  }
-  export interface PreMessageEntity extends AbstractMessageEntity {
-    type: "pre";
-    /** For “pre” only, the programming language of the entity text */
-    language?: string;
   }
   export interface CustomEmojiMessageEntity extends AbstractMessageEntity {
     type: "custom_emoji";
