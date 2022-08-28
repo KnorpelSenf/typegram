@@ -51,7 +51,7 @@ export interface InputFileProxy<F> {
 
   /** Wrapper type to bundle all methods of the Telegram API */
   Telegram: {
-    /** Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
+    /** Use this method to receive incoming updates using long polling (wiki). Returns an Array of Update objects.
 
     Notes
     1. This method will not work if an outgoing webhook is set up.
@@ -134,7 +134,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -158,7 +158,7 @@ export interface InputFileProxy<F> {
       message_id: number;
     }): Message;
 
-    /** Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
+    /** Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
     copyMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
@@ -178,7 +178,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -206,7 +206,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -244,7 +244,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -276,7 +276,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -306,7 +306,7 @@ export interface InputFileProxy<F> {
       parse_mode?: ParseMode;
       /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
-      /** Pass True, if the uploaded video is suitable for streaming */
+      /** Pass True if the uploaded video is suitable for streaming */
       supports_streaming?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -314,7 +314,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -350,7 +350,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -380,7 +380,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -409,7 +409,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -436,7 +436,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If messages are a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
     }): Array<
       | Message.AudioMessage
@@ -467,7 +467,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -537,7 +537,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -565,7 +565,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user. */
       reply_markup?:
@@ -601,7 +601,7 @@ export interface InputFileProxy<F> {
       open_period?: number;
       /** Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period. */
       close_date?: number;
-      /** Pass True, if the poll needs to be immediately closed. This can be useful for poll preview. */
+      /** Pass True if the poll needs to be immediately closed. This can be useful for poll preview. */
       is_closed?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -609,7 +609,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -631,7 +631,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -726,27 +726,27 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Unique identifier of the target user */
       user_id: number;
-      /** Pass True, if the administrator's presence in the chat is hidden */
+      /** Pass True if the administrator's presence in the chat is hidden */
       is_anonymous?: boolean;
-      /** Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
+      /** Pass True if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege */
       can_manage_chat?: boolean;
-      /** Pass True, if the administrator can create channel posts, channels only */
+      /** Pass True if the administrator can create channel posts, channels only */
       can_post_messages?: boolean;
-      /** Pass True, if the administrator can edit messages of other users and can pin messages, channels only */
+      /** Pass True if the administrator can edit messages of other users and can pin messages, channels only */
       can_edit_messages?: boolean;
-      /** Pass True, if the administrator can delete messages of other users */
+      /** Pass True if the administrator can delete messages of other users */
       can_delete_messages?: boolean;
-      /** Pass True, if the administrator can manage video chats */
+      /** Pass True if the administrator can manage video chats */
       can_manage_video_chats?: boolean;
-      /** Pass True, if the administrator can restrict, ban or unban chat members */
+      /** Pass True if the administrator can restrict, ban or unban chat members */
       can_restrict_members?: boolean;
-      /** Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) */
+      /** Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) */
       can_promote_members?: boolean;
-      /** Pass True, if the administrator can change chat title, photo and other settings */
+      /** Pass True if the administrator can change chat title, photo and other settings */
       can_change_info?: boolean;
-      /** Pass True, if the administrator can invite new users to the chat */
+      /** Pass True if the administrator can invite new users to the chat */
       can_invite_users?: boolean;
-      /** Pass True, if the administrator can pin messages, supergroups only */
+      /** Pass True if the administrator can pin messages, supergroups only */
       can_pin_messages?: boolean;
     }): true;
 
@@ -882,7 +882,7 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Identifier of a message to pin */
       message_id: number;
-      /** Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats. */
+      /** Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats. */
       disable_notification?: boolean;
     }): true;
 
@@ -912,7 +912,7 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
     }): ChatFromGetChat;
 
-    /** Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned. */
+    /** Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects. */
     getChatAdministrators(args: {
       /** Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
       chat_id: number | string;
@@ -986,7 +986,7 @@ export interface InputFileProxy<F> {
       language_code?: string;
     }): true;
 
-    /** Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned. */
+    /** Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of BotCommand objects. If commands aren't set, an empty list is returned. */
     getMyCommands(args: {
       /** An object, describing scope of users. Defaults to BotCommandScopeDefault. */
       scope?: BotCommandScope;
@@ -1130,7 +1130,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** Additional interface options. An object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. */
       reply_markup?:
@@ -1235,7 +1235,7 @@ export interface InputFileProxy<F> {
       results: readonly InlineQueryResult[];
       /** The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300. */
       cache_time?: number;
-      /** Pass True, if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query */
+      /** Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query */
       is_personal?: boolean;
       /** Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes. */
       next_offset?: string;
@@ -1285,19 +1285,19 @@ export interface InputFileProxy<F> {
       photo_width?: number;
       /** Photo height */
       photo_height?: number;
-      /** Pass True, if you require the user's full name to complete the order */
+      /** Pass True if you require the user's full name to complete the order */
       need_name?: boolean;
-      /** Pass True, if you require the user's phone number to complete the order */
+      /** Pass True if you require the user's phone number to complete the order */
       need_phone_number?: boolean;
-      /** Pass True, if you require the user's email address to complete the order */
+      /** Pass True if you require the user's email address to complete the order */
       need_email?: boolean;
-      /** Pass True, if you require the user's shipping address to complete the order */
+      /** Pass True if you require the user's shipping address to complete the order */
       need_shipping_address?: boolean;
-      /** Pass True, if the user's phone number should be sent to provider */
+      /** Pass True if the user's phone number should be sent to provider */
       send_phone_number_to_provider?: boolean;
-      /** Pass True, if the user's email address should be sent to provider */
+      /** Pass True if the user's email address should be sent to provider */
       send_email_to_provider?: boolean;
-      /** Pass True, if the final price depends on the shipping method */
+      /** Pass True if the final price depends on the shipping method */
       is_flexible?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
@@ -1305,7 +1305,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** An object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
       reply_markup?: InlineKeyboardMarkup;
@@ -1339,19 +1339,19 @@ export interface InputFileProxy<F> {
       photo_width?: number;
       /** Photo height */
       photo_height?: number;
-      /** Pass True, if you require the user's full name to complete the order */
+      /** Pass True if you require the user's full name to complete the order */
       need_name?: boolean;
-      /** Pass True, if you require the user's phone number to complete the order */
+      /** Pass True if you require the user's phone number to complete the order */
       need_phone_number?: boolean;
-      /** Pass True, if you require the user's email address to complete the order */
+      /** Pass True if you require the user's email address to complete the order */
       need_email?: boolean;
-      /** Pass True, if you require the user's shipping address to complete the order */
+      /** Pass True if you require the user's shipping address to complete the order */
       need_shipping_address?: boolean;
-      /** Pass True, if the user's phone number should be sent to the provider */
+      /** Pass True if the user's phone number should be sent to the provider */
       send_phone_number_to_provider?: boolean;
-      /** Pass True, if the user's email address should be sent to the provider */
+      /** Pass True if the user's email address should be sent to the provider */
       send_email_to_provider?: boolean;
-      /** Pass True, if the final price depends on the shipping method */
+      /** Pass True if the final price depends on the shipping method */
       is_flexible?: boolean;
     }): string;
 
@@ -1359,7 +1359,7 @@ export interface InputFileProxy<F> {
     answerShippingQuery(args: {
       /** Unique identifier for the query to be answered */
       shipping_query_id: string;
-      /** Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible) */
+      /** Pass True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible) */
       ok: boolean;
       /** Required if ok is True. An array of available shipping options. */
       shipping_options?: readonly ShippingOption[];
@@ -1399,7 +1399,7 @@ export interface InputFileProxy<F> {
       protect_content?: boolean;
       /** If the message is a reply, ID of the original message */
       reply_to_message_id?: number;
-      /** Pass True, if the message should be sent even if the specified replied-to message is not found */
+      /** Pass True if the message should be sent even if the specified replied-to message is not found */
       allow_sending_without_reply?: boolean;
       /** An object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. */
       reply_markup?: InlineKeyboardMarkup;
@@ -1411,9 +1411,9 @@ export interface InputFileProxy<F> {
       user_id: number;
       /** New score, must be non-negative */
       score: number;
-      /** Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters */
+      /** Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters */
       force?: boolean;
-      /** Pass True, if the game message should not be automatically edited to include the current scoreboard */
+      /** Pass True if the game message should not be automatically edited to include the current scoreboard */
       disable_edit_message?: boolean;
       /** Required if inline_message_id is not specified. Unique identifier for the target chat */
       chat_id?: number;
@@ -1423,7 +1423,7 @@ export interface InputFileProxy<F> {
       inline_message_id?: string;
     }): (Update.Edited & Message.GameMessage) | true;
 
-    /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
+    /** Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of GameHighScore objects.
 
     This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change. */
     getGameHighScores(args: {
@@ -1485,7 +1485,7 @@ export interface InputFileProxy<F> {
     height?: number;
     /** Video duration in seconds */
     duration?: number;
-    /** Pass True, if the uploaded video is suitable for streaming */
+    /** Pass True if the uploaded video is suitable for streaming */
     supports_streaming?: boolean;
   };
 

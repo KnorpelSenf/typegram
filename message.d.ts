@@ -315,7 +315,7 @@ export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
 export namespace MessageEntity {
   interface AbstractMessageEntity {
-    /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
+    /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers) */
     type: string;
     /** Offset in UTF-16 code units to the start of the entity */
     offset: number;
@@ -363,6 +363,7 @@ export namespace MessageEntity {
 /** This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. */
 export type MessageEntity =
   | MessageEntity.CommonMessageEntity
+  | MessageEntity.CustomEmojiMessageEntity
   | MessageEntity.PreMessageEntity
   | MessageEntity.TextLinkMessageEntity
   | MessageEntity.TextMentionMessageEntity;
@@ -664,7 +665,7 @@ export interface Sticker {
   emoji?: string;
   /** Name of the sticker set to which the sticker belongs */
   set_name?: string;
-  /** Premium animation for the sticker, if the sticker is premium  */
+  /** For premium regular stickers, premium animation for the sticker */
   premium_animation?: File;
   /** For mask stickers, the position where the mask should be placed */
   mask_position?: MaskPosition;
