@@ -315,7 +315,7 @@ export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
 export namespace MessageEntity {
   interface AbstractMessageEntity {
-    /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames) */
+    /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers) */
     type: string;
     /** Offset in UTF-16 code units to the start of the entity */
     offset: number;
@@ -353,11 +353,17 @@ export namespace MessageEntity {
     /** For “pre” only, the programming language of the entity text */
     language?: string;
   }
+  export interface CustomEmojiMessageEntity extends AbstractMessageEntity {
+    type: "custom_emoji";
+    /** For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker */
+    custom_emoji_id: string;
+  }
 }
 
 /** This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. */
 export type MessageEntity =
   | MessageEntity.CommonMessageEntity
+  | MessageEntity.CustomEmojiMessageEntity
   | MessageEntity.PreMessageEntity
   | MessageEntity.TextLinkMessageEntity
   | MessageEntity.TextMentionMessageEntity;
@@ -643,6 +649,8 @@ export interface Sticker {
   file_id: string;
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
+  /** Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video. */
+  type: "regular" | "mask" | "custom_emoji";
   /** Sticker width */
   width: number;
   /** Sticker height */
@@ -657,10 +665,12 @@ export interface Sticker {
   emoji?: string;
   /** Name of the sticker set to which the sticker belongs */
   set_name?: string;
-  /** Premium animation for the sticker, if the sticker is premium  */
+  /** For premium regular stickers, premium animation for the sticker */
   premium_animation?: File;
   /** For mask stickers, the position where the mask should be placed */
   mask_position?: MaskPosition;
+  /** For custom emoji stickers, unique identifier of the custom emoji */
+  custom_emoji_id?: string;
   /** File size in bytes */
   file_size?: number;
 }
@@ -671,12 +681,12 @@ export interface StickerSet {
   name: string;
   /** Sticker set title */
   title: string;
+  /** Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji” */
+  sticker_type: "regular" | "mask" | "custom_emoji";
   /** True, if the sticker set contains animated stickers */
   is_animated: boolean;
   /** True, if the sticker set contains video stickers */
   is_video: boolean;
-  /** True, if the sticker set contains masks */
-  contains_masks: boolean;
   /** List of all set stickers */
   stickers: Sticker[];
   /** Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */

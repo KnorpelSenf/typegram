@@ -143,6 +143,8 @@ export namespace Chat {
     bio?: string;
     /** True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */
     has_private_forwards?: true;
+    /** True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat. */
+    has_restricted_voice_and_video_messages?: true;
   }
   /** Internal type representing group chats returned from `getChat`. */
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
