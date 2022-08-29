@@ -91,9 +91,7 @@ export namespace Chat {
   }
   /** Internal type representing super group chats. */
   export interface SupergroupChat
-    extends AbstractChat,
-      UserNameChat,
-      TitleChat {
+    extends AbstractChat, UserNameChat, TitleChat {
     type: "supergroup";
   }
   /** Internal type representing channel chats. */
@@ -144,14 +142,14 @@ export namespace Chat {
     bio?: string;
     /** True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */
     has_private_forwards?: true;
+    /** True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat. */
+    has_restricted_voice_and_video_messages?: true;
   }
   /** Internal type representing group chats returned from `getChat`. */
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
   /** Internal type representing supergroup chats returned from `getChat`. */
   export interface SupergroupGetChat
-    extends SupergroupChat,
-      MultiUserGetChat,
-      LargeGetChat {
+    extends SupergroupChat, MultiUserGetChat, LargeGetChat {
     /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
