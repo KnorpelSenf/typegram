@@ -49,7 +49,7 @@ export interface InputFileProxy<F> {
       undefined ? {} : NonNullable<Params<M, F>[0]>;
   };
 
-  /** Wrapper type to bundle all methods of the Telegram API */
+  /** Wrapper type to bundle all methods of the Telegram Bot API */
   Telegram: {
     /** Use this method to receive incoming updates using long polling (wiki). Returns an Array of Update objects.
 
@@ -66,7 +66,7 @@ export interface InputFileProxy<F> {
       /** A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.
 
       Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time. */
-      allowed_updates?: readonly string[];
+      allowed_updates?: ReadonlyArray<Exclude<keyof Update, "update_id">>;
     }): Update[];
 
     /** Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
