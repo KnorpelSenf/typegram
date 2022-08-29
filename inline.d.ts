@@ -78,7 +78,7 @@ export interface InlineQueryResultArticle {
   reply_markup?: InlineKeyboardMarkup;
   /** URL of the result */
   url?: string;
-  /** Pass True, if you don't want the URL to be shown in the message */
+  /** Pass True if you don't want the URL to be shown in the message */
   hide_url?: boolean;
   /** Short description of the result */
   description?: string;
@@ -691,19 +691,19 @@ export interface InputInvoiceMessageContent {
   photo_width?: number;
   /** Photo height */
   photo_height?: number;
-  /** Pass True, if you require the user's full name to complete the order */
+  /** Pass True if you require the user's full name to complete the order */
   need_name?: boolean;
-  /** Pass True, if you require the user's phone number to complete the order */
+  /** Pass True if you require the user's phone number to complete the order */
   need_phone_number?: boolean;
-  /** Pass True, if you require the user's email address to complete the order */
+  /** Pass True if you require the user's email address to complete the order */
   need_email?: boolean;
-  /** Pass True, if you require the user's shipping address to complete the order */
+  /** Pass True if you require the user's shipping address to complete the order */
   need_shipping_address?: boolean;
-  /** Pass True, if the user's phone number should be sent to provider */
+  /** Pass True if the user's phone number should be sent to provider */
   send_phone_number_to_provider?: boolean;
-  /** Pass True, if the user's email address should be sent to provider */
+  /** Pass True if the user's email address should be sent to provider */
   send_email_to_provider?: boolean;
-  /** Pass True, if the final price depends on the shipping method */
+  /** Pass True if the final price depends on the shipping method */
   is_flexible?: boolean;
 }
 
