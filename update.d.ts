@@ -37,21 +37,27 @@ export namespace Update {
     /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     update_id: number;
   }
-  export interface MessageUpdate extends AbstractUpdate {
+  export interface MessageUpdate<M extends Message = Message>
+    extends AbstractUpdate {
     /** New incoming message of any kind - text, photo, sticker, etc. */
-    message: New & NonChannel & Message;
+    message: New & NonChannel & M;
   }
-  export interface EditedMessageUpdate extends AbstractUpdate {
+  export interface EditedMessageUpdate<
+    M extends CommonMessageBundle = CommonMessageBundle,
+  > extends AbstractUpdate {
     /** New version of a message that is known to the bot and was edited */
-    edited_message: Edited & NonChannel & CommonMessageBundle;
+    edited_message: Edited & NonChannel & M;
   }
-  export interface ChannelPostUpdate extends AbstractUpdate {
+  export interface ChannelPostUpdate<M extends Message = Message>
+    extends AbstractUpdate {
     /** New incoming channel post of any kind - text, photo, sticker, etc. */
-    channel_post: New & Channel & Message;
+    channel_post: New & Channel & M;
   }
-  export interface EditedChannelPostUpdate extends AbstractUpdate {
+  export interface EditedChannelPostUpdate<
+    M extends CommonMessageBundle = CommonMessageBundle,
+  > extends AbstractUpdate {
     /** New version of a channel post that is known to the bot and was edited */
-    edited_channel_post: Edited & Channel & CommonMessageBundle;
+    edited_channel_post: Edited & Channel & M;
   }
   export interface InlineQueryUpdate extends AbstractUpdate {
     /** New incoming inline query */
