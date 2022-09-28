@@ -5,7 +5,7 @@
 > Instead, [@grammyjs/types](https://github.com/grammyjs/types) is maintained and kept in sync with the Bot API specification.
 > Changes are backported to `typegram` periodically to keep older projects running.
 
-This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 5.6.
+This project provides TypeScript types for the entire [Telegram Bot API](https://core.telegram.org/bots/api) in version 6.2.
 
 It contains zero bytes of executable code.
 
@@ -17,9 +17,9 @@ npm install --save-dev typegram
 
 ## Available Types
 
-Generally this package just exposes a huge load of `interface`s that correspond to the **types** used throughout the Telegram Bot API.
+Generally, this package just exposes a huge load of `interface`s that correspond to the **types** used throughout the Telegram Bot API.
 
-Note that the API specification sometimes only has one name for multiple variants of a type, e.g. there is a number of different `Update`s you can receive, but they're all just called `Update`.
+Note that the API specification sometimes only has one name for multiple variants of a type, e.g. there are a number of different `Update`s you can receive, but they're all just called `Update`.
 This package represents such types as large unions of all possible options of what an `Update` could be, such that type narrowing can work as expected on your side.
 If you need to access the individual variants of an `Update`, refer to `Update.MessageUpdate` and its siblings.
 
@@ -40,7 +40,7 @@ In fact, this pattern is used for various types, namely:
 ## Available Methods
 
 In addition to the types, this package provides you with another type `Telegram` which contains all available **methods** of the API.
-There is no further structure applied to this, but if you can come up with something reasonable, please suggest it in an issue or directly open a PR.
+There is no further structure applied to this.
 
 Each method takes just a single argument with a structure that corresponds to the object expected by Telegram.
 If you need to directly access that type, consider using `Opts<M>` where `M` is the method name (e.g. `Opts<'getMe'>`).
@@ -48,26 +48,8 @@ If you need to directly access that type, consider using `Opts<M>` where `M` is 
 Note that `Opts<M>` will give you an empty object type (i.e. `{}`) for methods that do not take any parameters.
 That is to say, it will not give you a type error or `undefined` (as opposed to something like `Parameters<Telegram['getMe']>[0]`).
 
-## Caveat with JSON-Serialized Objects
-
-Some methods of the Telegram Bot API are expected to be called with JSON-serialized objects contained in a property of the payload, rather than an actual JSON payload.
-In other words, the objects are serialized twice—the first time in order to conform with the docs, and the second time when the payload is actually sent in the POST body to the API server.
-
-The most prominent example is the `reply_markup` property that appears in a number of different methods, but more than a dozen other properties like this can be found throughout the API.
-
-Strictly speaking, the `typegram` types do not reflect this accurately.
-Instead of using `string` (representing a serialized object) as the type, `typegram` uses the type of the object itself, thus ignoring the serialization step.
-For instance, instead of declaring `reply_markup: string`, it declares the property as `reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply` because that is what is supposed to be serialized to `string` before calling the respective method.
-
-This makes sense for two reasons.
-
-1. The goal of this library is to provide type safety.
-   However, the contents of a string cannot be typechecked for being valid JSON of the correct object.
-   As a result, we would be missing type safety if we would only model the properties as `string`.
-2. A common use case for this library is to pull the types into some wrapper code around the Telegram Bot API.
-   This wrapper code often does the necessary JSON serialization automatically for the required properties.
-   The consumer then does not need to care about which properties to serialize and which not.
-   Given that `typegram` refers to the objects themselves instead of their serialized strings, the wrapper code can now simply expose the `typegram` types to its consumers without having to transform them before.
+Each method returns the object that is specified by Telegram.
+If you directly need to access the return type of a method, consider using `Ret<M>` where `M` is the method name (e.g. `Opts<'getMe'>`).
 
 ## Using Promises
 
@@ -135,8 +117,9 @@ You can now access all types that must respect `MyInputFile` through the `MyType
 // The `Telegram` type that contains all API methods:
 type Telegram = MyTypegram["Telegram"]; // analogous for `TelegramP`, `TelegramR`, and `TelegramPR`
 
-// The utility type `Opts`:
+// The utility types `Opts` and `Ret`:
 type Opts<M extends keyof Telegram> = MyTypegram["Opts"][M];
+type Ret<M extends keyof Telegram> = MyTypegram["Ret"][M];
 
 // The adjusted `InputMedia*` types:
 type InputMedia = MyTypegram["InputMedia"];
