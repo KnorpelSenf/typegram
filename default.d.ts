@@ -9,9 +9,10 @@ type DefaultTypegram = Typegram<InputFile>;
 export type Telegram = DefaultTypegram["Telegram"];
 
 /** Utility type providing the argument type for the given method name or `{}` if the method does not take any parameters */
-export type Opts<
-  M extends keyof DefaultTypegram["Telegram"],
-> = DefaultTypegram["Opts"][M];
+export type Opts<M extends keyof DefaultTypegram["Telegram"]> =
+  DefaultTypegram["Opts"][M];
+export type Ret<M extends keyof DefaultTypegram["Telegram"]> =
+  DefaultTypegram["Ret"][M];
 
 /** Utility type providing a promisified version of Telegram */
 export type TelegramP = DefaultTypegram["TelegramP"];
