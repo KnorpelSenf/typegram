@@ -77,6 +77,9 @@ export interface Typegram<F> {
     [M in keyof Typegram<F>["Telegram"]]: Params<M, F>[0] extends undefined ? {}
       : NonNullable<Params<M, F>[0]>;
   };
+  Ret: {
+    [M in keyof Typegram<F>["Telegram"]]: Ret<M, F>;
+  };
 
   /** Wrapper type to bundle all methods of the Telegram API */
   Telegram: {
