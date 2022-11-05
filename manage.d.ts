@@ -118,6 +118,7 @@ export namespace Chat {
     /** True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. */
     has_protected_content?: true;
   }
+  /** Internal type holding properties that those private, supergroup, and channel chats returned from `getChat` share. */
   interface NonGroupGetChat extends GetChat {
     /** If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat. */
     active_usernames?: string[];
