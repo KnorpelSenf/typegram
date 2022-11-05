@@ -9,6 +9,8 @@ export namespace Message {
   interface ServiceMessage {
     /** Unique message identifier inside this chat */
     message_id: number;
+    /** Unique identifier of a message thread or a forum topic to which the message belongs; for supergroups only */
+    message_thread_id?: number;
     /** Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     from?: User;
     /** Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
@@ -17,6 +19,8 @@ export namespace Message {
     date: number;
     /** Conversation the message belongs to */
     chat: Chat;
+    /** True, if the message is sent to a forum topic */
+    is_topic_message?: boolean;
   }
   interface CommonMessage extends ServiceMessage {
     /** For forwarded messages, sender of the original message */
@@ -113,6 +117,15 @@ export namespace Message {
   export type ProximityAlertTriggeredMessage =
     & ServiceMessage
     & MsgWith<"proximity_alert_triggered">;
+  export type ForumTopicCreatedMessage =
+    & ServiceMessage
+    & MsgWith<"forum_topic_created">;
+  export type ForumTopicClosedMessage =
+    & ServiceMessage
+    & MsgWith<"forum_topic_closed">;
+  export type ForumTopicReopenedMessage =
+    & ServiceMessage
+    & MsgWith<"forum_topic_reopened">;
   export type VideoChatScheduledMessage =
     & ServiceMessage
     & MsgWith<"video_chat_scheduled">;
@@ -197,7 +210,12 @@ export interface Message extends Message.MediaMessage {
   passport_data?: PassportData;
   /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
   proximity_alert_triggered?: ProximityAlertTriggered;
-  /** Service message: voice chat scheduled */
+  /** Service message: forum topic created */
+  forum_topic_created?: ForumTopicCreated;
+  /** Service message: forum topic closed */
+  forum_topic_closed?: ForumTopicClosed;
+  /** Service message: forum topic reopened */
+  forum_topic_reopened?: ForumTopicReopened;
   /** Service message: video chat scheduled */
   video_chat_scheduled?: VideoChatScheduled;
   /** Service message: video chat started */
@@ -613,6 +631,22 @@ export interface MessageAutoDeleteTimerChanged {
   /** New auto-delete time for messages in the chat; in seconds */
   message_auto_delete_time: number;
 }
+
+/** This object represents a service message about a new forum topic created in the chat. */
+export interface ForumTopicCreated {
+  /** Name of the topic */
+  name: string;
+  /** Color of the topic icon in RGB format */
+  icon_color: number;
+  /** Unique identifier of the custom emoji shown as the topic icon */
+  icon_custom_emoji_id?: string;
+}
+
+/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
+export interface ForumTopicClosed {}
+
+/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
+export interface ForumTopicReopened {}
 
 /** This object represents a service message about a video chat scheduled in the chat. */
 export interface VideoChatScheduled {
