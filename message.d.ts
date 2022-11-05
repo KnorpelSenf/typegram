@@ -117,6 +117,15 @@ export namespace Message {
   export type ProximityAlertTriggeredMessage =
     & ServiceMessage
     & MsgWith<"proximity_alert_triggered">;
+  export type ForumTopicCreatedMessage =
+    & ServiceMessage
+    & MsgWith<"forum_topic_created">;
+  export type ForumTopicClosedMessage =
+    & ServiceMessage
+    & MsgWith<"forum_topic_closed">;
+  export type ForumTopicReopenedMessage =
+    & ServiceMessage
+    & MsgWith<"forum_topic_reopened">;
   export type VideoChatScheduledMessage =
     & ServiceMessage
     & MsgWith<"video_chat_scheduled">;
@@ -201,7 +210,12 @@ export interface Message extends Message.MediaMessage {
   passport_data?: PassportData;
   /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
   proximity_alert_triggered?: ProximityAlertTriggered;
-  /** Service message: voice chat scheduled */
+  /** Service message: forum topic created */
+  forum_topic_created?: ForumTopicCreated;
+  /** Service message: forum topic closed */
+  forum_topic_closed?: ForumTopicClosed;
+  /** Service message: forum topic reopened */
+  forum_topic_reopened?: ForumTopicReopened;
   /** Service message: video chat scheduled */
   video_chat_scheduled?: VideoChatScheduled;
   /** Service message: video chat started */
@@ -212,12 +226,6 @@ export interface Message extends Message.MediaMessage {
   video_chat_participants_invited?: VideoChatParticipantsInvited;
   /** Service message: data sent by a Web App */
   web_app_data?: WebAppData;
-  /** Service message: forum topic created */
-  forum_topic_created?: ForumTopicCreated;
-  /** Service message: forum topic closed */
-  forum_topic_closed?: ForumTopicClosed;
-  /** Service message: forum topic reopened */
-  forum_topic_reopened?: ForumTopicReopened;
 }
 
 /** This object represents a unique message identifier. */
@@ -624,6 +632,22 @@ export interface MessageAutoDeleteTimerChanged {
   message_auto_delete_time: number;
 }
 
+/** This object represents a service message about a new forum topic created in the chat. */
+export interface ForumTopicCreated {
+  /** Name of the topic */
+  name: string;
+  /** Color of the topic icon in RGB format */
+  icon_color: number;
+  /** Unique identifier of the custom emoji shown as the topic icon */
+  icon_custom_emoji_id?: string;
+}
+
+/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
+export interface ForumTopicClosed {}
+
+/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
+export interface ForumTopicReopened {}
+
 /** This object represents a service message about a video chat scheduled in the chat. */
 export interface VideoChatScheduled {
   /** Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator */
@@ -652,22 +676,6 @@ export interface WebAppData {
   /** Text of the web_app keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
   button_text: string;
 }
-
-/** This object represents a service message about a new forum topic created in the chat. */
-export interface ForumTopicCreated {
-  /** Name of the topic */
-  name: string;
-  /** Color of the topic icon in RGB format */
-  icon_color: number;
-  /** Unique identifier of the custom emoji shown as the topic icon */
-  icon_custom_emoji_id?: string;
-}
-
-/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
-export interface ForumTopicClosed {}
-
-/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
-export interface ForumTopicReopened {}
 
 /** This object represents a sticker. */
 export interface Sticker {
