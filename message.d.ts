@@ -9,6 +9,8 @@ export namespace Message {
   interface ServiceMessage {
     /** Unique message identifier inside this chat */
     message_id: number;
+    /** Unique identifier of a message thread or a forum topic to which the message belongs; for supergroups only */
+    message_thread_id?: number;
     /** Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     from?: User;
     /** Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
@@ -17,6 +19,8 @@ export namespace Message {
     date: number;
     /** Conversation the message belongs to */
     chat: Chat;
+    /** True, if the message is sent to a forum topic */
+    is_topic_message?: boolean;
   }
   interface CommonMessage extends ServiceMessage {
     /** For forwarded messages, sender of the original message */
@@ -208,6 +212,12 @@ export interface Message extends Message.MediaMessage {
   video_chat_participants_invited?: VideoChatParticipantsInvited;
   /** Service message: data sent by a Web App */
   web_app_data?: WebAppData;
+  /** Service message: forum topic created */
+  forum_topic_created?: ForumTopicCreated;
+  /** Service message: forum topic closed */
+  forum_topic_closed?: ForumTopicClosed;
+  /** Service message: forum topic reopened */
+  forum_topic_reopened?: ForumTopicReopened;
 }
 
 /** This object represents a unique message identifier. */
@@ -642,6 +652,22 @@ export interface WebAppData {
   /** Text of the web_app keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
   button_text: string;
 }
+
+/** This object represents a service message about a new forum topic created in the chat. */
+export interface ForumTopicCreated {
+  /** Name of the topic */
+  name: string;
+  /** Color of the topic icon in RGB format */
+  icon_color: number;
+  /** Unique identifier of the custom emoji shown as the topic icon */
+  icon_custom_emoji_id?: string;
+}
+
+/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
+export interface ForumTopicClosed {}
+
+/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
+export interface ForumTopicReopened {}
 
 /** This object represents a sticker. */
 export interface Sticker {

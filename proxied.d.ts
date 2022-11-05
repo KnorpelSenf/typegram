@@ -16,6 +16,7 @@ import {
   ChatMemberOwner,
   ChatPermissions,
   File,
+  ForumTopic,
   UserFromGetMe,
   UserProfilePhotos,
   WebhookInfo,
@@ -122,6 +123,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Text of the message to be sent, 1-4096 characters after entities parsing */
       text: string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Mode for parsing entities in the message text. See formatting options for more details. */
       parse_mode?: ParseMode;
       /** A list of special entities that appear in message text, which can be specified instead of parse_mode */
@@ -150,6 +153,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername) */
       from_chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the forwarded message from forwarding and saving */
@@ -166,6 +171,8 @@ export interface InputFileProxy<F> {
       from_chat_id: number | string;
       /** Message identifier in the chat specified in from_chat_id */
       message_id: number;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept */
       caption?: string;
       /** Mode for parsing entities in the new caption. See formatting options for more details. */
@@ -194,6 +201,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. */
       photo: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing */
       caption?: string;
       /** Mode for parsing entities in the photo caption. See formatting options for more details. */
@@ -224,6 +233,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. */
       audio: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Audio caption, 0-1024 characters after entities parsing */
       caption?: string;
       /** Mode for parsing entities in the audio caption. See formatting options for more details. */
@@ -260,6 +271,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. */
       document: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass "attach://<file_attach_name>" if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
       thumb?: F;
       /** Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing */
@@ -292,6 +305,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. */
       video: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Duration of sent video in seconds */
       duration?: number;
       /** Video width */
@@ -330,6 +345,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. */
       animation: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Duration of sent animation in seconds */
       duration?: number;
       /** Animation width */
@@ -366,6 +383,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. */
       voice: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Voice message caption, 0-1024 characters after entities parsing */
       caption?: string;
       /** Mode for parsing entities in the voice message caption. See formatting options for more details. */
@@ -397,6 +416,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data.. Sending video notes by a URL is currently unsupported */
       video_note: F | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Duration of sent video in seconds */
       duration?: number;
       /** Video width and height, i.e. diameter of the video message */
@@ -430,6 +451,8 @@ export interface InputFileProxy<F> {
         | InputFileProxy<F>["InputMediaPhoto"]
         | InputFileProxy<F>["InputMediaVideo"]
       >;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Sends the messages silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the sent messages from forwarding and saving */
@@ -453,6 +476,8 @@ export interface InputFileProxy<F> {
       latitude: number;
       /** Longitude of the location */
       longitude: number;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** The radius of uncertainty for the location, measured in meters; 0-1500 */
       horizontal_accuracy?: number;
       /** Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400. */
@@ -523,6 +548,8 @@ export interface InputFileProxy<F> {
       title: string;
       /** Address of the venue */
       address: string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Foursquare identifier of the venue */
       foursquare_id?: string;
       /** Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
@@ -557,6 +584,8 @@ export interface InputFileProxy<F> {
       first_name: string;
       /** Contact's last name */
       last_name?: string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Additional data about the contact in the form of a vCard, 0-2048 bytes */
       vcard?: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
@@ -603,6 +632,8 @@ export interface InputFileProxy<F> {
       close_date?: number;
       /** Pass True if the poll needs to be immediately closed. This can be useful for poll preview. */
       is_closed?: boolean;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the sent message from forwarding and saving */
@@ -625,6 +656,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Emoji on which the dice throw animation is based. Currently, must be one of "🎲", "🎯", "🏀", "⚽", "🎳", or "🎰". Dice can have values 1-6 for "🎲", "🎯" and "🎳", values 1-5 for "🏀" and "⚽", and values 1-64 for "🎰". Defaults to "🎲" */
       emoji?: string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the sent message from forwarding */
@@ -748,6 +781,8 @@ export interface InputFileProxy<F> {
       can_invite_users?: boolean;
       /** Pass True if the administrator can pin messages, supergroups only */
       can_pin_messages?: boolean;
+      /** Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only */
+      can_manage_topics?: boolean;
     }): true;
 
     /** Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success. */
@@ -864,7 +899,7 @@ export interface InputFileProxy<F> {
     setChatTitle(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
-      /** New chat title, 1-255 characters */
+      /** New chat title, 1-128 characters */
       title: string;
     }): true;
 
@@ -1104,6 +1139,7 @@ export interface InputFileProxy<F> {
 
     /** Use this method to delete a message, including service messages, with the following limitations:
     - A message can only be deleted if it was sent less than 48 hours ago.
+    - Service messages about a supergroup, channel, or forum topic creation can't be deleted.
     - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
     - Bots can delete outgoing messages in private chats, groups, and supergroups.
     - Bots can delete incoming messages in private chats.
@@ -1269,6 +1305,8 @@ export interface InputFileProxy<F> {
       currency: string;
       /** Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.) */
       prices: readonly LabeledPrice[];
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0 */
       max_tip_amount?: number;
       /** An array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount. */
@@ -1393,6 +1431,8 @@ export interface InputFileProxy<F> {
       chat_id: number;
       /** Short name of the game, serves as the unique identifier for the game. Set up your games via BotFather. */
       game_short_name: string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the sent message from forwarding and saving */
@@ -1436,6 +1476,65 @@ export interface InputFileProxy<F> {
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: string;
     }): GameHighScore[];
+
+    /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of Sticker objects. */
+    getForumTopicIconStickers(): Sticker[];
+
+    /** Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a ForumTopic object. */
+    createForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Topic name, 1-128 characters */
+      name: string;
+      /** Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F */
+      icon_color?: number;
+      /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      icon_custom_emoji_id?: string;
+    }): ForumTopic[];
+
+    /** Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    editForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+      /** New topic name, 1-128 characters */
+      name: string;
+      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      icon_custom_emoji_id: string;
+    }): true;
+
+    /** Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    closeForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    reopenForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success. */
+    deleteForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success. */
+    unpinAllForumTopicMessages(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
   };
 
   /** This object represents the content of a media message to be sent. It should be one of
