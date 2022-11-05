@@ -985,6 +985,65 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
     }): true;
 
+    /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of Sticker objects. */
+    getForumTopicIconStickers(): Sticker[];
+
+    /** Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a ForumTopic object. */
+    createForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Topic name, 1-128 characters */
+      name: string;
+      /** Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F */
+      icon_color?: number;
+      /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      icon_custom_emoji_id?: string;
+    }): ForumTopic[];
+
+    /** Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    editForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+      /** New topic name, 1-128 characters */
+      name: string;
+      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      icon_custom_emoji_id: string;
+    }): true;
+
+    /** Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    closeForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    reopenForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success. */
+    deleteForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success. */
+    unpinAllForumTopicMessages(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
     /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
     Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
@@ -1476,65 +1535,6 @@ export interface InputFileProxy<F> {
       /** Required if chat_id and message_id are not specified. Identifier of the inline message */
       inline_message_id?: string;
     }): GameHighScore[];
-
-    /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of Sticker objects. */
-    getForumTopicIconStickers(): Sticker[];
-
-    /** Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a ForumTopic object. */
-    createForumTopic(args: {
-      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
-      chat_id: number | string;
-      /** Topic name, 1-128 characters */
-      name: string;
-      /** Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F */
-      icon_color?: number;
-      /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
-      icon_custom_emoji_id?: string;
-    }): ForumTopic[];
-
-    /** Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
-    editForumTopic(args: {
-      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
-      chat_id: number | string;
-      /** Unique identifier for the target message thread of the forum topic */
-      message_thread_id: number;
-      /** New topic name, 1-128 characters */
-      name: string;
-      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
-      icon_custom_emoji_id: string;
-    }): true;
-
-    /** Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
-    closeForumTopic(args: {
-      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
-      chat_id: number | string;
-      /** Unique identifier for the target message thread of the forum topic */
-      message_thread_id: number;
-    }): true;
-
-    /** Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
-    reopenForumTopic(args: {
-      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
-      chat_id: number | string;
-      /** Unique identifier for the target message thread of the forum topic */
-      message_thread_id: number;
-    }): true;
-
-    /** Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success. */
-    deleteForumTopic(args: {
-      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
-      chat_id: number | string;
-      /** Unique identifier for the target message thread of the forum topic */
-      message_thread_id: number;
-    }): true;
-
-    /** Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success. */
-    unpinAllForumTopicMessages(args: {
-      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
-      chat_id: number | string;
-      /** Unique identifier for the target message thread of the forum topic */
-      message_thread_id: number;
-    }): true;
   };
 
   /** This object represents the content of a media message to be sent. It should be one of
