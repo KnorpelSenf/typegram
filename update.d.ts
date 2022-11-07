@@ -97,7 +97,7 @@ export namespace Update {
   }
   export interface ChatJoinRequestUpdate extends AbstractUpdate {
     /** A request to join the chat has been sent. The bot must have the can_invite_users administrator right in the chat to receive these updates. */
-    chat_join_request?: ChatJoinRequest;
+    chat_join_request: ChatJoinRequest;
   }
 }
 
