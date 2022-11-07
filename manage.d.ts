@@ -59,10 +59,10 @@ export namespace Chat {
   // ABSTRACT
   /** Internal type holding properties that all kinds of chats share. */
   interface AbstractChat {
-    /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
-    type: string;
     /** Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     id: number;
+    /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
+    type: string;
   }
 
   // HELPERS

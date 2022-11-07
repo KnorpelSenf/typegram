@@ -998,7 +998,7 @@ export interface InputFileProxy<F> {
       icon_color?: number;
       /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
       icon_custom_emoji_id?: string;
-    }): ForumTopic[];
+    }): ForumTopic;
 
     /** Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
     editForumTopic(args: {
