@@ -996,7 +996,7 @@ export interface InputFileProxy<F> {
       name: string;
       /** Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F */
       icon_color?: number;
-      /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. */
       icon_custom_emoji_id?: string;
     }): ForumTopic;
 
@@ -1008,7 +1008,7 @@ export interface InputFileProxy<F> {
       message_thread_id: number;
       /** New topic name, 1-128 characters */
       name: string;
-      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. */
       icon_custom_emoji_id: string;
     }): true;
 
