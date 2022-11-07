@@ -17,6 +17,7 @@ import {
   ChatMemberOwner,
   ChatPermissions,
   File,
+  ForumTopic,
   UserFromGetMe,
   UserProfilePhotos,
   WebhookInfo,
@@ -152,6 +153,8 @@ export interface Typegram<F> {
     sendMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Text of the message to be sent, 1-4096 characters after entities parsing */
       text: string;
       /** Mode for parsing entities in the message text. See formatting options for more details. */
@@ -180,6 +183,8 @@ export interface Typegram<F> {
     forwardMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername) */
       from_chat_id: number | string;
       /** Sends the message silently. Users will receive a notification with no sound. */
@@ -194,6 +199,8 @@ export interface Typegram<F> {
     copyMessage(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername) */
       from_chat_id: number | string;
       /** Message identifier in the chat specified in from_chat_id */
@@ -224,6 +231,8 @@ export interface Typegram<F> {
     sendPhoto(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. */
       photo: F | string;
       /** Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing */
@@ -254,6 +263,8 @@ export interface Typegram<F> {
     sendAudio(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. */
       audio: F | string;
       /** Audio caption, 0-1024 characters after entities parsing */
@@ -290,6 +301,8 @@ export interface Typegram<F> {
     sendDocument(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. */
       document: F | string;
       /** Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. */
@@ -322,6 +335,8 @@ export interface Typegram<F> {
     sendVideo(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. */
       video: F | string;
       /** Duration of sent video in seconds */
@@ -360,6 +375,8 @@ export interface Typegram<F> {
     sendAnimation(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. */
       animation: F | string;
       /** Duration of sent animation in seconds */
@@ -396,6 +413,8 @@ export interface Typegram<F> {
     sendVoice(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. */
       voice: F | string;
       /** Voice message caption, 0-1024 characters after entities parsing */
@@ -427,6 +446,8 @@ export interface Typegram<F> {
     sendVideoNote(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data.. Sending video notes by a URL is currently unsupported */
       video_note: F | string;
       /** Duration of sent video in seconds */
@@ -455,6 +476,8 @@ export interface Typegram<F> {
     sendMediaGroup(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** An array describing messages to be sent, must include 2-10 items */
       media: ReadonlyArray<
         | Typegram<F>["InputMediaAudio"]
@@ -481,6 +504,8 @@ export interface Typegram<F> {
     sendLocation(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Latitude of the location */
       latitude: number;
       /** Longitude of the location */
@@ -547,6 +572,8 @@ export interface Typegram<F> {
     sendVenue(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Latitude of the venue */
       latitude: number;
       /** Longitude of the venue */
@@ -583,6 +610,8 @@ export interface Typegram<F> {
     sendContact(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Contact's phone number */
       phone_number: string;
       /** Contact's first name */
@@ -611,6 +640,8 @@ export interface Typegram<F> {
     sendPoll(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Poll question, 1-300 characters */
       question: string;
       /** A list of answer options, 2-10 strings 1-100 characters each */
@@ -655,6 +686,8 @@ export interface Typegram<F> {
     sendDice(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲” */
       emoji?: string;
       /** Sends the message silently. Users will receive a notification with no sound. */
@@ -780,6 +813,8 @@ export interface Typegram<F> {
       can_invite_users?: boolean;
       /** Pass True if the administrator can pin messages, supergroups only */
       can_pin_messages?: boolean;
+      /** Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only */
+      can_manage_topics?: boolean;
     }): true;
 
     /** Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success. */
@@ -989,6 +1024,65 @@ export interface Typegram<F> {
       chat_id: number | string;
     }): true;
 
+    /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of Sticker objects. */
+    getForumTopicIconStickers(): Sticker[];
+
+    /** Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a ForumTopic object. */
+    createForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Topic name, 1-128 characters */
+      name: string;
+      /** Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F */
+      icon_color?: number;
+      /** Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      icon_custom_emoji_id?: string;
+    }): ForumTopic;
+
+    /** Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    editForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+      /** New topic name, 1-128 characters */
+      name: string;
+      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers */
+      icon_custom_emoji_id: string;
+    }): true;
+
+    /** Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    closeForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
+    reopenForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success. */
+    deleteForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
+    /** Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success. */
+    unpinAllForumTopicMessages(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** Unique identifier for the target message thread of the forum topic */
+      message_thread_id: number;
+    }): true;
+
     /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
     Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
@@ -1161,6 +1255,8 @@ export interface Typegram<F> {
     sendSticker(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. */
       sticker: F | string;
       /** Sends the message silently. Users will receive a notification with no sound. */
@@ -1296,6 +1392,8 @@ export interface Typegram<F> {
     sendInvoice(args: {
       /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
       chat_id: number | string;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Product name, 1-32 characters */
       title: string;
       /** Product description, 1-255 characters */
@@ -1430,6 +1528,8 @@ export interface Typegram<F> {
     sendGame(args: {
       /** Unique identifier for the target chat */
       chat_id: number;
+      /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+      message_thread_id?: number;
       /** Short name of the game, serves as the unique identifier for the game. Set up your games via BotFather. */
       game_short_name: string;
       /** Sends the message silently. Users will receive a notification with no sound. */

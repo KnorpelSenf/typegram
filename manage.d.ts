@@ -58,10 +58,10 @@ export namespace Chat {
   // ABSTRACT
   /** Internal type holding properties that all kinds of chats share. */
   interface AbstractChat {
-    /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
-    type: string;
     /** Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     id: number;
+    /** Type of chat, can be either “private”, “group”, “supergroup” or “channel” */
+    type: string;
   }
 
   // HELPERS
@@ -93,6 +93,8 @@ export namespace Chat {
   export interface SupergroupChat
     extends AbstractChat, UserNameChat, TitleChat {
     type: "supergroup";
+    /** True, if the supergroup chat is a forum (has topics enabled) */
+    is_forum?: true;
   }
   /** Internal type representing channel chats. */
   export interface ChannelChat extends AbstractChat, UserNameChat, TitleChat {
@@ -114,6 +116,11 @@ export namespace Chat {
     message_auto_delete_time?: number;
     /** True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. */
     has_protected_content?: true;
+  }
+  /** Internal type holding properties that those private, supergroup, and channel chats returned from `getChat` share. */
+  interface NonGroupGetChat extends GetChat {
+    /** If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat. */
+    active_usernames?: string[];
   }
   /** Internal type holding properties that those group, supergroup, and channel chats returned from `getChat` share. */
   interface NonPrivateGetChat extends GetChat {
@@ -137,7 +144,10 @@ export namespace Chat {
 
   // ==> GET CHATS
   /** Internal type representing private chats returned from `getChat`. */
-  export interface PrivateGetChat extends PrivateChat, GetChat {
+  export interface PrivateGetChat
+    extends PrivateChat, NonGroupGetChat, GetChat {
+    /** Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat. */
+    emoji_status_custom_emoji_id?: string;
     /** Bio of the other party in a private chat. Returned only in getChat. */
     bio?: string;
     /** True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */
@@ -241,6 +251,8 @@ export interface ChatAdministratorRights {
   can_edit_messages?: boolean;
   /** True, if the user is allowed to pin messages; groups and supergroups only */
   can_pin_messages?: boolean;
+  /** True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+  can_manage_topics?: boolean;
 }
 
 /** This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
@@ -300,6 +312,8 @@ export interface ChatMemberAdministrator {
   can_edit_messages?: boolean;
   /** True, if the user is allowed to pin messages; groups and supergroups only */
   can_pin_messages?: boolean;
+  /** True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+  can_manage_topics?: boolean;
   /** Custom title for this user */
   custom_title?: string;
 }
@@ -326,6 +340,8 @@ export interface ChatMemberRestricted {
   can_invite_users: boolean;
   /** True, if the user is allowed to pin messages */
   can_pin_messages: boolean;
+  /** True, if the user is allowed to create forum topics */
+  can_manage_topics?: boolean;
   /** True, if the user is allowed to send text messages, contacts, locations and venues */
   can_send_messages: boolean;
   /** True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes */
@@ -406,6 +422,8 @@ export interface ChatPermissions {
   can_invite_users?: boolean;
   /** True, if the user is allowed to pin messages. Ignored in public supergroups */
   can_pin_messages?: boolean;
+  /** True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages */
+  can_manage_topics?: boolean;
 }
 
 /** Represents a location to which a chat is connected. */
@@ -414,6 +432,18 @@ export interface ChatLocation {
   location: Location;
   /** Location address; 1-64 characters, as defined by the chat owner */
   address: string;
+}
+
+/** This object represents a forum topic. */
+export interface ForumTopic {
+  /** Unique identifier of the forum topic */
+  message_thread_id: number;
+  /** Name of the topic */
+  name: string;
+  /** Color of the topic icon in RGB format */
+  icon_color: number;
+  /** Unique identifier of the custom emoji shown as the topic icon */
+  icon_custom_emoji_id?: string;
 }
 
 /** This object represents a bot command. */
