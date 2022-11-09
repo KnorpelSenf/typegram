@@ -734,22 +734,6 @@ export interface WebAppData {
   button_text: string;
 }
 
-/** This object represents a service message about a new forum topic created in the chat. */
-export interface ForumTopicCreated {
-  /** Name of the topic */
-  name: string;
-  /** Color of the topic icon in RGB format */
-  icon_color: number;
-  /** Unique identifier of the custom emoji shown as the topic icon */
-  icon_custom_emoji_id?: string;
-}
-
-/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
-export interface ForumTopicClosed {}
-
-/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
-export interface ForumTopicReopened {}
-
 /** This object represents a sticker. */
 export interface Sticker {
   /** Identifier for this file, which can be used to download or reuse the file */
