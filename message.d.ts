@@ -248,10 +248,7 @@ export type ServiceMessageBundle =
   | Message.VideoChatStartedMessage
   | Message.VideoChatEndedMessage
   | Message.VideoChatParticipantsInvitedMessage
-  | Message.WebAppDataMessage
-  | Message.ForumTopicCreatedMessage
-  | Message.ForumTopicClosedMessage
-  | Message.ForumTopicReopenedMessage;
+  | Message.WebAppDataMessage;
 
 /** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
 export type CommonMessageBundle =
