@@ -188,8 +188,20 @@ export namespace Message {
     /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     proximity_alert_triggered: ProximityAlertTriggered;
   }
-  /** Service message: video chat scheduled */
+  export interface ForumTopicCreatedMessage extends ServiceMessage {
+    /** Service message: forum topic created */
+    forum_topic_created: ForumTopicCreated;
+  }
+  export interface ForumTopicClosedMessage extends ServiceMessage {
+    /** Service message: forum topic closed */
+    forum_topic_closed: ForumTopicClosed;
+  }
+  export interface ForumTopicReopenedMessage extends ServiceMessage {
+    /** Service message: forum topic reopened */
+    forum_topic_reopened: ForumTopicReopened;
+  }
   export interface VideoChatScheduledMessage extends ServiceMessage {
+    /** Service message: video chat scheduled */
     video_chat_scheduled: VideoChatScheduled;
   }
   export interface VideoChatStartedMessage extends ServiceMessage {
@@ -207,21 +219,6 @@ export namespace Message {
   export interface WebAppDataMessage extends ServiceMessage {
     /** Service message: data sent by a Web App */
     web_app_data: WebAppData;
-  }
-
-  export interface ForumTopicCreatedMessage extends ServiceMessage {
-    /** Service message: forum topic created */
-    forum_topic_created?: ForumTopicCreated;
-  }
-
-  export interface ForumTopicClosedMessage extends ServiceMessage {
-    /** Service message: forum topic closed */
-    forum_topic_closed?: ForumTopicClosed;
-  }
-
-  export interface ForumTopicReopenedMessage extends ServiceMessage {
-    /** Service message: forum topic reopened */
-    forum_topic_reopened?: ForumTopicReopened;
   }
 }
 
@@ -241,6 +238,9 @@ export type ServiceMessageBundle =
   | Message.NewChatTitleMessage
   | Message.PassportDataMessage
   | Message.ProximityAlertTriggeredMessage
+  | Message.ForumTopicCreatedMessage
+  | Message.ForumTopicClosedMessage
+  | Message.ForumTopicReopenedMessage
   | Message.PinnedMessageMessage
   | Message.SuccessfulPaymentMessage
   | Message.SupergroupChatCreated
@@ -248,10 +248,7 @@ export type ServiceMessageBundle =
   | Message.VideoChatStartedMessage
   | Message.VideoChatEndedMessage
   | Message.VideoChatParticipantsInvitedMessage
-  | Message.WebAppDataMessage
-  | Message.ForumTopicCreatedMessage
-  | Message.ForumTopicClosedMessage
-  | Message.ForumTopicReopenedMessage;
+  | Message.WebAppDataMessage;
 
 /** Helper type that bundles all possible `Message.CommonMessage`s. More specifically, bundles all messages that do have a `reply_to_message` field, i.e. are a `Message.CommonMessage`. */
 export type CommonMessageBundle =
@@ -689,6 +686,22 @@ export interface MessageAutoDeleteTimerChanged {
   message_auto_delete_time: number;
 }
 
+/** This object represents a service message about a new forum topic created in the chat. */
+export interface ForumTopicCreated {
+  /** Name of the topic */
+  name: string;
+  /** Color of the topic icon in RGB format */
+  icon_color: number;
+  /** Unique identifier of the custom emoji shown as the topic icon */
+  icon_custom_emoji_id?: string;
+}
+
+/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
+export interface ForumTopicClosed {}
+
+/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
+export interface ForumTopicReopened {}
+
 /** This object represents a service message about a video chat scheduled in the chat. */
 export interface VideoChatScheduled {
   /** Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator */
@@ -717,22 +730,6 @@ export interface WebAppData {
   /** Text of the web_app keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
   button_text: string;
 }
-
-/** This object represents a service message about a new forum topic created in the chat. */
-export interface ForumTopicCreated {
-  /** Name of the topic */
-  name: string;
-  /** Color of the topic icon in RGB format */
-  icon_color: number;
-  /** Unique identifier of the custom emoji shown as the topic icon */
-  icon_custom_emoji_id?: string;
-}
-
-/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
-export interface ForumTopicClosed {}
-
-/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
-export interface ForumTopicReopened {}
 
 /** This object represents a sticker. */
 export interface Sticker {

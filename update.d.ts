@@ -67,7 +67,8 @@ export namespace Update {
     /** The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot. */
     chosen_inline_result: ChosenInlineResult;
   }
-  export interface CallbackQueryUpdate<C extends CallbackQuery = CallbackQuery> extends AbstractUpdate {
+  export interface CallbackQueryUpdate<C extends CallbackQuery = CallbackQuery>
+    extends AbstractUpdate {
     /** New incoming callback query */
     callback_query: C;
   }

@@ -114,7 +114,7 @@ export namespace CallbackQuery {
  NOTE: After the user presses a callback button, Telegram clients will display a progress bar until you call answerCallbackQuery. It is, therefore, necessary to react by calling answerCallbackQuery even if no notification to the user is needed (e.g., without specifying any of the optional parameters). */
 export type CallbackQuery =
   | CallbackQuery.DataQuery
-  | CallbackQuery.GameQuery
+  | CallbackQuery.GameQuery;
 
 /** This object represents a custom keyboard with reply options (see Introduction to bots for details and examples). */
 export interface ReplyKeyboardMarkup {

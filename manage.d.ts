@@ -159,7 +159,7 @@ export namespace Chat {
   export interface GroupGetChat extends GroupChat, MultiUserGetChat {}
   /** Internal type representing supergroup chats returned from `getChat`. */
   export interface SupergroupGetChat
-    extends SupergroupChat, MultiUserGetChat, LargeGetChat {
+    extends SupergroupChat, NonGroupGetChat, MultiUserGetChat, LargeGetChat {
     /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
@@ -168,7 +168,8 @@ export namespace Chat {
     location?: ChatLocation;
   }
   /** Internal type representing channel chats returned from `getChat`. */
-  export interface ChannelGetChat extends ChannelChat, LargeGetChat {}
+  export interface ChannelGetChat
+    extends ChannelChat, NonGroupGetChat, LargeGetChat {}
 }
 
 /** This object represents a chat. */
@@ -341,7 +342,7 @@ export interface ChatMemberRestricted {
   /** True, if the user is allowed to pin messages */
   can_pin_messages: boolean;
   /** True, if the user is allowed to create forum topics */
-  can_manage_topics?: boolean;
+  can_manage_topics: boolean;
   /** True, if the user is allowed to send text messages, contacts, locations and venues */
   can_send_messages: boolean;
   /** True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes */
@@ -352,7 +353,7 @@ export interface ChatMemberRestricted {
   can_send_other_messages: boolean;
   /** True, if the user is allowed to add web page previews to their messages */
   can_add_web_page_previews: boolean;
-  /** Date when restrictions will be lifted for this user; unix time */
+  /** Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever */
   until_date: number;
 }
 
