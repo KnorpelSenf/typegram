@@ -188,8 +188,20 @@ export namespace Message {
     /** Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     proximity_alert_triggered: ProximityAlertTriggered;
   }
-  /** Service message: video chat scheduled */
+  export interface ForumTopicCreatedMessage extends ServiceMessage {
+    /** Service message: forum topic created */
+    forum_topic_created: ForumTopicCreated;
+  }
+  export interface ForumTopicClosedMessage extends ServiceMessage {
+    /** Service message: forum topic closed */
+    forum_topic_closed: ForumTopicClosed;
+  }
+  export interface ForumTopicReopenedMessage extends ServiceMessage {
+    /** Service message: forum topic reopened */
+    forum_topic_reopened: ForumTopicReopened;
+  }
   export interface VideoChatScheduledMessage extends ServiceMessage {
+    /** Service message: video chat scheduled */
     video_chat_scheduled: VideoChatScheduled;
   }
   export interface VideoChatStartedMessage extends ServiceMessage {
@@ -207,21 +219,6 @@ export namespace Message {
   export interface WebAppDataMessage extends ServiceMessage {
     /** Service message: data sent by a Web App */
     web_app_data: WebAppData;
-  }
-
-  export interface ForumTopicCreatedMessage extends ServiceMessage {
-    /** Service message: forum topic created */
-    forum_topic_created?: ForumTopicCreated;
-  }
-
-  export interface ForumTopicClosedMessage extends ServiceMessage {
-    /** Service message: forum topic closed */
-    forum_topic_closed?: ForumTopicClosed;
-  }
-
-  export interface ForumTopicReopenedMessage extends ServiceMessage {
-    /** Service message: forum topic reopened */
-    forum_topic_reopened?: ForumTopicReopened;
   }
 }
 
@@ -241,6 +238,9 @@ export type ServiceMessageBundle =
   | Message.NewChatTitleMessage
   | Message.PassportDataMessage
   | Message.ProximityAlertTriggeredMessage
+  | Message.ForumTopicCreatedMessage
+  | Message.ForumTopicClosedMessage
+  | Message.ForumTopicReopenedMessage
   | Message.PinnedMessageMessage
   | Message.SuccessfulPaymentMessage
   | Message.SupergroupChatCreated
@@ -688,6 +688,22 @@ export interface MessageAutoDeleteTimerChanged {
   /** New auto-delete time for messages in the chat; in seconds */
   message_auto_delete_time: number;
 }
+
+/** This object represents a service message about a new forum topic created in the chat. */
+export interface ForumTopicCreated {
+  /** Name of the topic */
+  name: string;
+  /** Color of the topic icon in RGB format */
+  icon_color: number;
+  /** Unique identifier of the custom emoji shown as the topic icon */
+  icon_custom_emoji_id?: string;
+}
+
+/** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
+export interface ForumTopicClosed {}
+
+/** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
+export interface ForumTopicReopened {}
 
 /** This object represents a service message about a video chat scheduled in the chat. */
 export interface VideoChatScheduled {
