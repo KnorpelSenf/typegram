@@ -89,3 +89,5 @@ The actual type definitions themselves are never different.
 4. No `More info on Sending Files »`.
    File handling is abstracted away by the underlying library.
    Also, without the links, it's useless anyway.
+5. No images.
+   Documentation strings containing an image are adjusted to make sense without the images, too.
