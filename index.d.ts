@@ -7,5 +7,5 @@ export * from "./menu-button";
 export * from "./message";
 export * from "./passport";
 export * from "./payment";
-export * from "./proxied";
+export { Typegram } from "./proxied";
 export * from "./update";
