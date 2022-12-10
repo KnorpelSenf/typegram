@@ -994,7 +994,7 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Topic name, 1-128 characters */
       name: string;
-      /** Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F */
+      /** Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F) */
       icon_color?:
         | 0x6FB9F0
         | 0xFFD67E
