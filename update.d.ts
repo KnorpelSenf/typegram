@@ -6,13 +6,13 @@ import { PreCheckoutQuery, ShippingQuery } from "./payment";
 
 /** Internal namespace used to make some message types more accurate */
 export namespace Update {
-  /** Internal type holding properties that updates in channels share. */
+  /** Internal type holding properties that message updates in channels share. */
   export interface Channel {
     chat: Chat.ChannelChat;
     author_signature?: string;
     from?: never;
   }
-  /** Internal type holding properties that updates outside of channels share. */
+  /** Internal type holding properties that message updates outside of channels share. */
   export interface NonChannel {
     chat: Exclude<Chat, Chat.ChannelChat>;
     author_signature?: never;
@@ -41,13 +41,13 @@ export interface Update {
   /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
   update_id: number;
   /** New incoming message of any kind - text, photo, sticker, etc. */
-  message?: Message;
+  message?: Message & Update.New & Update.NonChannel;
   /** New version of a message that is known to the bot and was edited */
-  edited_message?: Message;
+  edited_message?: Message & Update.Edited & Update.NonChannel;
   /** New incoming channel post of any kind - text, photo, sticker, etc. */
-  channel_post?: Message;
+  channel_post?: Message & Update.New & Update.Channel;
   /** New version of a channel post that is known to the bot and was edited */
-  edited_channel_post?: Message;
+  edited_channel_post?: Message & Update.Edited & Update.Channel;
   /** New incoming inline query */
   inline_query?: InlineQuery;
   /** The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot. */
