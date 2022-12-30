@@ -63,6 +63,8 @@ export namespace Message {
   interface MediaMessage extends CaptionableMessage {
     /** The unique identifier of a media message group this message belongs to */
     media_group_id?: string;
+    /** True, if the message media is covered by a spoiler animation */
+    has_media_spoiler?: true;
   }
   export interface AudioMessage extends MediaMessage {
     /** Message is an audio file, information about the file */
@@ -180,6 +182,10 @@ export namespace Message {
     /** The domain name of the website on which the user has logged in. More about Telegram Login » */
     connected_website: string;
   }
+  export interface WriteAccessAllowedMessage extends ServiceMessage {
+    /** Service message: the user allowed the bot added to the attachment menu to write messages */
+    write_access_allowed?: WriteAccessAllowed;
+  }
   export interface PassportDataMessage extends ServiceMessage {
     /** Telegram Passport data */
     passport_data: PassportData;
@@ -192,6 +198,10 @@ export namespace Message {
     /** Service message: forum topic created */
     forum_topic_created: ForumTopicCreated;
   }
+  export interface ForumTopicEditedMessage extends ServiceMessage {
+    /** Service message: forum topic edited */
+    forum_topic_edited?: ForumTopicEdited;
+  }
   export interface ForumTopicClosedMessage extends ServiceMessage {
     /** Service message: forum topic closed */
     forum_topic_closed: ForumTopicClosed;
@@ -199,6 +209,14 @@ export namespace Message {
   export interface ForumTopicReopenedMessage extends ServiceMessage {
     /** Service message: forum topic reopened */
     forum_topic_reopened: ForumTopicReopened;
+  }
+  export interface GeneralForumTopicHiddenMessage extends ServiceMessage {
+    /** Service message: the 'General' forum topic hidden */
+    general_forum_topic_hidden?: GeneralForumTopicHidden;
+  }
+  export interface GeneralForumTopicUnhiddenMessage extends ServiceMessage {
+    /** Service message: the 'General' forum topic unhidden */
+    general_forum_topic_unhidden?: GeneralForumTopicUnhidden;
   }
   export interface VideoChatScheduledMessage extends ServiceMessage {
     /** Service message: video chat scheduled */
@@ -696,11 +714,28 @@ export interface ForumTopicCreated {
   icon_custom_emoji_id?: string;
 }
 
+/** This object represents a service message about an edited forum topic. */
+export interface ForumTopicEdited {
+  /** New name of the topic, if it was edited */
+  name?: string;
+  /** New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed */
+  icon_custom_emoji_id?: string;
+}
+
 /** This object represents a service message about a forum topic closed in the chat. Currently holds no information. */
 export interface ForumTopicClosed {}
 
 /** This object represents a service message about a forum topic reopened in the chat. Currently holds no information. */
 export interface ForumTopicReopened {}
+
+/** This object represents a service message about General forum topic hidden in the chat. Currently holds no information. */
+export interface GeneralForumTopicHidden {}
+
+/** This object represents a service message about General forum topic unhidden in the chat. Currently holds no information. */
+export interface GeneralForumTopicUnhidden {}
+
+/** This object represents a service message about a user allowing a bot added to the attachment menu to write messages. Currently holds no information. */
+export interface WriteAccessAllowed {}
 
 /** This object represents a service message about a video chat scheduled in the chat. */
 export interface VideoChatScheduled {
