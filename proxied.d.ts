@@ -209,6 +209,8 @@ export interface InputFileProxy<F> {
       parse_mode?: ParseMode;
       /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
+      /** Pass True if the photo needs to be covered with a spoiler animation */
+      has_spoiler?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the sent message from forwarding and saving */
@@ -321,6 +323,8 @@ export interface InputFileProxy<F> {
       parse_mode?: ParseMode;
       /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
+      /** Pass True if the video needs to be covered with a spoiler animation */
+      has_spoiler?: boolean;
       /** Pass True if the uploaded video is suitable for streaming */
       supports_streaming?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
@@ -361,6 +365,8 @@ export interface InputFileProxy<F> {
       parse_mode?: ParseMode;
       /** A list of special entities that appear in the caption, which can be specified instead of parse_mode */
       caption_entities?: MessageEntity[];
+      /** Pass True if the animation needs to be covered with a spoiler animation */
+      has_spoiler?: boolean;
       /** Sends the message silently. Users will receive a notification with no sound. */
       disable_notification?: boolean;
       /** Protects the contents of the sent message from forwarding and saving */
@@ -695,6 +701,8 @@ export interface InputFileProxy<F> {
         | "find_location"
         | "record_video_note"
         | "upload_video_note";
+      /** Unique identifier for the target message thread; supergroups only */
+      message_thread_id?: number;
     }): true;
 
     /** Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object. */
@@ -963,7 +971,7 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
     }): number;
 
-    /** Use this method to get information about a member of a chat. Returns a ChatMember object on success. */
+    /** Use this method to get information about a member of a chat. The method is guaranteed to work only if the bot is an administrator in the chat. Returns a ChatMember object on success. */
     getChatMember(args: {
       /** Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
       chat_id: number | string;
@@ -1012,10 +1020,10 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Unique identifier for the target message thread of the forum topic */
       message_thread_id: number;
-      /** New topic name, 1-128 characters */
-      name: string;
-      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. */
-      icon_custom_emoji_id: string;
+      /** New topic name, 0-128 characters. If not specififed or empty, the current name of the topic will be kept */
+      name?: string;
+      /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept */
+      icon_custom_emoji_id?: string;
     }): true;
 
     /** Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success. */
@@ -1048,6 +1056,38 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Unique identifier for the target message thread of the forum topic */
       message_thread_id: number;
+    }): true;
+
+    /** Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights. Returns True on success. */
+    editGeneralForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+      /** New topic name, 1-128 characters */
+      name: string;
+    }): true;
+
+    /** Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success. */
+    closeGeneralForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+    }): true;
+
+    /** Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden. Returns True on success. */
+    reopenGeneralForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+    }): true;
+
+    /** Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open. Returns True on success. */
+    hideGeneralForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
+    }): true;
+
+    /** Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success. */
+    unhideGeneralForumTopic(args: {
+      /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+      chat_id: number | string;
     }): true;
 
     /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
@@ -1568,6 +1608,8 @@ export interface InputFileProxy<F> {
     parse_mode?: ParseMode;
     /** List of special entities that appear in the caption, which can be specified instead of parse_mode */
     caption_entities?: MessageEntity[];
+    /** Pass True if the photo needs to be covered with a spoiler animation */
+    has_spoiler?: boolean;
   };
 
   /** Represents a video to be sent. */
@@ -1592,6 +1634,8 @@ export interface InputFileProxy<F> {
     duration?: number;
     /** Pass True if the uploaded video is suitable for streaming */
     supports_streaming?: boolean;
+    /** Pass True if the photo needs to be covered with a spoiler animation */
+    has_spoiler?: boolean;
   };
 
   /** Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent. */
@@ -1614,6 +1658,8 @@ export interface InputFileProxy<F> {
     height?: number;
     /** Animation duration in seconds */
     duration?: number;
+    /** Pass True if the photo needs to be covered with a spoiler animation */
+    has_spoiler?: boolean;
   };
 
   /** Represents an audio file to be treated as music to be sent. */

@@ -163,6 +163,8 @@ export namespace Chat {
     extends SupergroupChat, NonGroupGetChat, MultiUserGetChat, LargeGetChat {
     /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
+    /** True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat. */
+    has_aggressive_anti_spam_enabled?: true;
     /** For supergroups, name of group sticker set. Returned only in getChat. */
     sticker_set_name?: string;
     /** For supergroups, the location to which the supergroup is connected. Returned only in getChat. */
