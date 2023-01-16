@@ -1212,13 +1212,7 @@ export interface InputFileProxy<F> {
       media: InputFileProxy<F>["InputMedia"];
       /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
-    }):
-      | (Update.Edited & Message.AnimationMessage)
-      | (Update.Edited & Message.AudioMessage)
-      | (Update.Edited & Message.DocumentMessage)
-      | (Update.Edited & Message.PhotoMessage)
-      | (Update.Edited & Message.VideoMessage)
-      | true;
+    }): (Update.Edited & Message) | true;
 
     /** Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
     editMessageReplyMarkup(args: {
