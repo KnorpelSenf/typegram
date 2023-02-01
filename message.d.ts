@@ -274,7 +274,7 @@ Message entities can be nested, providing following restrictions are met:
 Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username. Please note:
 
 - These links will work only if they are used inside an inline link or in an inline keyboard button. For example, they will not work, when used in a message text.
-- These mentions are only guaranteed to work if the user has contacted the bot in the past, has sent a callback query to the bot via an inline button or is a member in the group where he was mentioned.
+- Unless the user is a member in the chat where they were mentioned, these mentions are only guaranteed to work if the user has contacted the bot in private in the past or has sent a callback query to the bot via an inline button and doesn't have Forwarded Messages privacy enabled for the bot.
 
 #### MarkdownV2 style
 To use this mode, pass *MarkdownV2* in the *parse_mode* field. Use the following syntax in your message:

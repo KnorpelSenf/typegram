@@ -781,7 +781,7 @@ export interface InputFileProxy<F> {
       can_manage_video_chats?: boolean;
       /** Pass True if the administrator can restrict, ban or unban chat members */
       can_restrict_members?: boolean;
-      /** Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) */
+      /** Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him) */
       can_promote_members?: boolean;
       /** Pass True if the administrator can change chat title, photo and other settings */
       can_change_info?: boolean;
@@ -1020,7 +1020,7 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** Unique identifier for the target message thread of the forum topic */
       message_thread_id: number;
-      /** New topic name, 0-128 characters. If not specififed or empty, the current name of the topic will be kept */
+      /** New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept */
       name?: string;
       /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept */
       icon_custom_emoji_id?: string;

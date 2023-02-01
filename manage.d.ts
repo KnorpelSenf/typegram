@@ -243,7 +243,7 @@ export interface ChatAdministratorRights {
   can_manage_video_chats: boolean;
   /** True, if the administrator can restrict, ban or unban chat members */
   can_restrict_members: boolean;
-  /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
+  /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
   can_promote_members: boolean;
   /** True, if the user is allowed to change the chat title, photo and other settings */
   can_change_info: boolean;
@@ -304,7 +304,7 @@ export interface ChatMemberAdministrator {
   can_manage_video_chats: boolean;
   /** True, if the administrator can restrict, ban or unban chat members */
   can_restrict_members: boolean;
-  /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
+  /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
   can_promote_members: boolean;
   /** True, if the user is allowed to change the chat title, photo and other settings */
   can_change_info: boolean;
