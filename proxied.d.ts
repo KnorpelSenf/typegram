@@ -789,6 +789,8 @@ export interface Typegram<F> {
       user_id: number;
       /** An object for new user permissions */
       permissions: ChatPermissions;
+      /** Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission. */
+      use_independent_chat_permissions?: boolean;
       /** Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever */
       until_date?: number;
     }): true;
@@ -813,7 +815,7 @@ export interface Typegram<F> {
       can_manage_video_chats?: boolean;
       /** Pass True if the administrator can restrict, ban or unban chat members */
       can_restrict_members?: boolean;
-      /** Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him) */
+      /** Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him) */
       can_promote_members?: boolean;
       /** Pass True if the administrator can change chat title, photo and other settings */
       can_change_info?: boolean;
@@ -864,6 +866,8 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** An object for new default chat permissions */
       permissions: ChatPermissions;
+      /** Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission. */
+      use_independent_chat_permissions?: boolean;
     }): true;
 
     /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
@@ -1059,7 +1063,7 @@ export interface Typegram<F> {
       chat_id: number | string;
       /** Unique identifier for the target message thread of the forum topic */
       message_thread_id: number;
-      /** New topic name, 0-128 characters. If not specififed or empty, the current name of the topic will be kept */
+      /** New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept */
       name?: string;
       /** New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept */
       icon_custom_emoji_id?: string;
@@ -1251,13 +1255,7 @@ export interface Typegram<F> {
       media: Typegram<F>["InputMedia"];
       /** An object for a new inline keyboard. */
       reply_markup?: InlineKeyboardMarkup;
-    }):
-      | (Update.Edited & Message.AnimationMessage)
-      | (Update.Edited & Message.AudioMessage)
-      | (Update.Edited & Message.DocumentMessage)
-      | (Update.Edited & Message.PhotoMessage)
-      | (Update.Edited & Message.VideoMessage)
-      | true;
+    }): (Update.Edited & Message) | true;
 
     /** Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
     editMessageReplyMarkup(args: {

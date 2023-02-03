@@ -178,6 +178,14 @@ export namespace Message {
     /** Message is a service message about a successful payment, information about the payment. More about payments » */
     successful_payment: SuccessfulPayment;
   }
+  export interface UserSharedMessage extends ServiceMessage {
+    /** Service message: a user was shared with the bot */
+    user_shared: UserShared;
+  }
+  export interface ChatSharedMessage extends ServiceMessage {
+    /** Service message: a chat was shared with the bot */
+    chat_shared?: ChatShared;
+  }
   export interface ConnectedWebsiteMessage extends ServiceMessage {
     /** The domain name of the website on which the user has logged in. More about Telegram Login » */
     connected_website: string;
@@ -243,6 +251,7 @@ export namespace Message {
 /** Helper type that bundles all possible `Message.ServiceMessage`s. More specifically, bundles all messages that do not have a `reply_to_message` field, i.e. are not a `Message.CommonMessage`. */
 export type ServiceMessageBundle =
   | Message.ChannelChatCreatedMessage
+  | Message.ChatSharedMessage
   | Message.ConnectedWebsiteMessage
   | Message.DeleteChatPhotoMessage
   | Message.GroupChatCreatedMessage
@@ -262,6 +271,7 @@ export type ServiceMessageBundle =
   | Message.PinnedMessageMessage
   | Message.SuccessfulPaymentMessage
   | Message.SupergroupChatCreated
+  | Message.UserSharedMessage
   | Message.VideoChatScheduledMessage
   | Message.VideoChatStartedMessage
   | Message.VideoChatEndedMessage
@@ -318,7 +328,7 @@ Message entities can be nested, providing following restrictions are met:
 Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username. Please note:
 
 - These links will work only if they are used inside an inline link or in an inline keyboard button. For example, they will not work, when used in a message text.
-- These mentions are only guaranteed to work if the user has contacted the bot in the past, has sent a callback query to the bot via an inline button or is a member in the group where he was mentioned.
+- Unless the user is a member of the chat where they were mentioned, these mentions are only guaranteed to work if the user has contacted the bot in private in the past or has sent a callback query to the bot via an inline button and doesn't have Forwarded Messages privacy enabled for the bot.
 
 #### MarkdownV2 style
 To use this mode, pass *MarkdownV2* in the *parse_mode* field. Use the following syntax in your message:
@@ -733,6 +743,22 @@ export interface GeneralForumTopicHidden {}
 
 /** This object represents a service message about General forum topic unhidden in the chat. Currently holds no information. */
 export interface GeneralForumTopicUnhidden {}
+
+/** This object contains information about the user whose identifier was shared with the bot using a KeyboardButtonRequestUser button. */
+export interface UserShared {
+  /** Identifier of the request */
+  request_id: number;
+  /** Identifier of the shared user. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the user and could be unable to use this identifier, unless the user is already known to the bot by some other means. */
+  user_id: number;
+}
+
+/** This object contains information about the chat whose identifier was shared with the bot using a KeyboardButtonRequestChat button. */
+export interface ChatShared {
+  /** Identifier of the request */
+  request_id: number;
+  /** Identifier of the shared chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the chat and could be unable to use this identifier, unless the chat is already known to the bot by some other means. */
+  chat_id: number;
+}
 
 /** This object represents a service message about a user allowing a bot added to the attachment menu to write messages. Currently holds no information. */
 export interface WriteAccessAllowed {}

@@ -1,4 +1,4 @@
-import { User } from "./manage";
+import { ChatAdministratorRights, User } from "./manage";
 import { Message } from "./message";
 
 /** This object represents an inline keyboard that appears right next to the message it belongs to. */
@@ -139,6 +139,14 @@ export namespace KeyboardButton {
     /** Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed */
     text: string;
   }
+  export interface RequestUserButton extends CommonButton {
+    /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user_shared” service message. Available in private chats only. */
+    request_user: KeyboardButtonRequestUser;
+  }
+  export interface RequestChatButton extends CommonButton {
+    /** If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only. */
+    request_chat: KeyboardButtonRequestChat;
+  }
   export interface RequestContactButton extends CommonButton {
     /** If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only. */
     request_contact: boolean;
@@ -157,9 +165,11 @@ export namespace KeyboardButton {
   }
 }
 
-/** This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields web_app, request_contact, request_location, and request_poll are mutually exclusive. */
+/** This object represents one button of the reply keyboard. For simple text buttons, String can be used instead of this object to specify the button text. The optional fields web_app, request_user, request_chat, request_contact, request_location, and request_poll are mutually exclusive. */
 export type KeyboardButton =
   | KeyboardButton.CommonButton
+  | KeyboardButton.RequestUserButton
+  | KeyboardButton.RequestChatButton
   | KeyboardButton.RequestContactButton
   | KeyboardButton.RequestLocationButton
   | KeyboardButton.RequestPollButton
@@ -204,4 +214,34 @@ export interface ForceReply {
 export interface WebAppInfo {
   /** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
   url: string;
+}
+
+/** This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed. */
+export interface KeyboardButtonRequestUser {
+  /** Signed 32-bit identifier of the request */
+  request_id: number;
+  /** Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied. */
+  user_is_bot?: boolean;
+  /** Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied. */
+  user_is_premium?: boolean;
+}
+
+/** This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. */
+export interface KeyboardButtonRequestChat {
+  /** Signed 32-bit identifier of the request */
+  request_id: number;
+  /** Pass True to request a channel chat, pass False to request a group or a supergroup chat. */
+  chat_is_channel: boolean;
+  /** Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied. */
+  chat_is_forum?: boolean;
+  /** Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied. */
+  chat_has_username?: boolean;
+  /** Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied. */
+  chat_is_created?: boolean;
+  /** A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied. */
+  user_administrator_rights?: ChatAdministratorRights;
+  /** A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied. */
+  bot_administrator_rights?: ChatAdministratorRights;
+  /** Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied. */
+  bot_is_member?: boolean;
 }
