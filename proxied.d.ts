@@ -757,6 +757,8 @@ export interface InputFileProxy<F> {
       user_id: number;
       /** An object for new user permissions */
       permissions: ChatPermissions;
+      /** Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission. */
+      use_independent_chat_permissions?: boolean;
       /** Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever */
       until_date?: number;
     }): true;
@@ -825,6 +827,8 @@ export interface InputFileProxy<F> {
       chat_id: number | string;
       /** An object for new default chat permissions */
       permissions: ChatPermissions;
+      /** Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission. */
+      use_independent_chat_permissions?: boolean;
     }): true;
 
     /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.

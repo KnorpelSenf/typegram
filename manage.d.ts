@@ -338,6 +338,26 @@ export interface ChatMemberRestricted {
   user: User;
   /** True, if the user is a member of the chat at the moment of the request */
   is_member: boolean;
+  /** True, if the user is allowed to send text messages, contacts, invoices, locations and venues */
+  can_send_messages: boolean;
+  /** True, if the user is allowed to send audios */
+  can_send_audios: boolean;
+  /** True, if the user is allowed to send documents */
+  can_send_documents: boolean;
+  /** True, if the user is allowed to send photos */
+  can_send_photos: boolean;
+  /** True, if the user is allowed to send videos */
+  can_send_videos: boolean;
+  /** True, if the user is allowed to send video notes */
+  can_send_video_notes: boolean;
+  /** True, if the user is allowed to send voice notes */
+  can_send_voice_notes: boolean;
+  /** True, if the user is allowed to send polls */
+  can_send_polls: boolean;
+  /** True, if the user is allowed to send animations, games, stickers and use inline bots */
+  can_send_other_messages: boolean;
+  /** True, if the user is allowed to add web page previews to their messages */
+  can_add_web_page_previews: boolean;
   /** True, if the user is allowed to change the chat title, photo and other settings */
   can_change_info: boolean;
   /** True, if the user is allowed to invite new users to the chat */
@@ -346,16 +366,6 @@ export interface ChatMemberRestricted {
   can_pin_messages: boolean;
   /** True, if the user is allowed to create forum topics */
   can_manage_topics: boolean;
-  /** True, if the user is allowed to send text messages, contacts, locations and venues */
-  can_send_messages: boolean;
-  /** True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes */
-  can_send_media_messages: boolean;
-  /** True, if the user is allowed to send polls */
-  can_send_polls: boolean;
-  /** True, if the user is allowed to send animations, games, stickers and use inline bots */
-  can_send_other_messages: boolean;
-  /** True, if the user is allowed to add web page previews to their messages */
-  can_add_web_page_previews: boolean;
   /** Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever */
   until_date: number;
 }
@@ -400,6 +410,8 @@ export interface ChatJoinRequest {
   chat: Chat.SupergroupChat | Chat.ChannelChat;
   /** User that sent the join request */
   from: User;
+  /** Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 24 hours to send messages until the join request is processed, assuming no other administrator contacted the user. */
+  user_chat_id: number;
   /** Date the request was sent in Unix time */
   date: number;
   /** Bio of the user. */
@@ -410,15 +422,25 @@ export interface ChatJoinRequest {
 
 /** Describes actions that a non-administrator user is allowed to take in a chat. */
 export interface ChatPermissions {
-  /** True, if the user is allowed to send text messages, contacts, locations and venues */
+  /** True, if the user is allowed to send text messages, contacts, invoices, locations and venues */
   can_send_messages?: boolean;
-  /** True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages */
-  can_send_media_messages?: boolean;
-  /** True, if the user is allowed to send polls, implies can_send_messages */
+  /** True, if the user is allowed to send audios */
+  can_send_audios?: boolean;
+  /** True, if the user is allowed to send documents */
+  can_send_documents?: boolean;
+  /** True, if the user is allowed to send photos */
+  can_send_photos?: boolean;
+  /** True, if the user is allowed to send videos */
+  can_send_videos?: boolean;
+  /** True, if the user is allowed to send video notes */
+  can_send_video_notes?: boolean;
+  /** True, if the user is allowed to send voice notes */
+  can_send_voice_notes?: boolean;
+  /** True, if the user is allowed to send polls */
   can_send_polls?: boolean;
-  /** True, if the user is allowed to send animations, games, stickers and use inline bots, implies can_send_media_messages */
+  /** True, if the user is allowed to send animations, games, stickers and use inline bots */
   can_send_other_messages?: boolean;
-  /** True, if the user is allowed to add web page previews to their messages, implies can_send_media_messages */
+  /** True, if the user is allowed to add web page previews to their messages */
   can_add_web_page_previews?: boolean;
   /** True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups */
   can_change_info?: boolean;
