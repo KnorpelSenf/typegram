@@ -107,10 +107,6 @@ export namespace Chat {
   interface GetChat {
     /** Chat photo. Returned only in getChat. */
     photo?: ChatPhoto;
-    /** True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
-    join_to_send_messages?: true;
-    /** True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat. */
-    join_by_request?: true;
     /** The most recent pinned message (by sending date). Returned only in getChat. */
     pinned_message?: Message;
     /** The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat. */
@@ -169,6 +165,10 @@ export namespace Chat {
     sticker_set_name?: string;
     /** For supergroups, the location to which the supergroup is connected. Returned only in getChat. */
     location?: ChatLocation;
+    /** True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
+    join_to_send_messages?: true;
+    /** True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat. */
+    join_by_request?: true;
   }
   /** Internal type representing channel chats returned from `getChat`. */
   export interface ChannelGetChat
