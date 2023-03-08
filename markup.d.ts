@@ -206,7 +206,7 @@ export interface WebAppInfo {
 
 /** This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed. */
 export interface KeyboardButtonRequestUser {
-  /** Signed 32-bit identifier of the request */
+  /** Signed 32-bit identifier of the request, which will be received back in the UserShared object. Must be unique within the message */
   request_id: number;
   /** Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied. */
   user_is_bot?: boolean;
@@ -216,7 +216,7 @@ export interface KeyboardButtonRequestUser {
 
 /** This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. */
 export interface KeyboardButtonRequestChat {
-  /** Signed 32-bit identifier of the request */
+  /** Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message */
   request_id: number;
   /** Pass True to request a channel chat, pass False to request a group or a supergroup chat. */
   chat_is_channel: boolean;
@@ -226,9 +226,9 @@ export interface KeyboardButtonRequestChat {
   chat_has_username?: boolean;
   /** Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied. */
   chat_is_created?: boolean;
-  /** A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied. */
+  /** An object listing the required administrator rights of the user in the chat. The rights must be a superset of bot_administrator_rights. If not specified, no additional restrictions are applied. */
   user_administrator_rights?: ChatAdministratorRights;
-  /** A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied. */
+  /** An object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied. */
   bot_administrator_rights?: ChatAdministratorRights;
   /** Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied. */
   bot_is_member?: boolean;

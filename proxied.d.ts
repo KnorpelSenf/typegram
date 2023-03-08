@@ -1152,7 +1152,7 @@ export interface InputFileProxy<F> {
       chat_id?: number;
     }): MenuButton;
 
-    /** Use this method to the change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns True on success. */
+    /** Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns True on success. */
     setMyDefaultAdministratorRights(args: {
       /** An object describing new default administrator rights. If not specified, the default administrator rights will be cleared. */
       rights?: ChatAdministratorRights;
