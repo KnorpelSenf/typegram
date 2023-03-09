@@ -1,4 +1,4 @@
-import { User } from "./manage";
+import type { User } from "./manage.ts";
 
 /** This object represents a portion of the price for goods or services. */
 export interface LabeledPrice {

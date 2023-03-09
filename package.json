@@ -2,7 +2,7 @@
   "name": "@grammyjs/types",
   "version": "2.12.1",
   "description": "Telegram Bot API type declarations for grammY",
-  "main": "index.js",
+  "main": "mod.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/grammyjs/types.git"
@@ -14,11 +14,18 @@
     "api",
     "types"
   ],
+  "scripts": {
+    "prepare": "deno task backport"
+  },
   "author": "KnorpelSenf",
-  "types": "index.d.ts",
+  "types": "mod.d.ts",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grammyjs/grammy/issues"
+    "url": "https://github.com/grammyjs/types/issues"
   },
-  "homepage": "https://grammy.dev/"
+  "files": ["*.d.ts", "mod.js"],
+  "homepage": "https://grammy.dev/",
+  "devDependencies": {
+    "deno-bin": "^1.31.1"
+  }
 }

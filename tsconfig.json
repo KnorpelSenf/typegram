@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "charset": "utf8",
+    "forceConsistentCasingInFileNames": true,
+    "newLine": "lf",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "target": "es2019"
+  },
+  "include": ["*.ts"]
+}

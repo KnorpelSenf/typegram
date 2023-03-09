@@ -1,5 +1,5 @@
-import { Location, Message, PhotoSize } from "./message";
-import { Update } from "./update";
+import type { Location, Message, PhotoSize } from "./message.ts";
+import type { Update } from "./update.ts";
 
 /** Describes the current status of a webhook. */
 export interface WebhookInfo {

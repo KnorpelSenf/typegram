@@ -1,2 +1,2 @@
-# Do not store lock file if there are no dependencies
-package-lock.json
+# Build output
+*.d.ts

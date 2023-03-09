@@ -1,8 +1,13 @@
-import { CallbackQuery } from "./markup";
-import { ChosenInlineResult, InlineQuery } from "./inline";
-import { Chat, ChatJoinRequest, ChatMemberUpdated, User } from "./manage";
-import { Message, Poll, PollAnswer } from "./message";
-import { PreCheckoutQuery, ShippingQuery } from "./payment";
+import type { CallbackQuery } from "./markup.ts";
+import type { ChosenInlineResult, InlineQuery } from "./inline.ts";
+import type {
+  Chat,
+  ChatJoinRequest,
+  ChatMemberUpdated,
+  User,
+} from "./manage.ts";
+import type { Message, Poll, PollAnswer } from "./message.ts";
+import type { PreCheckoutQuery, ShippingQuery } from "./payment.ts";
 
 /** Internal namespace used to make some message types more accurate */
 export namespace Update {

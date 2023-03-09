@@ -71,8 +71,9 @@ grammY automatically translates calls to `sendDocument` and the like to multipar
 Consequently, the type `InputFile` is not defined in this library.
 
 Instead, grammY specifies its own version of what an `InputFile` is, hence automatically adjusting `@grammyjs/types` with a custom `InputFile` type used throughout all affected methods and interfaces.
-This is possible by what we call a _proxy type_.
-grammY then imports the proxy type called `InputProxyType` and parametrises it with its version of `InputFile`.
+This is possible by adding a type parameter to all affected types.
+grammY then import types parametrises these types with its version of `InputFile`, and re-exports the adjusted types.
+This is why you should always import Bot API as described here: <https://grammy.dev/guide/api.html#type-definitions-for-the-api>.
 
 ## Differences to the Bot API
 
@@ -91,3 +92,15 @@ The actual type definitions themselves are never different.
    Also, without the links, it's useless anyway.
 5. No images.
    Documentation strings containing an image are adjusted to make sense without the images, too.
+
+## Contributing
+
+This is a Deno project.
+All the files are TypeScript files that are published on <https://deno.land/x/grammy_types>.
+This project uses [deno2node](https://github.com/fromdeno/deno2node) to emit declaration files which are then published on npm.
+
+If you want to work on this, you do not need to have Node.js installed.
+You also should not run `npm install`.
+You only need [Deno](https://deno.land) and the VSCode extensions recommended in this repo.
+
+Run `deno task` to see available development scripts.
