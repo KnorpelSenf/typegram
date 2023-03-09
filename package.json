@@ -1,6 +1,6 @@
 {
   "name": "@grammyjs/types",
-  "version": "2.12.1",
+  "version": "3.0.0",
   "description": "Telegram Bot API type declarations for grammY",
   "main": "mod.js",
   "repository": {
@@ -23,7 +23,10 @@
   "bugs": {
     "url": "https://github.com/grammyjs/types/issues"
   },
-  "files": ["*.d.ts", "mod.js"],
+  "files": [
+    "*.d.ts",
+    "mod.js"
+  ],
   "homepage": "https://grammy.dev/",
   "devDependencies": {
     "deno-bin": "^1.31.1"
