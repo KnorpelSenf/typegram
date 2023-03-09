@@ -1,5 +1,5 @@
-import { ChatAdministratorRights, User } from "./manage";
-import { Message } from "./message";
+import type { ChatAdministratorRights, User } from "./manage.ts";
+import type { Message } from "./message.ts";
 
 /** This object represents an inline keyboard that appears right next to the message it belongs to. */
 export interface InlineKeyboardMarkup {

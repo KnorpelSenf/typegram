@@ -37,42 +37,14 @@ In fact, this pattern is used for various types, namely:
 
 (Naturally, when the API specification is actually modelling types to be unions (e.g. `InlineQueryResult`), this is reflected here as a union type, too.)
 
-## Available Methods
-
-In addition to the types, this package provides you with another type `Telegram` which contains all available **methods** of the API.
-There is no further structure applied to this.
-
-Each method takes just a single argument with a structure that corresponds to the object expected by Telegram.
-If you need to directly access that type, consider using `Opts<M>` where `M` is the method name (e.g. `Opts<'getMe'>`).
-
-Note that `Opts<M>` will give you an empty object type (i.e. `{}`) for methods that do not take any parameters.
-That is to say, it will not give you a type error or `undefined` (as opposed to something like `Parameters<Telegram['getMe']>[0]`).
-
-Each method returns the object that is specified by Telegram.
-If you directly need to access the return type of a method, consider using `Ret<M>` where `M` is the method name (e.g. `Opts<'getMe'>`).
-
-## Using Promises
-
-All of the methods are specified with the actual return type of the Telegram Bot API.
-If you need them to return `Promise`s instead, consider using `TelegramP`.
-This type maps all methods of `Telegram` to a promisified version.
-
 ## Using API Response Objects
 
 The Telegram Bot API does not return just the requested data in the body of the response objects.
+
 Instead, they are wrapped inside an object that has an `ok: boolean` status flag, indicating success or failure of the preceding API request.
 This outer object is modelled in `typegram` by the `ApiResponse` type.
 
-If you need the methods of `Telegram` to return `ApiResponse` objects instead of the raw data, consider using `TelegramR`.
-This works analogously to `TelegramP`.
-The type maps all methods of `Telegram` to a version where they return `ApiResponse` objects of the data, instead of the data themselves.
-
-## Using Both Promises and API Response Objects
-
-Yes.
-`TelegramPR`.
-
-## Customizing `InputFile`
+## Customizing `InputFile` and accessing API methods
 
 The Telegram Bot API lets bots send files in [three different ways](https://core.telegram.org/bots/api#sending-files).
 Two of those ways are by specifying a `string`—either a `file_id` or a URL.
@@ -87,9 +59,8 @@ As an example, you may want to be able to make calls to `sendDocument` with an o
 (Your code is then assumed to able to translate calls to `sendDocument` and the like to multipart/form-data uploads when supplied with an object alike `{ path: '/tmp/file.txt' }` in the `document` property of the argument object.)
 
 `typegram` cannot possibly know what objects you want to support as `InputFile`s.
-Consequently, the exposed type `InputFile` is merely an alias for `never`.
 
-However, you can specify your own version of what an `InputFile` is, hence effectively creating a completely new version of `typegram` with your custom `InputFile` type used throughout all affected methods and interfaces.
+However, you can specify your own version of what an `InputFile` is throughout all affected methods and interfaces.
 This is possible by what we call a _proxy type_.
 
 For instance, let's stick with our example and say that you want to support `InputFile`s of the following type.
@@ -100,39 +71,37 @@ interface MyInputFile {
 }
 ```
 
-You can then customize `typegram` to fit your needs by
-
-1. importing the magical `Typegram` proxy type and
-2. setting this alias:
+You can then customize `typegram` to fit your needs by passing your custom `InputFile` to the `ApiMethods` type.
 
 ```ts
-import { Typegram } from "typegram";
+import * as Typegram from "typegram";
 
-type MyTypegram = Typegram<MyInputFile>;
+type API = Typegram.ApiMethods<MyInputFile>;
 ```
 
-You can now access all types that must respect `MyInputFile` through the `MyTypegram` type:
+You can now access all types that must respect `MyInputFile` through the `API` type:
 
 ```ts
-// The `Telegram` type that contains all API methods:
-type Telegram = MyTypegram["Telegram"]; // analogous for `TelegramP`, `TelegramR`, and `TelegramPR`
-
 // The utility types `Opts` and `Ret`:
-type Opts<M extends keyof Telegram> = MyTypegram["Opts"][M];
-type Ret<M extends keyof Telegram> = MyTypegram["Ret"][M];
-
-// The adjusted `InputMedia*` types:
-type InputMedia = MyTypegram["InputMedia"];
-type InputMediaPhoto = MyTypegram["InputMediaPhoto"];
-type InputMediaVideo = MyTypegram["InputMediaVideo"];
-type InputMediaAnimation = MyTypegram["InputMediaAnimation"];
-type InputMediaAudio = MyTypegram["InputMediaAudio"];
-type InputMediaDocument = MyTypegram["InputMediaDocument"];
+type Opts<M extends keyof API> = Typegram.Opts<API>[M];
+type Ret<M extends keyof API> = Typegram.Ret<API>[M];
 ```
 
-In fact, if you are using the type annotations of `typegram` without relying on the `Typegram` proxy type, you are actually still using a default proxy type under the hood.
-The declaration of this default proxy type may help you to define your own version.
-Check out [the default.d.ts file](https://github.com/KnorpelSenf/typegram/blob/master/default.d.ts).
+Each method takes just a single argument with a structure that corresponds to the object expected by Telegram.
+If you need to directly access that type, consider using `Opts<M>` where `M` is the method name (e.g. `Opts<'getMe'>`).
+
+Each method returns the object that is specified by Telegram.
+If you directly need to access the return type of a method, consider using `Ret<M>` where `M` is the method name (e.g. `Opts<'getMe'>`).
+
+```ts
+// The adjusted `InputMedia*` types:
+type InputMedia = Typegram.InputMedia<MyInputFile>;
+type InputMediaPhoto = Typegram.InputMediaPhoto<MyInputFile>;
+type InputMediaVideo = Typegram.InputMediaVideo<MyInputFile>;
+type InputMediaAnimation = Typegram.InputMediaAnimation<MyInputFile>;
+type InputMediaAudio = Typegram.InputMediaAudio<MyInputFile>;
+type InputMediaDocument = Typegram.InputMediaDocument<MyInputFile>;
+```
 
 Note that interfaces other than the ones mentioned above are unaffected by the customization through `MyInputFile`.
 They can simply continue to be imported directly from `typegram`.

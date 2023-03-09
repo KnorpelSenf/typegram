@@ -1,0 +1,19 @@
+{
+  "tasks": {
+    "check": "deno cache --check=all mod.ts",
+    "dev": "deno fmt && deno lint && deno task check",
+    "backport": "deno run --no-prompt --allow-read=. --allow-write=. https://deno.land/x/deno2node@v1.7.2/src/cli.ts tsconfig.json",
+    "clean": "git clean -fX '*.d.ts'"
+  },
+  "fmt": { "options": { "proseWrap": "preserve" } },
+  "lint": {
+    "rules": {
+      "exclude": [
+        // Many types have no properties
+        "no-empty-interface",
+        // We do this anyway to group types
+        "no-namespace"
+      ]
+    }
+  }
+}

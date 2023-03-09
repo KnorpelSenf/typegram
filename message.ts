@@ -1,10 +1,11 @@
-import { InlineKeyboardMarkup } from "./markup";
-import { Chat, File, User } from "./manage";
-import { PassportData } from "./passport";
-import { Invoice, SuccessfulPayment } from "./payment";
+// deno-lint-ignore-file no-irregular-whitespace
+import type { InlineKeyboardMarkup } from "./markup.ts";
+import type { Chat, File, User } from "./manage.ts";
+import type { PassportData } from "./passport.ts";
+import type { Invoice, SuccessfulPayment } from "./payment.ts";
 
 export namespace Message {
-  interface ServiceMessage {
+  export interface ServiceMessage {
     /** Unique message identifier inside this chat */
     message_id: number;
     /** Unique identifier of a message thread or a forum topic to which the message belongs; for supergroups only */
@@ -20,7 +21,7 @@ export namespace Message {
     /** True, if the message is sent to a forum topic */
     is_topic_message?: boolean;
   }
-  interface CommonMessage extends ServiceMessage {
+  export interface CommonMessage extends ServiceMessage {
     /** For forwarded messages, sender of the original message */
     forward_from?: User;
     /** For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
@@ -54,13 +55,13 @@ export namespace Message {
     /** For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text */
     entities?: MessageEntity[];
   }
-  interface CaptionableMessage extends CommonMessage {
+  export interface CaptionableMessage extends CommonMessage {
     /** Caption for the animation, audio, document, photo, video or voice */
     caption?: string;
     /** For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption */
     caption_entities?: MessageEntity[];
   }
-  interface MediaMessage extends CaptionableMessage {
+  export interface MediaMessage extends CaptionableMessage {
     /** The unique identifier of a media message group this message belongs to */
     media_group_id?: string;
     /** True, if the message media is covered by a spoiler animation */
@@ -489,7 +490,7 @@ export interface Animation {
   /** Duration of the video in seconds as defined by sender */
   duration: number;
   /** Animation thumbnail as defined by sender */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
   /** Original animation filename as defined by sender */
   file_name?: string;
   /** MIME type of the file as defined by sender */
@@ -517,7 +518,7 @@ export interface Audio {
   /** File size in bytes */
   file_size?: number;
   /** Thumbnail of the album cover to which the music file belongs */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
 }
 
 /** This object represents a general file (as opposed to photos, voice messages and audio files). */
@@ -527,7 +528,7 @@ export interface Document {
   /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
   file_unique_id: string;
   /** Document thumbnail as defined by sender */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
   /** Original filename as defined by sender */
   file_name?: string;
   /** MIME type of the file as defined by sender */
@@ -549,7 +550,7 @@ export interface Video {
   /** Duration of the video in seconds as defined by sender */
   duration: number;
   /** Video thumbnail */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
   /** Original filename as defined by sender */
   file_name?: string;
   /** MIME type of the file as defined by sender */
@@ -569,7 +570,7 @@ export interface VideoNote {
   /** Duration of the video in seconds as defined by sender */
   duration: number;
   /** Video thumbnail */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
   /** File size in bytes */
   file_size?: number;
 }
@@ -809,7 +810,7 @@ export interface Sticker {
   /** True, if the sticker is a video sticker */
   is_video: boolean;
   /** Sticker thumbnail in the .WEBP or .JPG format */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
   /** Emoji associated with the sticker */
   emoji?: string;
   /** Name of the sticker set to which the sticker belongs */
@@ -839,7 +840,7 @@ export interface StickerSet {
   /** List of all set stickers */
   stickers: Sticker[];
   /** Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
-  thumb?: PhotoSize;
+  thumbnail?: PhotoSize;
 }
 
 /** This object describes the position on faces where a mask should be placed by default. */

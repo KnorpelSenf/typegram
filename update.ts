@@ -1,28 +1,38 @@
-import { CallbackQuery } from "./markup";
-import { ChosenInlineResult, InlineQuery } from "./inline";
-import { Chat, ChatJoinRequest, ChatMemberUpdated, User } from "./manage";
-import { CommonMessageBundle, Message, Poll, PollAnswer } from "./message";
-import { PreCheckoutQuery, ShippingQuery } from "./payment";
+import type { CallbackQuery } from "./markup.ts";
+import type { ChosenInlineResult, InlineQuery } from "./inline.ts";
+import type {
+  Chat,
+  ChatJoinRequest,
+  ChatMemberUpdated,
+  User,
+} from "./manage.ts";
+import type {
+  CommonMessageBundle,
+  Message,
+  Poll,
+  PollAnswer,
+} from "./message.ts";
+import type { PreCheckoutQuery, ShippingQuery } from "./payment.ts";
 
 export namespace Update {
   /** Internal type holding properties that updates in channels share. */
-  interface Channel {
+  export interface Channel {
     chat: Chat.ChannelChat;
     author_signature?: string;
     from?: never;
   }
   /** Internal type holding properties that updates outside of channels share. */
-  interface NonChannel {
+  export interface NonChannel {
     chat: Exclude<Chat, Chat.ChannelChat>;
     author_signature?: never;
     from: User;
   }
   /** Internal type holding properties that updates about new messages share. */
-  interface New {
+  export interface New {
     edit_date?: never;
   }
   /** Internal type holding properties that updates about edited messages share. */
-  interface Edited {
+  export interface Edited {
     /** Date the message was last edited in Unix time */
     edit_date: number;
     forward_from?: never;
