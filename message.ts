@@ -23,7 +23,7 @@ export namespace Message {
     /** True, if the message is sent to a forum topic */
     is_topic_message?: boolean;
   }
-  interface CommonMessage extends ServiceMessage {
+  export interface CommonMessage extends ServiceMessage {
     /** For forwarded messages, sender of the original message */
     forward_from?: User;
     /** For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
