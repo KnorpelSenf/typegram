@@ -1341,7 +1341,7 @@ export type ApiMethods<F> = {
     /** Sticker set title, 1-64 characters */
     title: string;
     /** A list of 1-50 initial stickers to be added to the sticker set */
-    stickers: InputSticker<F>;
+    stickers: InputSticker<F>[];
     /** Format of the sticker, must be one of “static”, “animated”, “video” */
     sticker_format: "static" | "animated" | "video";
     /** Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created. */
