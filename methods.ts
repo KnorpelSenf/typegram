@@ -52,6 +52,10 @@ export type Opts<F> = {
     : NonNullable<Params<F, M>[0]>;
 };
 
+export type Ret<F> = {
+  [M in keyof ApiMethods<F>]: ReturnType<ApiMethods<F>[M]>;
+};
+
 type UnionKeys<T> = T extends T ? keyof T : never;
 
 /** Wrapper type to bundle all methods of the Telegram Bot API */
