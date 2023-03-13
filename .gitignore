@@ -1,2 +1,4 @@
+node_modules
+
 # Build output
 *.d.ts
