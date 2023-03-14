@@ -1,7 +1,7 @@
-import { Chat, User } from "./manage";
-import { InlineKeyboardMarkup } from "./markup";
-import { Location, MessageEntity, ParseMode } from "./message";
-import { LabeledPrice } from "./payment";
+import type { Chat, User } from "./manage.ts";
+import type { InlineKeyboardMarkup } from "./markup.ts";
+import type { Location, MessageEntity, ParseMode } from "./message.ts";
+import type { LabeledPrice } from "./payment.ts";
 
 /** This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results. */
 export interface InlineQuery {
@@ -83,11 +83,11 @@ export interface InlineQueryResultArticle {
   /** Short description of the result */
   description?: string;
   /** Url of the thumbnail for the result */
-  thumb_url?: string;
+  thumbnail_url?: string;
   /** Thumbnail width */
-  thumb_width?: number;
+  thumbnail_width?: number;
   /** Thumbnail height */
-  thumb_height?: number;
+  thumbnail_height?: number;
 }
 
 /** Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo. */
@@ -99,7 +99,7 @@ export interface InlineQueryResultPhoto {
   /** A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB */
   photo_url: string;
   /** URL of the thumbnail for the photo */
-  thumb_url: string;
+  thumbnail_url: string;
   /** Width of the photo */
   photo_width?: number;
   /** Height of the photo */
@@ -135,9 +135,9 @@ export interface InlineQueryResultGif {
   /** Duration of the GIF in seconds */
   gif_duration?: number;
   /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
-  thumb_url: string;
+  thumbnail_url: string;
   /** MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg” */
-  thumb_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
+  thumbnail_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
   /** Title for the result */
   title?: string;
   /** Caption of the GIF file to be sent, 0-1024 characters after entities parsing */
@@ -165,9 +165,9 @@ export interface InlineQueryResultMpeg4Gif {
   /** Video duration in seconds */
   mpeg4_duration?: number;
   /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
-  thumb_url: string;
+  thumbnail_url: string;
   /** MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg” */
-  thumb_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
+  thumbnail_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
   /** Title for the result */
   title?: string;
   /** Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing */
@@ -193,7 +193,7 @@ export interface InlineQueryResultVideo {
   /** MIME type of the content of the video URL, “text/html” or “video/mp4” */
   mime_type: "text/html" | "video/mp4";
   /** URL of the thumbnail (JPEG only) for the video */
-  thumb_url: string;
+  thumbnail_url: string;
   /** Title for the result */
   title: string;
   /** Caption of the video to be sent, 0-1024 characters after entities parsing */
@@ -295,11 +295,11 @@ export interface InlineQueryResultDocument {
   /** Content of the message to be sent instead of the file */
   input_message_content?: InputMessageContent;
   /** URL of the thumbnail (JPEG only) for the file */
-  thumb_url?: string;
+  thumbnail_url?: string;
   /** Thumbnail width */
-  thumb_width?: number;
+  thumbnail_width?: number;
   /** Thumbnail height */
-  thumb_height?: number;
+  thumbnail_height?: number;
 }
 
 /** Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.
@@ -329,11 +329,11 @@ export interface InlineQueryResultLocation {
   /** Content of the message to be sent instead of the location */
   input_message_content?: InputMessageContent;
   /** Url of the thumbnail for the result */
-  thumb_url?: string;
+  thumbnail_url?: string;
   /** Thumbnail width */
-  thumb_width?: number;
+  thumbnail_width?: number;
   /** Thumbnail height */
-  thumb_height?: number;
+  thumbnail_height?: number;
 }
 
 /** Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.
@@ -365,11 +365,11 @@ export interface InlineQueryResultVenue {
   /** Content of the message to be sent instead of the venue */
   input_message_content?: InputMessageContent;
   /** Url of the thumbnail for the result */
-  thumb_url?: string;
+  thumbnail_url?: string;
   /** Thumbnail width */
-  thumb_width?: number;
+  thumbnail_width?: number;
   /** Thumbnail height */
-  thumb_height?: number;
+  thumbnail_height?: number;
 }
 
 /** Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
@@ -393,11 +393,11 @@ export interface InlineQueryResultContact {
   /** Content of the message to be sent instead of the contact */
   input_message_content?: InputMessageContent;
   /** Url of the thumbnail for the result */
-  thumb_url?: string;
+  thumbnail_url?: string;
   /** Thumbnail width */
-  thumb_width?: number;
+  thumbnail_width?: number;
   /** Thumbnail height */
-  thumb_height?: number;
+  thumbnail_height?: number;
 }
 
 /** Represents a Game.
