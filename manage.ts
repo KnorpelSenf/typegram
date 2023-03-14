@@ -157,6 +157,10 @@ export namespace Chat {
   /** Internal type representing supergroup chats returned from `getChat`. */
   export interface SupergroupGetChat
     extends SupergroupChat, NonGroupGetChat, MultiUserGetChat, LargeGetChat {
+    /** True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
+    join_to_send_messages?: true;
+    /** True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat. */
+    join_by_request?: true;
     /** For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat. */
     slow_mode_delay?: number;
     /** True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat. */
@@ -165,10 +169,6 @@ export namespace Chat {
     sticker_set_name?: string;
     /** For supergroups, the location to which the supergroup is connected. Returned only in getChat. */
     location?: ChatLocation;
-    /** True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
-    join_to_send_messages?: true;
-    /** True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat. */
-    join_by_request?: true;
   }
   /** Internal type representing channel chats returned from `getChat`. */
   export interface ChannelGetChat
