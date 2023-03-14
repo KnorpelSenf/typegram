@@ -1290,9 +1290,11 @@ export type ApiMethods<F> = {
   sendSticker(args: {
     /** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
     chat_id: number | string;
+    /** Unique identifier for the target message thread (topic) of the forum; for forum supergroups only */
+    message_thread_id?: number;
     /** Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. Video stickers can only be sent by a file_id. Animated stickers can't be sent via an HTTP URL. */
     sticker: F | string;
-    /** Emoji associated with the sticker; only for uploaded stickers */
+    /** Emoji associated with the sticker; only for just uploaded stickers */
     emoji?: string;
     /** Sends the message silently. Users will receive a notification with no sound. */
     disable_notification?: boolean;
