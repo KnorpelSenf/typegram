@@ -61,7 +61,6 @@ As an example, you may want to be able to make calls to `sendDocument` with an o
 `typegram` cannot possibly know what objects you want to support as `InputFile`s.
 
 However, you can specify your own version of what an `InputFile` is throughout all affected methods and interfaces.
-This is possible by what we call a _proxy type_.
 
 For instance, let's stick with our example and say that you want to support `InputFile`s of the following type.
 
