@@ -7,6 +7,21 @@
   },
   "fmt": { "options": { "proseWrap": "preserve" } },
   "lint": {
+    "files": {
+      "exclude": [
+        "api.d.ts",
+        "inline.d.ts",
+        "manage.d.ts",
+        "markup.d.ts",
+        "message.d.ts",
+        "methods.d.ts",
+        "mod.d.ts",
+        "passport.d.ts",
+        "payment.d.ts",
+        "settings.d.ts",
+        "update.d.ts"
+      ]
+    },
     "rules": {
       "exclude": [
         // Many types have no properties
