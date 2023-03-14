@@ -83,8 +83,8 @@ You can now access all types that must respect `MyInputFile` through the `API` t
 
 ```ts
 // The utility types `Opts` and `Ret`:
-type Opts<M extends keyof API> = Typegram.Opts<API>[M];
-type Ret<M extends keyof API> = Typegram.Ret<API>[M];
+type Opts<M extends keyof API> = Typegram.Opts<MyInputFile>[M];
+type Ret<M extends keyof API> = Typegram.Ret<MyInputFile>[M];
 ```
 
 Each method takes just a single argument with a structure that corresponds to the object expected by Telegram.
