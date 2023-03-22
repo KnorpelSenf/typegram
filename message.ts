@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-irregular-whitespace
-import type { InlineKeyboardMarkup } from "./markup.ts";
 import type { Chat, File, User } from "./manage.ts";
+import type { InlineKeyboardMarkup } from "./markup.ts";
 import type { PassportData } from "./passport.ts";
 import type { Invoice, SuccessfulPayment } from "./payment.ts";
 

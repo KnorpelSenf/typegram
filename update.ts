@@ -1,4 +1,3 @@
-import type { CallbackQuery } from "./markup.ts";
 import type { ChosenInlineResult, InlineQuery } from "./inline.ts";
 import type {
   Chat,
@@ -6,6 +5,7 @@ import type {
   ChatMemberUpdated,
   User,
 } from "./manage.ts";
+import type { CallbackQuery } from "./markup.ts";
 import type {
   CommonMessageBundle,
   Message,
