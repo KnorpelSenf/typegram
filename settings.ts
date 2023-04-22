@@ -1,5 +1,11 @@
 import type { WebAppInfo } from "./markup.ts";
 
+/** This object represents the bot's name. */
+export interface BotName {
+  /** The bot's name */
+  name: string;
+}
+
 /** This object represents the bot's description. */
 export interface BotDescription {
   /** The bot's description */

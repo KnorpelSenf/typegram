@@ -1,5 +1,5 @@
 // deno-lint-ignore-file ban-types
-import type { InlineQueryResult } from "./inline.ts";
+import type { InlineQueryResult, InlineQueryResultsButton } from "./inline.ts";
 import type {
   BotCommand,
   ChatAdministratorRights,
@@ -38,6 +38,7 @@ import type { LabeledPrice, ShippingOption } from "./payment.ts";
 import type {
   BotCommandScope,
   BotDescription,
+  BotName,
   BotShortDescription,
   MenuButton,
 } from "./settings.ts";
@@ -1113,6 +1114,20 @@ export type ApiMethods<F> = {
     cache_time?: number;
   }): true;
 
+  /** Use this method to change the bot's name. Returns True on success. */
+  setMyName(args: {
+    /** New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language. */
+    name?: string;
+    /** A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name. */
+    language_code?: string;
+  }): true;
+
+  /** Use this method to get the current bot name for the given user language. Returns BotName on success. */
+  getMyName(args: {
+    /** A two-letter ISO 639-1 language code or an empty string */
+    language_code?: string;
+  }): BotName;
+
   /** Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success. */
   setMyCommands(args: {
     /** A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
@@ -1138,20 +1153,6 @@ export type ApiMethods<F> = {
     /** A two-letter ISO 639-1 language code or an empty string */
     language_code?: string;
   }): BotCommand[];
-
-  /** Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success. */
-  setChatMenuButton(args: {
-    /** Unique identifier for the target private chat. If not specified, default bot's menu button will be changed */
-    chat_id?: number;
-    /** An object for the bot's new menu button. Defaults to MenuButtonDefault */
-    menu_button?: MenuButton;
-  }): true;
-
-  /** Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns MenuButton on success. */
-  getChatMenuButton(args: {
-    /** Unique identifier for the target private chat. If not specified, default bot's menu button will be returned */
-    chat_id?: number;
-  }): MenuButton;
 
   /** Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns True on success. */
   setMyDescription(args: {
@@ -1180,6 +1181,20 @@ export type ApiMethods<F> = {
     /** A two-letter ISO 639-1 language code or an empty string */
     language_code?: string;
   }): BotShortDescription;
+
+  /** Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success. */
+  setChatMenuButton(args: {
+    /** Unique identifier for the target private chat. If not specified, default bot's menu button will be changed */
+    chat_id?: number;
+    /** An object for the bot's new menu button. Defaults to MenuButtonDefault */
+    menu_button?: MenuButton;
+  }): true;
+
+  /** Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns MenuButton on success. */
+  getChatMenuButton(args: {
+    /** Unique identifier for the target private chat. If not specified, default bot's menu button will be returned */
+    chat_id?: number;
+  }): MenuButton;
 
   /** Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns True on success. */
   setMyDefaultAdministratorRights(args: {
@@ -1447,10 +1462,8 @@ export type ApiMethods<F> = {
     is_personal?: boolean;
     /** Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes. */
     next_offset?: string;
-    /** If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter */
-    switch_pm_text?: string;
-    /** Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. */
-    switch_pm_parameter?: string;
+    /** An object describing a button to be shown above inline query results */
+    button?: InlineQueryResultsButton;
   }): true;
 
   /** Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned. */

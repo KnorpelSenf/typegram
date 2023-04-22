@@ -402,6 +402,8 @@ export interface ChatMemberUpdated {
   new_chat_member: ChatMember;
   /** Chat invite link, which was used by the user to join the chat; for joining by invite link events only. */
   invite_link?: ChatInviteLink;
+  /** True, if the user joined the chat via a chat folder invite link */
+  via_chat_folder_invite_link?: boolean;
 }
 
 /** Represents a join request sent to a chat. */

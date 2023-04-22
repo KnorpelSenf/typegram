@@ -41,6 +41,11 @@ export namespace InlineKeyboardButton {
     This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options. */
     switch_inline_query_current_chat: string;
   }
+  export interface SwitchInlineChosenChatButton
+    extends AbstractInlineKeyboardButton {
+    /** If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
+    switch_inline_query_chosen_chat: SwitchInlineQueryChosenChat;
+  }
   export interface GameButton extends AbstractInlineKeyboardButton {
     /** Description of the game that will be launched when the user presses the button.
 
@@ -63,6 +68,7 @@ export type InlineKeyboardButton =
   | InlineKeyboardButton.PayButton
   | InlineKeyboardButton.SwitchInlineButton
   | InlineKeyboardButton.SwitchInlineCurrentChatButton
+  | InlineKeyboardButton.SwitchInlineChosenChatButton
   | InlineKeyboardButton.UrlButton
   | InlineKeyboardButton.WebAppButton;
 
@@ -79,6 +85,20 @@ export interface LoginUrl {
   bot_username?: string;
   /** Pass True to request the permission for your bot to send messages to the user. */
   request_write_access?: boolean;
+}
+
+/** This object represents an inline button that switches the current user to inline mode in a chosen chat, with an optional default inline query. */
+export interface SwitchInlineQueryChosenChat {
+  /** The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted */
+  query?: string;
+  /** True, if private chats with users can be chosen */
+  allow_user_chats?: boolean;
+  /** True, if private chats with bots can be chosen */
+  allow_bot_chats?: boolean;
+  /** True, if group and supergroup chats can be chosen */
+  allow_group_chats?: boolean;
+  /** True, if channel chats can be chosen */
+  allow_channel_chats?: boolean;
 }
 
 /** A placeholder, currently holds no information. Use BotFather to set up your game. */
