@@ -1102,6 +1102,12 @@ export type ApiMethods<F> = {
     chat_id: number | string;
   }): true;
 
+  /** Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success. */
+  unpinAllGeneralForumTopicMessages(args: {
+    /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+    chat_id: number | string;
+  }): true;
+
   /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 
   Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter. */
@@ -1464,7 +1470,7 @@ export type ApiMethods<F> = {
     results: readonly InlineQueryResult[];
     /** The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300. */
     cache_time?: number;
-    /** Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query */
+    /** Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query. */
     is_personal?: boolean;
     /** Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes. */
     next_offset?: string;

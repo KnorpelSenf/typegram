@@ -4,8 +4,8 @@ import type { InlineKeyboardMarkup } from "./markup.ts";
 import type { PassportData } from "./passport.ts";
 import type { Invoice, SuccessfulPayment } from "./payment.ts";
 
-export namespace Message {
-  export interface ServiceMessage {
+export declare namespace Message {
+  interface ServiceMessage {
     /** Unique message identifier inside this chat */
     message_id: number;
     /** Unique identifier of a message thread or a forum topic to which the message belongs; for supergroups only */
@@ -86,6 +86,10 @@ export namespace Message {
   export interface StickerMessage extends CommonMessage {
     /** Message is a sticker, information about the sticker */
     sticker: Sticker;
+  }
+  export interface StoryMessage extends CommonMessage {
+    /** Message is a forwarded story */
+    story?: Story;
   }
   export interface VideoMessage extends MediaMessage {
     /** Message is a video, information about the video */
@@ -291,6 +295,7 @@ export type CommonMessageBundle =
   | Message.PhotoMessage
   | Message.PollMessage
   | Message.StickerMessage
+  | Message.StoryMessage
   | Message.TextMessage
   | Message.VenueMessage
   | Message.VideoMessage
@@ -356,11 +361,11 @@ Please note:
 
 - Any character with code between 1 and 126 inclusively can be escaped anywhere with a preceding '\' character, in which case it is treated as an ordinary character and not a part of the markup. This implies that '\' character usually must be escaped with a preceding '\' character.
 - Inside `pre` and `code` entities, all '`' and '\' characters must be escaped with a preceding '\' character.
-- Inside `(...)` part of inline link definition, all ')' and '\' must be escaped with a preceding '\' character.
-- A valid emoji must be provided as an alternative value for the custom emoji. The emoji will be shown instead of the custom emoji in places where a custom emoji cannot be displayed (e.g., system notifications) or if the message is forwarded by a non-premium user. It is recommended to use the emoji from the emoji field of the custom emoji sticker.
-- Custom emoji entities can only be used by bots that purchased additional usernames on Fragment.
+- Inside the `(...)` part of the inline link and custom emoji definition, all ')' and '\' must be escaped with a preceding '\' character.
 - In all other places characters '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!' must be escaped with the preceding character '\'.
 - In case of ambiguity between `italic` and `underline` entities `__` is always greadily treated from left to right as beginning or end of `underline` entity, so instead of `___italic underline___` use `___italic underline_\r__`, where `\r` is a character with code 13, which will be ignored.
+- A valid emoji must be provided as an alternative value for the custom emoji. The emoji will be shown instead of the custom emoji in places where a custom emoji cannot be displayed (e.g., system notifications) or if the message is forwarded by a non-premium user. It is recommended to use the emoji from the emoji field of the custom emoji sticker.
+- Custom emoji entities can only be used by bots that purchased additional usernames on Fragment.
 
 #### HTML style
 To use this mode, pass *HTML* in the *parse_mode* field. The following tags are currently supported:
@@ -414,7 +419,7 @@ Please note:
 - Escaping inside entities is not allowed, so entity must be closed first and reopened again: use `_snake_\__case_` for italic `snake_case` and `*2*\**2=4*` for bold `2*2=4`. */
 export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
-export namespace MessageEntity {
+export declare namespace MessageEntity {
   interface AbstractMessageEntity {
     /** Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers) */
     type: string;
@@ -629,9 +634,11 @@ export interface PollOption {
 export interface PollAnswer {
   /** Unique poll identifier */
   poll_id: string;
-  /** The user, who changed the answer to the poll */
-  user: User;
-  /** 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote. */
+  /** The chat that changed the answer to the poll, if the voter is anonymous */
+  voter_chat?: Chat;
+  /** The user that changed the answer to the poll, if the voter isn't anonymous */
+  user?: User;
+  /** 0-based identifiers of chosen answer options. May be empty if the vote was retracted. */
   option_ids: number[];
 }
 
@@ -665,7 +672,7 @@ export interface Poll {
   close_date?: number;
 }
 
-export namespace Location {
+export declare namespace Location {
   export interface CommonLocation {
     /** Longitude as defined by sender */
     longitude: number;
@@ -704,6 +711,9 @@ export interface Venue {
   /** Google Places type of the venue. (See supported types.) */
   google_place_type?: string;
 }
+
+/** This object represents a message about a forwarded story in the chat. Currently holds no information. */
+export interface Story {}
 
 /** This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user. */
 export interface ProximityAlertTriggered {

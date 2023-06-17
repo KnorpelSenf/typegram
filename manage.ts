@@ -11,15 +11,15 @@ export interface WebhookInfo {
   /** Currently used webhook IP address */
   ip_address?: string;
   /** Unix time for the most recent error that happened when trying to deliver an update via webhook */
-  last_error_date: number;
+  last_error_date?: number;
   /** Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook */
-  last_error_message: string;
+  last_error_message?: string;
   /** Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters */
   last_synchronization_error_date?: number;
   /** The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
-  max_connections: number;
+  max_connections?: number;
   /** A list of update types the bot is subscribed to. Defaults to all update types except chat_member */
-  allowed_updates: string[];
+  allowed_updates?: string[];
 }
 
 /** This object represents a Telegram user or bot. */
@@ -54,7 +54,7 @@ export interface UserFromGetMe extends User {
   supports_inline_queries: boolean;
 }
 
-export namespace Chat {
+export declare namespace Chat {
   // ABSTRACT
   /** Internal type holding properties that all kinds of chats share. */
   interface AbstractChat {
@@ -144,6 +144,8 @@ export namespace Chat {
     extends PrivateChat, NonGroupGetChat, GetChat {
     /** Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat. */
     emoji_status_custom_emoji_id?: string;
+    /** Expiration date of the emoji status of the other party in a private chat, if any. Returned only in getChat. */
+    emoji_status_expiration_date?: number;
     /** Bio of the other party in a private chat. Returned only in getChat. */
     bio?: string;
     /** True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */

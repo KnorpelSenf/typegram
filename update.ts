@@ -14,7 +14,8 @@ import type {
 } from "./message.ts";
 import type { PreCheckoutQuery, ShippingQuery } from "./payment.ts";
 
-export namespace Update {
+/** Internal namespace used to make some message types more accurate */
+export declare namespace Update {
   /** Internal type holding properties that updates in channels share. */
   export interface Channel {
     chat: Chat.ChannelChat;

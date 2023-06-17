@@ -7,7 +7,7 @@ export interface InlineKeyboardMarkup {
   inline_keyboard: InlineKeyboardButton[][];
 }
 
-export namespace InlineKeyboardButton {
+export declare namespace InlineKeyboardButton {
   interface AbstractInlineKeyboardButton {
     /** Label text on the button */
     text: string;
@@ -29,9 +29,7 @@ export namespace InlineKeyboardButton {
     login_url: LoginUrl;
   }
   export interface SwitchInlineButton extends AbstractInlineKeyboardButton {
-    /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.
-
-    Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm... actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen. */
+    /** If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted. */
     switch_inline_query: string;
   }
   export interface SwitchInlineCurrentChatButton
@@ -104,7 +102,7 @@ export interface SwitchInlineQueryChosenChat {
 /** A placeholder, currently holds no information. Use BotFather to set up your game. */
 export interface CallbackGame {}
 
-export namespace CallbackQuery {
+export declare namespace CallbackQuery {
   interface AbstractQuery {
     /** Unique identifier for this query */
     id: string;
@@ -154,7 +152,7 @@ export interface ReplyKeyboardMarkup {
   selective?: boolean;
 }
 
-export namespace KeyboardButton {
+export declare namespace KeyboardButton {
   export interface CommonButton {
     /** Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed */
     text: string;
