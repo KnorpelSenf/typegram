@@ -5,23 +5,21 @@
     "backport": "deno run --no-prompt --allow-read=. --allow-write=. https://deno.land/x/deno2node@v1.7.2/src/cli.ts tsconfig.json",
     "clean": "git clean -fX '*.d.ts'"
   },
-  "fmt": { "options": { "proseWrap": "preserve" } },
+  "fmt": { "proseWrap": "preserve" },
   "lint": {
-    "files": {
-      "exclude": [
-        "api.d.ts",
-        "inline.d.ts",
-        "manage.d.ts",
-        "markup.d.ts",
-        "message.d.ts",
-        "methods.d.ts",
-        "mod.d.ts",
-        "passport.d.ts",
-        "payment.d.ts",
-        "settings.d.ts",
-        "update.d.ts"
-      ]
-    },
+    "exclude": [
+      "api.d.ts",
+      "inline.d.ts",
+      "manage.d.ts",
+      "markup.d.ts",
+      "message.d.ts",
+      "methods.d.ts",
+      "mod.d.ts",
+      "passport.d.ts",
+      "payment.d.ts",
+      "settings.d.ts",
+      "update.d.ts"
+    ],
     "rules": {
       "exclude": [
         // Many types have no properties
