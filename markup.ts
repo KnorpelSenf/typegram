@@ -7,7 +7,7 @@ export interface InlineKeyboardMarkup {
   inline_keyboard: InlineKeyboardButton[][];
 }
 
-export namespace InlineKeyboardButton {
+export declare namespace InlineKeyboardButton {
   interface AbstractInlineKeyboardButton {
     /** Label text on the button */
     text: string;
@@ -142,7 +142,7 @@ export interface ReplyKeyboardMarkup {
   selective?: boolean;
 }
 
-export namespace KeyboardButton {
+export declare namespace KeyboardButton {
   export interface CommonButton {
     /** Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed */
     text: string;

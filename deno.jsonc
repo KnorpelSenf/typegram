@@ -23,9 +23,7 @@
     "rules": {
       "exclude": [
         // Many types have no properties
-        "no-empty-interface",
-        // We do this anyway to group types
-        "no-namespace"
+        "no-empty-interface"
       ]
     }
   }

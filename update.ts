@@ -10,7 +10,7 @@ import type { Message, Poll, PollAnswer } from "./message.ts";
 import type { PreCheckoutQuery, ShippingQuery } from "./payment.ts";
 
 /** Internal namespace used to make some message types more accurate */
-export namespace Update {
+export declare namespace Update {
   /** Internal type holding properties that message updates in channels share. */
   export interface Channel {
     chat: Chat.ChannelChat;
