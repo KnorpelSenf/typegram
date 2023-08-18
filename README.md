@@ -104,20 +104,3 @@ type InputMediaDocument = Typegram.InputMediaDocument<MyInputFile>;
 
 Note that interfaces other than the ones mentioned above are unaffected by the customization through `MyInputFile`.
 They can simply continue to be imported directly from `typegram`.
-
-## Where Do the Types Come from
-
-They're handwritten.
-
-That is, they're of course not entirely handwritten.
-The initial version of them were produced in one afternoon by a combination of copying and pasting from the website, VIM magic, regular expressions, and VSCode auto-formatting the rest.
-
-After that, some more work and a few community contributions did the polishing.
-
-Subsequent updates to the API were integrated manually in a similar fashion.
-
-Other people's previous attempts to harvest the types directly from the website using a script failed due to the required effort of handling special cases about the layout of the website.
-
-The [grammY](https://github.com/grammyjs/grammY) bot framework was orginally based on `typegram` which served as the starting point for [the grammY types package](https://github.com/grammyjs/types).
-Starting after the upgrade to Bot API 5.0, most changes and updates to `typegram` were simply `git cherry-pick`ed from this repository.
-If you want to contribute to `typegram`, it may makes sense to add them to grammY first and then can easily be backported to `typegram`.
