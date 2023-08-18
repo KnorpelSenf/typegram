@@ -145,6 +145,8 @@ export declare namespace Chat {
     extends PrivateChat, NonGroupGetChat, GetChat {
     /** Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat. */
     emoji_status_custom_emoji_id?: string;
+    /** Expiration date of the emoji status of the other party in a private chat, if any. Returned only in getChat. */
+    emoji_status_expiration_date?: number;
     /** Bio of the other party in a private chat. Returned only in getChat. */
     bio?: string;
     /** True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */

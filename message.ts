@@ -70,6 +70,7 @@ export declare namespace Message {
   export type AnimationMessage = DocumentMessage & MsgWith<"animation">;
   export type PhotoMessage = MediaMessage & MsgWith<"photo">;
   export type StickerMessage = CommonMessage & MsgWith<"sticker">;
+  export type StoryMessage = CommonMessage & MsgWith<"story">;
   export type VideoMessage = MediaMessage & MsgWith<"video">;
   export type VideoNoteMessage = CommonMessage & MsgWith<"video_note">;
   export type VoiceMessage = CaptionableMessage & MsgWith<"voice">;
@@ -175,6 +176,8 @@ export interface Message extends Message.MediaMessage {
   photo?: PhotoSize[];
   /** Message is a sticker, information about the sticker */
   sticker?: Sticker;
+  /** Message is a forwarded story */
+  story?: Story;
   /** Message is a video, information about the video */
   video?: Video;
   /** Message is a video note, information about the video message */
@@ -581,9 +584,11 @@ export interface PollOption {
 export interface PollAnswer {
   /** Unique poll identifier */
   poll_id: string;
-  /** The user, who changed the answer to the poll */
-  user: User;
-  /** 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote. */
+  /** The chat that changed the answer to the poll, if the voter is anonymous */
+  voter_chat?: Chat;
+  /** The user that changed the answer to the poll, if the voter isn't anonymous */
+  user?: User;
+  /** 0-based identifiers of chosen answer options. May be empty if the vote was retracted. */
   option_ids: number[];
 }
 
@@ -650,6 +655,9 @@ export interface Venue {
   /** Google Places type of the venue. (See supported types.) */
   google_place_type?: string;
 }
+
+/** This object represents a message about a forwarded story in the chat. Currently holds no information. */
+export interface Story {}
 
 /** This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user. */
 export interface ProximityAlertTriggered {
